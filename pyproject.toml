@@ -1,0 +1,15 @@
+[project]
+name = "projeto-integrador"
+version = "0.1.0"
+requires-python = ">=3.12.0"
+authors = [
+    { name = "Adryan Eryk de Oliveira Leite", email = "adryanoliveira1928@gmail.com" },
+]
+dependencies = [
+    "asgiref==3.12.1",
+    "django==6.1.1",
+    "django-tailwind[cookiecutter,honcho,reload]>=4.5.0",
+    "ruff>=0.16.9",
+    "ruff-format>=0.5.4",
+    "sqlparse==0.6.0",
+]
