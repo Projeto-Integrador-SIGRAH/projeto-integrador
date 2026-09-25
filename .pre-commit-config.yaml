@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: check-yaml
@@ -10,7 +10,7 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
       - id: no-commit-to-branch
-        args: ["--branch", "main", "--branch", "master", "--branch", "develop", "--pattern", "feature/.*"]
+        args: ["--branch", "main", "--branch", "master", "--branch", "develop", "--pattern", "release/.*"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.9
