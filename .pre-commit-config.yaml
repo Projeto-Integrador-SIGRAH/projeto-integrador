@@ -10,7 +10,7 @@ repos:
       - id: check-merge-conflict
       - id: detect-private-key
       - id: no-commit-to-branch
-        args: ["--branch", "main", "--branch", "master", "--branch", "develop", "--pattern", "release/.*"]
+        args: ["--branch", "main", "--branch", "master", "--branch", "development", "--pattern", "release/.*"]
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.9
