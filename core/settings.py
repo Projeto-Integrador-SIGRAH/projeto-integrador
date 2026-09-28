@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "theme",
     "user",
     "mapa",
+    'canos'
 ]
 
 MIDDLEWARE = [
