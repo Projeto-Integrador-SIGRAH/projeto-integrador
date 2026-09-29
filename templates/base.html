@@ -1,16 +1,16 @@
 {% load static tailwind_tags %}
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <title>Django Tailwind</title>
+    <title>{% block title %} {% endblock %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     {% tailwind_css %}
 </head>
 
-<body class="bg-gray-50 text-black leading-normal tracking-normal">
-<div class="container flex h-screen">
+<body class="bg-sky-50 text-black leading-normal tracking-normal">
+<div class="flex h-screen">
     <section class="flex flex-col justify-between h-full w-2/10 bg-sky-800">
         <div class="flex flex-col p-4 gap-4">
             <div class="flex justify-center">
@@ -36,7 +36,7 @@
             </a>
         </div>
     </section>
-    <section>
+    <section class="w-full">
         {% block content %}
         
         {% endblock %}
