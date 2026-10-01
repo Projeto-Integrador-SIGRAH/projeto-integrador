@@ -1,0 +1,26 @@
+{% extends "user/base_login.html" %}
+
+{% block content %}
+
+<section class="flex flex-col w-2/3 justify-center items-center">
+    <div class="flex flex-col gap-2 w-1/2 m-4">
+        <h1 class="text-3xl font-bold">
+        Entrar
+        </h1>
+        <p class="text-gray-500">Acesse com suas credenciais.</p>
+    </div>
+    <form class="flex flex-col gap-4 w-1/2" method="post">
+        <div class="flex flex-col gap-1">
+            <label for="email">Email:</label>
+            <input class="rounded-lg p-2 border border-sky-400 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400" type="email" id="email" name="email" placeholder="exemplo@gmail.com" required>
+        </div>
+        <div class="flex flex-col gap-1">
+            <label for="password">Senha:</label>
+            <input class="rounded-lg p-2 border border-sky-400 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400" type="password" id="password" name="password" placeholder="********" required>
+        </div>
+        <button type="submit" class="bg-sky-800 text-white px-4 py-2.5 rounded-lg shadow-2xl drop-shadow-lg drop-shadow-sky-900/50">Entrar</button>
+        <a class="text-sky-800 text-center" href="#">Ainda não tenho cadastro</a>
+    </form>
+</section>
+
+{% endblock %}
