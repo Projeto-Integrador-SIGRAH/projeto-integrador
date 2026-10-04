@@ -5,28 +5,20 @@
     <section class="flex flex-col gap-4 p-6">
         <h1 class="text-xl font-bold text-sky-950">Alertas</h1>
         <section class="flex items-center gap-4 text-sm">
-            <div class="rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <select name="cano" id="cano" class="appearance-none">
-                    <option value="">Todos os IDs</option>
-                </select>            
-            </div>
-            <div class="rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <select name="cano" id="cano" class="appearance-none">
-                    <option value="">Status</option>
-                </select>
-            </div>
-            <div class="rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <select name="cano" id="cano" class="appearance-none">
-                    <option value="">Cidade</option>
-                </select>
-            </div>
-            <div class="rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <select name="cano" id="cano" class="appearance-none">
-                    <option value="">Data</option>
-                </select>
-            </div>
+            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Todos os IDs</option>
+            </select>                    
+            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Status</option>
+            </select>
+            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Cidade</option>
+            </select>
+            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Data</option>
+            </select>
             <div class="flex gap-4 items-center">
-                <a href="#" class="text-white font-bold bg-sky-800 rounded-2xl px-8 py-1 drop-shadow-lg w-full">Filtrar</a>
+                <a href="#" class="text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-8 py-1 drop-shadow-lg w-full">Filtrar</a>
                 <a href="#" class="flex text-sky-800 whitespace-nowrap">Limpar Filtros</a>
             </div>
         </section>
@@ -115,10 +107,10 @@
                         <p>Equipe Norte</p>
                     </div>
 
-                    <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-sky-800 rounded-2xl px-10 py-2 drop-shadow-lg mt-6"><span>Icone</span>Resolver</a>
+                    <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6"><span>Icone</span>Resolver</a>
                 </main>
             </div>
         </section>
-        <a href="#" class="flex justify-center fixed bottom-7 right-7 bg-sky-700 rounded-full w-12 h-12 text-white text-4xl font-semibold">+</a>
+        <a href="#" class="flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold">+</a>
     </section>
 {% endblock %}
