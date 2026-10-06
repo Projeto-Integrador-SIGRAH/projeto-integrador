@@ -1,5 +1,5 @@
 {% extends 'user/base_login.html' %}
-
+{% load static %}
 {% block content %}
 <section class="flex flex-col w-2/3 justify-center items-center">
     <div class="flex flex-col w-1/2">
@@ -22,7 +22,7 @@
             id="admin"
             class="relative z-10 w-1/2 px-5 py-2 text-center text-sm font-medium text-black">  Admin </a>
     </nav>
-   <form class="flex flex-col gap-1 w-1/2" method="post">
+   <form class="flex flex-col gap-2 w-1/2" method="post">
         <div class="flex flex-col gap-1">
             <label for="nome">Nome completo:</label>
             <input class="rounded-lg p-2 border border-sky-400 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400" type="text" id="nome" name="nome" placeholder="Nome completo" required>
@@ -39,8 +39,9 @@
             <label for="confirm_password">Confirmar senha:</label>
             <input class="rounded-lg p-2 border border-sky-400 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400" type="password" id="confirm_password" name="confirm_password" placeholder="********" required>
         </div>
-        <button type="submit" class="bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-700 duration-300 shadow-2xl drop-shadow-lg drop-shadow-sky-900/50 mt-2">Entrar</button>
+        <button type="submit" class="bg-sky-800 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-sky-700 duration-300 shadow-2xl drop-shadow-lg drop-shadow-sky-900/50 mt-2">Entrar</button>
         <a class="text-sky-800 text-center" href="#">Já possuo conta.</a>
     </form>
 </section>
 {% endblock %}
+<script src="{% static 'js/cadastro.js' %}"></script>
