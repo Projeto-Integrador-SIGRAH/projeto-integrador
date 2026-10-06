@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const admin = document.getElementById('admin');
     const cidadao = document.getElementById('cidadao');
 
-    if (!indicador) return {
-
-    }
+    if (!indicador) return;
     if (admin) {
         admin.addEventListener('click', function (event) {
         event.preventDefault();
