@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-sky-50 text-black leading-normal tracking-normal">
-    <main class="flex h-screen">
+    <main class="flex h-screen w-full">
         <section class="flex flex-col justify-between h-full w-2/10 bg-sky-800">
             <div class="flex flex-col p-4 gap-4">
                 <div class="flex justify-center">
@@ -24,7 +24,7 @@
                     <a href="#" class="rounded-lg py-2.5 px-3">Administradores</a>
                 </nav>
             </div>
-            <div class="flex flex-col py-4 px-10 gap-4 text-sm">
+            <div class="flex flex-col py-4 px-10 gap-4">
                 <div class="flex flex-col text-red-400">
                     <span>Denuncie: </span>
                     <span>+55 (84) 99999-9999</span>
@@ -38,7 +38,7 @@
         </section>
         <section class="flex-1">
             {% block content %}
-            
+
             {% endblock %}
         </section>
     </main>
