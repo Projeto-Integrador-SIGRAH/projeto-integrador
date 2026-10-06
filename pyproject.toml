@@ -8,6 +8,7 @@ authors = [
 dependencies = [
     "asgiref==3.12.1",
     "django==6.1.1",
+    "django-icons>=26.2",
     "django-tailwind[cookiecutter,honcho,reload]>=4.5.0",
     "ruff>=0.16.9",
     "ruff-format>=0.5.4",
