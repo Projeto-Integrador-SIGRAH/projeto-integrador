@@ -2,107 +2,87 @@
 
 {% block content %}
     <main class="min-h-screen bg-gray-50 p-6">
-        <h1 class="mb-4 text-lg font-grotesk">Cadastros pendentes de aprovação</h1>
+        <h1 class="mb-4 text-lg">Cadastros pendentes de aprovação</h1>
 
-        <div class="overflow-x-auto bg-white">
-            <table class="w-full min-w-[960px] table-fixed border-collapse">
+        <div class="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+            <table class="w-full min-w-full table-fixed border-collapse">
                 <colgroup>
-                    <col class="w-[220px]">
-                    <col class="w-[160px]">
-                    <col class="w-[240px]">
-                    <col class="w-[160px]">
+                    <col class="w-1/5">
+                    <col class="w-1/6">
+                    <col class="w-1/5">
+                    <col class="w-1/6">
                     <col>
                 </colgroup>
                 <thead>
-                    <tr class="h-[40px] border-b border-gray-300 text-left text-[11px] text-gray-600">
-                        <th class="px-[10px] font-normal">Nome</th>
-                        <th class="px-[10px] font-normal">Matrícula</th>
-                        <th class="px-[10px] font-normal">Setor</th>
-                        <th class="px-[10px] font-normal">Solicitado em</th>
-                        <th class="px-[10px] font-normal text-left">Ações</th>
-                    
-                        
+                    <tr class="border-b border-gray-300 bg-gray-50 text-left text-xs text-gray-600">
+                        <th class="px-3 py-3">Nome</th>
+                        <th class="px-3 py-3">Matrícula</th>
+                        <th class="px-3 py-3">Setor</th>
+                        <th class="px-3 py-3">Solicitado em</th>
+                        <th class="px-3 py-3">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="h-[55px] border-b border-gray-300 text-[12.5px]">
-                        <td class="px-[10px]">Marina Fontes Riachuelo</td>
-                        <td class="px-[10px] font-mono">SAAE-3589</td>
-                        <td class="px-[10px]">Operações de campo</td>
-                        <td class="px-[10px]">01/09/2026</td>
-                        <td class="px-[10px]">
-                            <div class="flex gap-[6px]">
-                               <button
-                                 class="rounded-[7px] border border-green-700 px-[14px] py-2 text-green-700"> Aprovar
-                            </button>
-                            <button
-                                 class="rounded-[7px] border border-red-700 px-[14px] py-2 text-red-700"> Recusar
-                            </button>
+                    <tr class="border-b border-gray-200 text-xs">
+                        <td class="break-words px-3 py-4">Marina Fontes Riachuelo</td>
+                        <td class="break-words px-3 py-4">SAAE-3589</td>
+                        <td class="break-words px-3 py-4">Operações de campo</td>
+                        <td class="break-words px-3 py-4">01/09/2026</td>
+                        <td class="px-3 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                <button class="cursor-pointer rounded-md border border-green-700 px-3 py-2 text-green-700 transition-colors hover:bg-green-700 hover:text-white">Aprovar</button>
+                                <button class="cursor-pointer rounded-md border border-red-700 px-3 py-2 text-red-700 transition-colors hover:bg-red-700 hover:text-white">Recusar</button>
                             </div>
                         </td>
                     </tr>
-                    <tr class="h-[55px] border-b border-gray-300 text-[12.5px]">
-                        <td class="px-[10px]">Francisco Aluísio Gomes</td>
-                        <td class="px-[10px] font-mono">SAAE-31236</td>
-                        <td class="px-[10px]">Operações de Campo</td>
-                        <td class="px-[10px]">12/10/2026</td>
-                        <td class="px-[10px]">
-                            <div class="flex gap-[6px]">
-                            <button
-                                 class="rounded-[7px] border border-green-700 px-[14px] py-2 text-green-700"> Aprovar
-                            </button>
-                             <button
-                                 class="rounded-[7px] border border-red-700 px-[14px] py-2 text-red-700"> Recusar
-                            </button>
+                    <tr class="border-b border-gray-200 text-xs">
+                        <td class="break-words px-3 py-4">Francisco Aluísio Gomes</td>
+                        <td class="break-words px-3 py-4">SAAE-31236</td>
+                        <td class="break-words px-3 py-4">Operações de Campo</td>
+                        <td class="break-words px-3 py-4">12/10/2026</td>
+                        <td class="px-3 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                <button class="cursor-pointer rounded-md border border-green-700 px-3 py-2 text-green-700 transition-colors hover:bg-green-700 hover:text-white">Aprovar</button>
+                                <button class="cursor-pointer rounded-md border border-red-700 px-3 py-2 text-red-700 transition-colors hover:bg-red-700 hover:text-white">Recusar</button>
                             </div>
                         </td>
                     </tr>
-                
-                    <tr class="h-[55px] border-b border-gray-300 text-[12.5px]">
-                        <td class="px-[10px]">Antônio Thiago da Silva</td>
-                        <td class="px-[10px] font-mono">SAAE-3122</td>
-                        <td class="px-[10px]">Operações de Campo</td>
-                        <td class="px-[10px]">12/10/2026</td>
-                        <td class="px-[10px]">
-                            <div class="flex gap-[6px]">
-                            <button
-                                 class="rounded-[7px] border border-green-700 px-[14px] py-2 text-green-700"> Aprovar
-                            </button>
-                             <button
-                                 class="rounded-[7px] border border-red-700 px-[14px] py-2 text-red-700"> Recusar
-                            </button>
+
+                    <tr class="border-b border-gray-200 text-xs">
+                        <td class="break-words px-3 py-4">Antônio Thiago da Silva</td>
+                        <td class="break-words px-3 py-4">SAAE-3122</td>
+                        <td class="break-words px-3 py-4">Operações de Campo</td>
+                        <td class="break-words px-3 py-4">12/10/2026</td>
+                        <td class="px-3 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                <button class="cursor-pointer rounded-md border border-green-700 px-3 py-2 text-green-700 transition-colors hover:bg-green-700 hover:text-white">Aprovar</button>
+                                <button class="cursor-pointer rounded-md border border-red-700 px-3 py-2 text-red-700 transition-colors hover:bg-red-700 hover:text-white">Recusar</button>
                             </div>
                         </td>
                     </tr>
-                    <tr class="h-[55px] border-b border-gray-300 text-[12.5px]">
-                        <td class="px-[10px]">Felipe Andrade da Silva</td>
-                        <td class="px-[10px] font-mono">SAAE-3222</td>
-                        <td class="px-[10px]">Cadastro técnico</td>
-                        <td class="px-[10px]">02/09/2026</td>
-                        <td class="px-[10px]">
-                            <div class="flex gap-[6px]">
-                            <button
-                                 class="rounded-[7px] border border-green-700 px-[14px] py-2 text-green-700"> Aprovar
-                            </button>
-                             <button
-                                 class="rounded-[7px] border border-red-700 px-[14px] py-2 text-red-700"> Recusar
-                            </button>
+
+                    <tr class="border-b border-gray-200 text-xs">
+                        <td class="break-words px-3 py-4">Felipe Andrade da Silva</td>
+                        <td class="break-words px-3 py-4 font-mono">SAAE-3222</td>
+                        <td class="break-words px-3 py-4">Cadastro técnico</td>
+                        <td class="break-words px-3 py-4">02/09/2026</td>
+                        <td class="px-3 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                <button class="cursor-pointer rounded-md border border-green-700 px-3 py-2 text-green-700 transition-colors hover:bg-green-700 hover:text-white">Aprovar</button>
+                                <button class="cursor-pointer rounded-md border border-red-700 px-3 py-2 text-red-700 transition-colors hover:bg-red-700 hover:text-white">Recusar</button>
                             </div>
                         </td>
                     </tr>
-                    <tr class="h-[55px] border-b border-gray-300 text-[12.5px]">
-                        <td class="px-[10px]">Cecília Nogueira da Silva </td>
-                        <td class="px-[10px] font-grotesk">SAAE-1256</td>
-                        <td class="px-[10px] font-grotesk">Cadastro Técnico</td>
-                        <td class="px-[10px] font-groteskd">03/09/2026</td>
-                        <td class="px-[10px]">
-                            <div class="flex gap-[6px]">
-                            <button
-                                 class="rounded-[7px] border border-green-700 px-[14px] py-2 text-green-700"> Aprovar
-                            </button>
-                             <button
-                                 class="rounded-[7px] border border-red-700 px-[14px] py-2 text-red-700"> Recusar
-                            </button>
+
+                    <tr class="text-xs">
+                        <td class="break-words px-3 py-4">Cecília Nogueira da Silva</td>
+                        <td class="break-words px-3 py-4">SAAE-1256</td>
+                        <td class="break-words px-3 py-4">Cadastro Técnico</td>
+                        <td class="break-words px-3 py-4">03/09/2026</td>
+                        <td class="px-3 py-4">
+                            <div class="flex flex-wrap gap-2">
+                                <button class="cursor-pointer rounded-md border border-green-700 px-3 py-2 text-green-700 transition-colors hover:bg-green-700 hover:text-white">Aprovar</button>
+                                <button class="cursor-pointer rounded-md border border-red-700 px-3 py-2 text-red-700 transition-colors hover:bg-red-700 hover:text-white">Recusar</button>
                             </div>
                         </td>
                     </tr>
