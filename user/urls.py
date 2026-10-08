@@ -7,4 +7,5 @@ urlpatterns = [
     path("cadastro/", views.CadastroView.as_view(), name="cadastro"),
     path("cadastro_admin/", views.CadastroAdminView.as_view(), name="cadastro_admin"),
     path("painel/", views.PainelView.as_view(), name="painel"),
+    path("aprovacoes/", views.AprovacoesView.as_view(), name="aprovacoes"),
 ]

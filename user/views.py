@@ -15,3 +15,7 @@ class CadastroAdminView(TemplateView):
 
 class PainelView(TemplateView):
     template_name = "user/painel.html"
+
+
+class AprovacoesView(TemplateView):
+    template_name = "user/aprovações.html"
