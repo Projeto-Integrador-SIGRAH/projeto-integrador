@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "mapa",
     "canos",
     "alertas",
+    "django_icons",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,19 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
+DJANGO_ICONS = {
+    "ICONS": {
+        "exit": {
+            "name": "fa-solid fa-arrow-right-from-bracket",
+            "title": "Exit"
+        },
+        "edit": {
+            "name": "fa-regular fa-pen-to-square",
+            "title": "Edit"
+        }
+    }
+}
 
 TEMPLATES = [
     {
