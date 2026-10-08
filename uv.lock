@@ -238,6 +238,18 @@ wheels = [
 ]
 
 [[package]]
+name = "django-icons"
+version = "26.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "django" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/47/17/d2a0ee35cb8f7e1bf34f88e94ba17a934ce1ba86aebbc8dc8f3bb1af07d1/django_icons-26.2.tar.gz", hash = "sha256:6856188436592967d670c8ad5644c4e1b393ea7c750a6aae7b0f788e74ad8ef8", size = 32257, upload-time = "2026-08-28T09:21:46.184Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/79/40/302518703bd730bb9d20e09235d9e082d2d64bf1390497d28d9b2f1bef44/django_icons-26.2-py3-none-any.whl", hash = "sha256:ad16007520cd63f5f5e266a5161c7fc0ea23d55a24c6c4b903acd40195d4e800", size = 13505, upload-time = "2026-08-28T09:21:45.097Z" },
+]
+
+[[package]]
 name = "django-tailwind"
 version = "4.5.0"
 source = { registry = "https://pypi.org/simple" }
@@ -385,6 +397,7 @@ source = { virtual = "." }
 dependencies = [
     { name = "asgiref" },
     { name = "django" },
+    { name = "django-icons" },
     { name = "django-tailwind", extra = ["cookiecutter", "honcho", "reload"] },
     { name = "ruff" },
     { name = "ruff-format" },
@@ -395,6 +408,7 @@ dependencies = [
 requires-dist = [
     { name = "asgiref", specifier = "==3.12.1" },
     { name = "django", specifier = "==6.1.1" },
+    { name = "django-icons", specifier = ">=26.2" },
     { name = "django-tailwind", extras = ["cookiecutter", "honcho", "reload"], specifier = ">=4.5.0" },
     { name = "ruff", specifier = ">=0.16.9" },
     { name = "ruff-format", specifier = ">=0.5.4" },
