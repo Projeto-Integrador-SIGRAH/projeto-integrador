@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     # https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication
+    # https://djangopackages.org/grids/g/authentication/
     "tailwind",
     "theme",
     "api",
@@ -131,8 +132,9 @@ TAILWIND_APP_NAME = "theme"
 AUTH_USER_MODEL = "user.User"
 
 AUTHENTICATION_BACKENDS = [
+    # https://docs.djangoproject.com/en/6.1/ref/contrib/auth/#django.contrib.auth.backends.ModelBackend
     "django.contrib.auth.backends.ModelBackend",
-    "user.auth_backends.UserObjectPermissionBackend",
+    # "user.auth_backends.UserObjectPermissionBackend",
 ]
 
 REST_FRAMEWORK = {
