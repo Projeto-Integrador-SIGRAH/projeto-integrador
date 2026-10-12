@@ -11,6 +11,7 @@ dependencies = [
     "django-icons>=26.2",
     "django-tailwind[cookiecutter,honcho,reload]>=4.5.0",
     "djangorestframework>=3.18.3",
+    "djangorestframework-simplejwt>=5.5.1",
     "ruff>=0.16.9",
     "ruff-format>=0.5.4",
     "sqlparse==0.6.0",
