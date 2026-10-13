@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "mapa",
     "canos",
     "alertas",
+    "django_icons",
 ]
 
 MIDDLEWARE = [
@@ -56,6 +57,36 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "core.urls"
+
+DJANGO_ICONS = {
+    "RENDERERS": {
+        "custom-svg": "user.renderers.CustomSvgRenderer",
+    },
+
+    "ICONS": {
+        "alert": {
+            "name": "alert",
+            "renderer": "custom-svg",
+            "title": "Alerta"
+        },
+        "resolve": {
+            "name": "resolve",
+            "renderer": "custom-svg",
+            "title": "Resolver"
+        },
+        "logout": {
+            "name": "logout",
+            "renderer": "custom-svg",
+            "title": "Logout"
+        },
+        "edit": {
+            "name": "edit",
+            "renderer": "custom-svg",
+            "title": "Editar"
+        }
+    }
+}
+
 
 TEMPLATES = [
     {
