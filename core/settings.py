@@ -59,17 +59,34 @@ MIDDLEWARE = [
 ROOT_URLCONF = "core.urls"
 
 DJANGO_ICONS = {
+    "RENDERERS": {
+        "custom-svg": "user.renderers.CustomSvgRenderer",
+    },
+
     "ICONS": {
-        "exit": {
-            "name": "fa-solid fa-arrow-right-from-bracket",
-            "title": "Exit"
+        "alert": {
+            "name": "alert",
+            "renderer": "custom-svg",
+            "title": "Alerta"
+        },
+        "resolve": {
+            "name": "resolve",
+            "renderer": "custom-svg",
+            "title": "Resolver"
+        },
+        "logout": {
+            "name": "logout",
+            "renderer": "custom-svg",
+            "title": "Logout"
         },
         "edit": {
-            "name": "fa-regular fa-pen-to-square",
-            "title": "Edit"
+            "name": "edit",
+            "renderer": "custom-svg",
+            "title": "Editar"
         }
     }
 }
+
 
 TEMPLATES = [
     {
