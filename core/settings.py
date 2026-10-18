@@ -114,6 +114,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 
 # Email
@@ -134,7 +137,7 @@ AUTH_USER_MODEL = "user.User"
 AUTHENTICATION_BACKENDS = [
     # https://docs.djangoproject.com/en/6.1/ref/contrib/auth/#django.contrib.auth.backends.ModelBackend
     "django.contrib.auth.backends.ModelBackend",
-    # "user.auth_backends.UserObjectPermissionBackend",
+    # TODO: Add custom authentication backend if needed
 ]
 
 REST_FRAMEWORK = {

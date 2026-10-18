@@ -16,3 +16,8 @@ dependencies = [
     "ruff-format>=0.5.4",
     "sqlparse==0.6.0",
 ]
+
+
+[tool.ruff.lint.per-file-ignores]
+# Ignora o erro B006 (valor padrão mutável) e RUF012 em todas as migrações do Django/Alembic
+"**/migrations/*" = ["B006", "RUF012"]
