@@ -1,0 +1,18 @@
+from django.conf import settings
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("user/", include("user.urls")),
+    path("canos/", include("canos.urls")),
+    path("alertas/", include("alertas.urls")),
+    path('', include("mapa.urls"))
+]
+
+
+if settings.DEBUG:
+    # Include django_browser_reload URLs only in DEBUG mode
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
