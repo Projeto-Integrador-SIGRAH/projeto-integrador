@@ -2,7 +2,7 @@
 
 ## Escopo conhecido
 
-O projeto é a base de um sistema de mapeamento hídrico para cidades. Não há requisitos funcionais, telas, entidades de domínio ou integrações definidos neste repositório além da estrutura inicial; não deduza essas definições.
+O projeto é a base de um sistema de mapeamento hídrico para cidades.
 
 ## Stack confirmada
 
@@ -12,6 +12,7 @@ O projeto é a base de um sistema de mapeamento hídrico para cidades. Não há 
 - Tailwind CSS por `django-tailwind`, no app `theme`.
 - `django-browser-reload` habilitado somente quando `DEBUG` está ativo.
 - Ruff, `ruff-format` e pre-commit para qualidade de código.
+- Django Rest Framework 3.18.3
 
 `pyproject.toml` e `uv.lock` são a fonte de verdade de dependências. O repositório também contém `requirements.txt`; não o altere ou use como fonte primária sem uma decisão explícita do time.
 
