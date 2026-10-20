@@ -46,7 +46,7 @@ class User(AbstractUser, PermissionsMixin):
     is_approved = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
-    # REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = []  # noqa: RUF012
 
     objects = UserManager()
 

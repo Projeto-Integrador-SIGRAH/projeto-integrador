@@ -20,20 +20,18 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        def __init__(self, *args, **kwargs):
-            super().__init__(*args, **kwargs)
-            self.model = User
-            self.fields = [
-                "nome",
-                "email",
-                "matricula",
-                "password",
-                "confirm_password",
-                "group",
-            ]
-            self.extra_kwargs = {
-                "matricula": {"required": False, "allow_blank": True},
-            }
+        model = User
+        fields = [  # noqa: RUF012
+            "nome",
+            "email",
+            "matricula",
+            "password",
+            "confirm_password",
+            "group",
+        ]
+        extra_kwargs = {  # noqa: RUF012
+            "matricula": {"required": False, "allow_blank": True},
+        }
 
     def validate_email(self, value):
         if User.objects.filter(email__iexact=value).exists():
