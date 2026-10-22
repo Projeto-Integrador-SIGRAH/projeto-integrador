@@ -1,4 +1,4 @@
-# from rest_framework import viewsets
+from django.contrib.auth import login
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -17,6 +17,8 @@ class UserLoginAPI(APIView):
         serializer = UserLoginSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
+
+        login(request, user)
 
         refresh = RefreshToken.for_user(user)
 

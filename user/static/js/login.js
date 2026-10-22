@@ -4,16 +4,19 @@ form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const formData = new FormData(form);
-    const dadosDoFormulario = Object.fromEntries(formData.entries());
+    const csrfToken = formData.get("csrfmiddlewaretoken");
+    formData.delete("csrfmiddlewaretoken");
+    const payload  = Object.fromEntries(formData.entries());
 
     try {
         const resposta = await fetch("/user/api/login/", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRFToken": formData.get("csrfmiddlewaretoken")
+                "Accept": "application/json",
+                "X-CSRFToken": csrfToken,
             },
-            body: JSON.stringify(dadosDoFormulario)
+            body: JSON.stringify(payload),
         });
 
         const dados = await resposta.json();
@@ -26,7 +29,7 @@ form.addEventListener("submit", async (event) => {
         sessionStorage.setItem("access", dados.access);
         sessionStorage.setItem("refresh", dados.refresh);
 
-        window.location.href = "/user/painel/";
+        window.location.href = "/"
 
     } catch (erro) {
         console.error("Erro ao realizar login:", erro);
