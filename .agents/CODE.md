@@ -32,3 +32,15 @@ uvx pre-commit run --all-files
 ```
 
 Relate com clareza qualquer comando não executado e o motivo.
+
+## Padrões de código
+- Desenvolva código limpo, legível e consistente com o estilo do projeto.
+- Desenvolva orientado a testes, criando testes unitários e de integração para validar o comportamento do código.
+- Utilize ferramentas de análise estática, como linters e formatadores, para garantir a qualidade do código.
+- Mantenha a documentação atualizada, incluindo comentários claros e instruções de uso quando necessário.
+- Evite duplicação de código, buscando reutilização e modularidade sempre que possível.
+- Siga as convenções de nomenclatura e estilo do projeto, incluindo nomes de variáveis, funções e classes.
+- Realize revisões de código regulares, buscando feedback e melhorias contínuas.
+- Trabalhe com permissões por objeto.
+- Use o deny-by-default, ou seja, negar permissões por padrão e conceder apenas quando necessário.
+- Use o princípio de menor privilégio, garantindo que os usuários tenham apenas as permissões necessárias para realizar suas tarefas.

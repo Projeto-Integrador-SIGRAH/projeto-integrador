@@ -11,6 +11,7 @@ cookiecutter==2.7.1
 django==6.1.1
 django-browser-reload==1.21.0
 django-tailwind==4.5.0
+django-icons==26.2
 honcho==2.0.0
 idna==3.20
 jinja2==3.1.6
