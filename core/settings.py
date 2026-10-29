@@ -55,29 +55,12 @@ DJANGO_ICONS = {
     "RENDERERS": {
         "custom-svg": "user.renderers.CustomSvgRenderer",
     },
-
     "ICONS": {
-        "alert": {
-            "name": "alert",
-            "renderer": "custom-svg",
-            "title": "Alerta"
-        },
-        "resolve": {
-            "name": "resolve",
-            "renderer": "custom-svg",
-            "title": "Resolver"
-        },
-        "logout": {
-            "name": "logout",
-            "renderer": "custom-svg",
-            "title": "Logout"
-        },
-        "edit": {
-            "name": "edit",
-            "renderer": "custom-svg",
-            "title": "Editar"
-        }
-    }
+        "alert": {"name": "alert", "renderer": "custom-svg", "title": "Alerta"},
+        "resolve": {"name": "resolve", "renderer": "custom-svg", "title": "Resolver"},
+        "logout": {"name": "logout", "renderer": "custom-svg", "title": "Logout"},
+        "edit": {"name": "edit", "renderer": "custom-svg", "title": "Editar"},
+    },
 }
 
 
@@ -98,27 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "core.wsgi.application"
 
-AUTH_USER_MODEL = "user.User"
-
-AUTHENTICATION_BACKENDS = [
-    "django.contrib.auth.backends.ModelBackend",
-]
-
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.IsAuthenticated",
-    ],
-}
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
-    "ALGORITHM": "HS256",
-    "SIGNING_KEY": SECRET_KEY,
-}
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
