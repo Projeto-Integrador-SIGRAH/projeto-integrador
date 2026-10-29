@@ -7,7 +7,7 @@ class Cano(models.Model):
         DISPONIVEL = "DISPONIVEL", "Disponível"
         INATIVO = "INATIVO", "Inativo"
 
-    codigo = models.PositiveIntegerField(unique=True)
+    codigo = models.CharField(max_length=10, unique=True)
     localizacao = models.CharField(max_length=150)
     coordenadas = models.CharField(max_length=50)
     diametro = models.PositiveIntegerField()
@@ -16,15 +16,8 @@ class Cano(models.Model):
     responsavel = models.CharField(max_length=100)
     data_instalacao = models.DateField()
     criado_em = models.DateTimeField(auto_now_add=True)
-    atualizado_em = models.DateTimeField(blank=True, null=True)
+    atualizado_em = models.DateTimeField(auto_now=True)
     observacao = models.TextField(blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        if self.pk is not None:
-            self.atualizado_em = timezone.now()
-
-        super().save(*args, **kwargs)
-    # docs.djangoproject.com/en/6.1/topics/db/models/#overriding-predefined-model-methods
 
     def __str__(self):
         return self.codigo
