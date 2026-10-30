@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_icons",
     "tailwind",
     "theme",
     "user",
@@ -134,6 +135,21 @@ MAILERS = {
 
 # Tailwind CSS
 TAILWIND_APP_NAME = "theme"
+
+DJANGO_ICONS = {
+    "ICONS": {
+        "close": {
+            "name": "icon-close",
+            "tag": "span",
+            "extra_classes": "inline-flex h-8 w-8",
+            "content": (
+                '<svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" '
+                'stroke="currentColor" stroke-width="2" stroke-linecap="round" '
+                'aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" /></svg>'
+            ),
+        },
+    },
+}
 
 
 if DEBUG:

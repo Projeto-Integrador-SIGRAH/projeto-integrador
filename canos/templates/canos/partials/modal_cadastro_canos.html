@@ -1,45 +1,44 @@
 {% extends "base.html" %}
+{% load icons %}
 {% block title %}Cadastrar cano{% endblock %}
 
 {% block content %}
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-400/40 p-4 backdrop-blur-[2px]">
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-400/40 p-4 backdrop-blur-sm">
 
   <div
     role="dialog"
     aria-modal="true"
     aria-labelledby="titulo-modal"
-    class="relative w-full max-w-[404px] bg-white rounded-[22px] shadow-2xl px-8 pt-8 pb-7"
+    class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl px-8 pt-8 pb-7"
   >
     <!-- Cabeçalho -->
     <div class="flex items-start justify-between">
-      <h2 id="titulo-modal" class="text-[22px] font-bold text-gray-900 leading-none mt-1.5">Cadastrar cano</h2>
+      <h2 id="titulo-modal" class="text-xl font-bold text-gray-900 leading-none mt-1.5">Cadastrar cano</h2>
       <button type="button" aria-label="Fechar" class="text-gray-900 hover:opacity-60 transition -mt-0.5">
-        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M5 5l14 14M19 5L5 19" />
-        </svg>
+        {% icon 'close' %}
       </button>
     </div>
     {% endblock %}
 
-    <p class="mt-5 text-[15px] text-gray-500">Traçado confirmado · 3 vértices</p>
+    <p class="mt-5 text-sm text-gray-500">Traçado confirmado · 3 vértices</p>
 
     <form id="form-cano" class="mt-4 space-y-4" novalidate>
 
       <!-- Código -->
       <div>
-        <label for="codigo" class="block text-[16px] text-gray-500 mb-2">Código do cano</label>
+        <label for="codigo" class="block text-base text-gray-500 mb-2">Código do cano</label>
         <input
           id="codigo"
           type="text"
           value="0234"
-          class="w-full h-[56px] rounded-xl border border-gray-300 px-4 font-mono text-[17px] text-gray-500 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
+          class="w-full h-14 rounded-xl border border-gray-300 px-4 font-mono text-base text-gray-500 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
         />
       </div>
 
       <!-- Diâmetro / Material -->
       <div class="grid grid-cols-2 gap-6">
         <div>
-          <label for="diametro" class="block text-[16px] text-gray-500 mb-2">Diâmetro (mm)</label>
+          <label for="diametro" class="block text-base text-gray-500 mb-2">Diâmetro (mm)</label>
           <input
             id="diametro"
             type="number"
@@ -47,18 +46,18 @@
             min="0"
             aria-invalid="false"
             aria-describedby="erro-diametro"
-            class="w-full h-[56px] rounded-xl border border-gray-300 px-4 text-[18px] text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
+            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
           />
-          <p id="erro-diametro" class="mt-2 hidden text-[15px] text-red-700 whitespace-nowrap">Deve ser maior que zero.</p>
+          <p id="erro-diametro" class="mt-2 hidden text-sm text-red-700 whitespace-nowrap">Deve ser maior que zero.</p>
         </div>
 
         <div>
-          <label for="material" class="block text-[16px] text-gray-500 mb-2">Material</label>
+          <label for="material" class="block text-base text-gray-500 mb-2">Material</label>
           <input
             id="material"
             type="text"
             value="PVC"
-            class="w-full h-[56px] rounded-xl border border-gray-300 px-4 text-[18px] text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
+            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
           />
         </div>
       </div>
@@ -66,41 +65,41 @@
       <!-- Situação / Data -->
       <div class="grid grid-cols-2 gap-6 !mt-3">
         <div>
-          <label for="situacao" class="block text-[16px] text-gray-500 mb-2">Situação</label>
+          <label for="situacao" class="block text-base text-gray-500 mb-2">Situação</label>
           <input
             id="situacao"
             type="text"
             value="Ativo"
-            class="w-full h-[56px] rounded-xl border border-gray-300 px-4 text-[18px] text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
+            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
           />
         </div>
 
         <div>
-          <label for="data" class="block text-[16px] text-gray-500 mb-2">Data de instalação</label>
+          <label for="data" class="block text-base text-gray-500 mb-2">Data de instalação</label>
           <input
             id="data"
             type="text"
             value="03/09/2026"
-            class="w-full h-[56px] rounded-xl border border-gray-300 px-4 text-[18px] text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
+            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
           />
         </div>
       </div>
 
       <!-- Observações -->
       <div>
-        <label for="obs" class="block text-[16px] text-gray-500 mb-2">Observações</label>
+        <label for="obs" class="block text-base text-gray-500 mb-2">Observações</label>
         <input
           id="obs"
           type="text"
           value="Trecho substituído na Rua Projetada A"
-          class="w-full h-[56px] rounded-xl border border-gray-300 px-4 text-[18px] text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
+          class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
         />
       </div>
 
       <!-- Botão -->
       <button
         type="submit"
-        class="w-full h-[62px] rounded-full bg-sky-800 text-white text-[22px] font-normal tracking-wide hover:bg-sky-900 active:scale-[.99] transition focus:outline-none focus:ring-4 focus:ring-sky-800/30"
+        class="w-full h-16 rounded-full bg-sky-800 text-white text-xl font-normal tracking-wide hover:bg-sky-900 active:scale-95 transition focus:outline-none focus:ring-4 focus:ring-sky-800/30"
       >
         Cadastrar
       </button>
