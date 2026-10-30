@@ -1,7 +1,8 @@
-from django.db import models  # noqa: F401
+from django.db import models 
+from user.models import User
 
 class Cano(models.Model):
-    class Situacao(models.TextChoices):
+    class Status(models.TextChoices):
         OPERACAO = "OPERACAO", "Em operação"
         MANUTENCAO = "MANUTENCAO", "Manutenção"
         DISPONIVEL = "DISPONIVEL", "Disponível"
@@ -12,12 +13,13 @@ class Cano(models.Model):
     coordenadas = models.CharField(max_length=50)
     diametro = models.PositiveIntegerField()
     material = models.CharField(max_length=50)
-    situacao = models.CharField(max_length=15, choices=Situacao, default=Situacao.DISPONIVEL)
+    status = models.CharField(max_length=15, choices=Status, default=Status.DISPONIVEL)
     responsavel = models.CharField(max_length=100)
     data_instalacao = models.DateField()
     criado_em = models.DateTimeField(auto_now_add=True)
     atualizado_em = models.DateTimeField(auto_now=True)
     observacao = models.TextField(blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
     def __str__(self):
         return self.codigo
