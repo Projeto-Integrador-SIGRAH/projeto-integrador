@@ -51,14 +51,12 @@ class User(AbstractUser, PermissionsMixin):
     objects = UserManager()
 
     class Meta:
-        def __init__(self):
-            super().__init__()
-            self.verbose_name = "usuário"
-            self.verbose_name_plural = "usuários"
-            # https://docs.djangoproject.com/en/6.1/topics/auth/customizing/#custom-permissions
-            self.permissions = [
-                ("approve_administrator", "Pode aprovar o cadastro de administrador"),
-            ]
+        verbose_name = "usuário"
+        verbose_name_plural = "usuários"
+        # https://docs.djangoproject.com/en/6.1/topics/auth/customizing/#custom-permissions
+        permissions = [
+            ("approve_administrator", "Pode aprovar o cadastro de administrador"),
+        ]
 
     def __str__(self):
         return self.email
