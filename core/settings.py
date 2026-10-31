@@ -114,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
 TIME_ZONE = "UTC"
 
@@ -141,6 +141,11 @@ MAILERS = {
     },
 }
 
+# Auth
+LOGIN_URL = "user:login"
+LOGIN_REDIRECT_URL = "mapa:index"
+LOGOUT_REDIRECT_URL = "user:login"
+
 # Tailwind CSS
 TAILWIND_APP_NAME = "theme"
 
@@ -155,6 +160,8 @@ AUTHENTICATION_BACKENDS = [
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
+        # https://www.django-rest-framework.org/api-guide/authentication/#sessionauthentication
+        "rest_framework.authentication.SessionAuthentication",
         # https://django-rest-framework-simplejwt.readthedocs.io/en/latest/getting_started.html
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],

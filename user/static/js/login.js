@@ -1,38 +1,45 @@
-const form = document.querySelector("form");
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("#login-form");
+    const errors = document.getElementById("form-errors");
 
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    const showMessage = (element, message) => {
+        element.textContent = message;
+        element.classList.remove("hidden");
+    };
 
-    const formData = new FormData(form);
-    const csrfToken = formData.get("csrfmiddlewaretoken");
-    formData.delete("csrfmiddlewaretoken");
-    const payload  = Object.fromEntries(formData.entries());
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-    try {
-        const resposta = await fetch("/user/api/login/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "X-CSRFToken": csrfToken,
-            },
-            body: JSON.stringify(payload),
-        });
+        const formData = new FormData(form);
+        const payload  = Object.fromEntries(formData.entries());
 
-        const dados = await resposta.json();
+        try {
+            const resposta = await fetch(form.dataset.apiUrl, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                },
+                body: JSON.stringify(payload),
+            });
 
-        if (!resposta.ok) {
-            alert("Email ou senha inválidos.");
-            return;
+            const data = await resposta.json();
+
+            if (!resposta.ok) {
+                showMessage(errors, Object.values(data).flat().join(" ") || "Não foi possível concluir o login.");
+                return;
+            }
+
+            // https://dev.to/jumaschion/-cache-session-storage-local-storage-e-cookies-360p
+            // sessionStorage.setItem("access", dados.access);
+            // sessionStorage.setItem("refresh", dados.refresh);
+
+            window.location.href = "/"
+
+        } catch (erro) {
+            console.error("Erro ao realizar login:", erro);
+            showMessage(errors, "Não foi possível conectar ao serviço de login.");
         }
-
-        sessionStorage.setItem("access", dados.access);
-        sessionStorage.setItem("refresh", dados.refresh);
-
-        window.location.href = "/"
-
-    } catch (erro) {
-        console.error("Erro ao realizar login:", erro);
-        alert("Não foi possível conectar ao servidor.");
-    }
+    });
 });

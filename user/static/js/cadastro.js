@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const indicador = document.getElementById("indicador");
-    const admin = document.getElementById("admin");
-    const cidadao = document.getElementById("cidadao");
-    const form = document.getElementById("registration-form");
+    const indicador = document.querySelector("#indicador");
+    const admin = document.querySelector("#admin");
+    const cidadao = document.querySelector("#cidadao");
+    const form = document.querySelector("#registration-form");
 
     const animateNavigation = (link, transform) => {
         if (!link || !indicador) return;
@@ -21,8 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!form) return;
 
-    const errors = document.getElementById("form-errors");
-    const success = document.getElementById("form-success");
+    const errors = document.querySelector("#form-errors");
+    const success = document.querySelector("#form-success");
     const submitButton = form.querySelector('button[type="submit"]');
 
     const showMessage = (element, message) => {
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             const response = await fetch(form.dataset.apiUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json", Accept: "application/json" },
+                headers: { "Content-Type": "application/json", Accept: "application/json", "X-CSRFToken": form.querySelector('[name="csrfmiddlewaretoken"]').value },
                 body: JSON.stringify(payload),
             });
             const data = await response.json();
