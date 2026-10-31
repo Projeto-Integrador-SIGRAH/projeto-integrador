@@ -1,7 +1,7 @@
 <dialog id="modal-cano">
     <h2>Cadastrar cano</h2>
 
-    <form id="form-cano" data-api-url="{% url 'api:cano-list' %}">
+    <form id="form-cano" data-api-url="{% url 'api:cano-list' %}" data-method="POST" data-modal="modal-cano">
         {% csrf_token %}
 
         {% for field in form %}
@@ -19,6 +19,6 @@
         {% endfor %}
 
         <button type="submit">Cadastrar</button>
-        <button type="button" id="btn-fechar-modal">Cancelar</button>
+        <button type="button" class="btn-fechar-modal" data-modal="modal-cano">Cancelar</button>
     </form>
 </dialog>

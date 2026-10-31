@@ -1,14 +1,25 @@
 const modal = document.querySelector("#modal-cano");
-const btnAdicionar = document.querySelector("#btn-adicionar-cano");
-const btnFechar = document.querySelector("#btn-fechar-modal");
+const botoesAbrirModal = document.querySelectorAll(".btn-abrir-modal")
+const botoesFecharModal = document.querySelectorAll(".btn-fechar-modal");
 
-btnAdicionar.addEventListener("click", () => {
-    modal.showModal();
-});
+botoesAbrirModal.forEach((botao) => {
+    botao.addEventListener("click", () => {
+        const modalID = botao.dataset.modal
+        const modal = document.getElementById(modalID)
 
-btnFechar.addEventListener("click", () => {
-    modal.close();
-});
+        modal.showModal();
+    });
+})
+
+
+botoesFecharModal.forEach((botao) => {
+    botao.addEventListener("click", () => {
+        const modalID = botao.dataset.modal
+        const modal = document.getElementById(modalID)
+
+        modal.close();
+    });
+})
 
 const form = document.querySelector("#form-cano");
 
@@ -22,7 +33,7 @@ form.addEventListener("submit", async (event) => {
 
     try {
         const response = await fetch(form.dataset.apiUrl, {
-            method: "POST",
+            method: form.dataset.method,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
