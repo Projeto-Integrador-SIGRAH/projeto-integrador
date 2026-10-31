@@ -1,5 +1,7 @@
-from django.db import models 
+from django.db import models
+
 from user.models import User
+
 
 class Cano(models.Model):
     class Status(models.TextChoices):
@@ -7,13 +9,12 @@ class Cano(models.Model):
         MANUTENCAO = "MANUTENCAO", "Manutenção"
         DISPONIVEL = "DISPONIVEL", "Disponível"
         INATIVO = "INATIVO", "Inativo"
-    
+
     class Tipo(models.TextChoices):
         AGUA = "Agua", "Água"
         ESGOTO = "Esgoto", "Esgoto"
 
     codigo = models.CharField(max_length=10, unique=True)
-    localizacao = models.CharField(max_length=150)
     coordenadas = models.CharField(max_length=50)
     diametro = models.PositiveIntegerField()
     tipo = models.CharField(max_length=10, choices=Tipo, default=Tipo.AGUA)
@@ -30,4 +31,4 @@ class Cano(models.Model):
         return self.codigo
 
     class Meta:
-        ordering = ['-data_instalacao']
+        ordering = ["-data_instalacao"]  # noqa: RUF012
