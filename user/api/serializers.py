@@ -1,14 +1,35 @@
-from django.contrib.auth import get_user_model
+from django.contrib.auth import authenticate, get_user_model
 from django.contrib.auth.models import Group
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
 from django.db import transaction
 from django.shortcuts import get_object_or_404
 from rest_framework import serializers
+from rest_framework.exceptions import AuthenticationFailed, ValidationError
 
 from user.permissions import GROUPS_TYPE
 
 User = get_user_model()
+
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    # https://pt.stackoverflow.com/questions/272380/permitir-ou-n%C3%A3o-permitir-espa%C3%A7os-das-extremidades-em-senhas
+    password = serializers.CharField(write_only=True, trim_whitespace=False)
+
+    def validate(self, data):
+        email = data.get("email")
+        password = data.get("password")
+
+        if email and password:
+            user = authenticate(email=email, password=password)
+            if user is None:
+                raise AuthenticationFailed("Email ou senha incorretos.")
+        else:
+            raise ValidationError("Email e senha são obrigatórios.")
+
+        data["user"] = user
+        return data
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

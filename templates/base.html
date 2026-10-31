@@ -26,10 +26,13 @@
                     <a href="#" class="rounded-lg py-2.5 px-3">Administradores</a>
                 </nav>
             </div>
-            <a href="#" class="flex justify-center items-center gap-5 text-white">
-                <span>Sair</span>
-                <span class="flex items-center justify-center p-2 bg-white rounded-full text-red-600">{% icon "logout" %}</span>
-            </a>
+            <form action="{% url 'api:logout' %}" method="post" class="flex justify-center items-center text-white" id="logout-form" data-login-url="{% url 'user:login' %}">
+                {% csrf_token %}
+                <button type="submit" class="flex items-center justify-center gap-5 cursor-pointer">
+                    <span>Sair</span>
+                    <span class="flex items-center justify-center p-2 bg-white rounded-full text-red-600">{% icon "logout" %}</span>
+                </button>
+            </form>
         </aside>
         <section class="flex-1">
             {% block content %}
@@ -38,5 +41,6 @@
         </section>
     </main>
     {% block extra_scripts %}{% endblock %}
+    <script src="{% static 'js/logout.js' %}"></script>
 </body>
 </html>

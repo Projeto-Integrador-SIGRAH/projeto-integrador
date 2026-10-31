@@ -1,9 +1,32 @@
+from django.contrib.auth import login, logout
 from rest_framework import status
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializers import UserRegistrationSerializer
+from .serializers import UserLoginSerializer, UserRegistrationSerializer
+
+
+class UserLoginAPI(APIView):
+    permission_classes = (AllowAny,)
+
+    def post(self, request, *args, **kwargs):
+        data = request.data if request.data else request.POST
+        serializer = UserLoginSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data["user"]
+
+        login(request, user)
+
+        refresh = RefreshToken.for_user(user)
+
+        return Response(
+            {"refresh": str(refresh), "access": str(refresh.access_token)},
+            status=status.HTTP_200_OK,
+        )
 
 
 class UserRegistrationAPIView(APIView):
@@ -23,3 +46,21 @@ class UserRegistrationAPIView(APIView):
         )
 
         return Response({"detail": message}, status=status.HTTP_201_CREATED)
+
+
+class UserLogoutAPIView(APIView):
+    def post(self, request):
+        if isinstance(request.successful_authenticator, SessionAuthentication):
+            logout(request)
+
+        elif isinstance(request.successful_authenticator, JWTAuthentication):
+            refresh_token = request.data.get("refresh")
+
+            if refresh_token:
+                token = RefreshToken(refresh_token)
+                token.blacklist()
+
+        return Response(
+            {"detail": "Logout realizado com sucesso."},
+            status=status.HTTP_200_OK,
+        )

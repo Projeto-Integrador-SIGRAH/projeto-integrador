@@ -13,6 +13,7 @@
         <a href="{% url 'user:cadastro_admin' %}" id="admin" class="relative z-10 w-1/2 px-5 py-2 text-center text-sm font-medium text-black">Admin</a>
     </nav>
     <form id="registration-form" class="flex flex-col gap-2 w-1/2" method="post" action="{{ api_url }}" data-login-url="{{ login_url }}"" data-api-url="{{ api_url }}">
+        {% csrf_token %}
         <input type="hidden" name="group" value="CIDADAO">
         <div id="form-errors" class="hidden rounded-lg border border-red-300 bg-red-50 p-3 text-sm text-red-700" role="alert"></div>
         {% for field in form %}
