@@ -54,8 +54,8 @@ class User(AbstractUser, PermissionsMixin):
         verbose_name = "usuário"
         verbose_name_plural = "usuários"
         # https://docs.djangoproject.com/en/6.1/topics/auth/customizing/#custom-permissions
-        permissions = [
-           ("approve_administrator", "Pode aprovar o cadastro de administrador"),
+        permissions = [  # noqa: RUF012
+            ("approve_administrator", "Pode aprovar o cadastro de administrador"),
         ]
 
     def __str__(self):
