@@ -55,29 +55,12 @@ DJANGO_ICONS = {
     "RENDERERS": {
         "custom-svg": "user.renderers.CustomSvgRenderer",
     },
-
     "ICONS": {
-        "alert": {
-            "name": "alert",
-            "renderer": "custom-svg",
-            "title": "Alerta"
-        },
-        "resolve": {
-            "name": "resolve",
-            "renderer": "custom-svg",
-            "title": "Resolver"
-        },
-        "logout": {
-            "name": "logout",
-            "renderer": "custom-svg",
-            "title": "Logout"
-        },
-        "edit": {
-            "name": "edit",
-            "renderer": "custom-svg",
-            "title": "Editar"
-        }
-    }
+        "alert": {"name": "alert", "renderer": "custom-svg", "title": "Alerta"},
+        "resolve": {"name": "resolve", "renderer": "custom-svg", "title": "Resolver"},
+        "logout": {"name": "logout", "renderer": "custom-svg", "title": "Logout"},
+        "edit": {"name": "edit", "renderer": "custom-svg", "title": "Editar"},
+    },
 }
 
 
@@ -97,7 +80,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "core.wsgi.application"
-
 
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
