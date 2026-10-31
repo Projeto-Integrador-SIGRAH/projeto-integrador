@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block title %}Mapa{% endblock %}
 
 {% block content %}
@@ -18,28 +20,18 @@
 {% block extra_head %}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.css" integrity="sha256-P+hWJNlpL+GBSRYC7cdsDbQH91URmpDeOzLp7DbFRtE=" crossorigin="anonymous" />
 
-<script type="importmap">
-{
-    "imports": {
-        "leaflet": "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js"
-    },
-    "integrity": {
-        "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js": "sha256-gj5JhNAaMi6LCs+jVFOk8sXDe1sWSS2Zlc87m+trLiQ="
-    }
-}
-</script>
+    <script type="importmap">
+        {
+            "imports": {
+                "leaflet": "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js"
+            },
+            "integrity": {
+                "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js": "sha256-gj5JhNAaMi6LCs+jVFOk8sXDe1sWSS2Zlc87m+trLiQ="
+            }
+        }
+    </script>
 {% endblock %}
 
 {% block extra_scripts %}
-    <script type="module">
-    import {LeafletMap, TileLayer} from 'leaflet';
-
-    const map = new LeafletMap('map').setView([-6.11,-38.2], 15);
-
-    new TileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        referrerPolicy: 'no-referrer-when-downgrade',
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(map);
-</script>
+    <script type="module" src="{% static 'js/mapa.js' %}"></script>
 {% endblock %}

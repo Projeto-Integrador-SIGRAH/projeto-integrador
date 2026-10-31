@@ -1,0 +1,68 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1728"
+  height="1024"
+  viewBox="0 0 1728 1024"
+  fill="none"
+>
+  <g fill="#0875C9">
+
+    <!-- Corpo principal do cano -->
+    <path d="
+      M196 316
+      H218
+      C230 316 240 321 248 328
+      H1480
+      C1488 321 1498 316 1510 316
+      H1533
+      V493
+      H1510
+      C1498 493 1488 488 1480 481
+      H248
+      C240 488 230 493 218 493
+      H196
+      Z
+    "/>
+
+    <!-- Encaixe esquerdo -->
+    <rect
+      x="119"
+      y="292"
+      width="66"
+      height="226"
+      rx="14"
+    />
+
+    <!-- Extremidade esquerda -->
+    <path d="
+      M109 316
+      H96
+      C81 316 69 328 69 343
+      V467
+      C69 482 81 494 96 494
+      H109
+      Z
+    "/>
+
+    <!-- Encaixe direito -->
+    <rect
+      x="1543"
+      y="292"
+      width="66"
+      height="226"
+      rx="14"
+    />
+
+    <!-- Extremidade direita -->
+    <path d="
+      M1619 316
+      H1633
+      C1648 316 1660 328 1660 343
+      V467
+      C1660 482 1648 494 1633 494
+      H1619
+      Z
+    "/>
+
+  </g>
+</svg>
