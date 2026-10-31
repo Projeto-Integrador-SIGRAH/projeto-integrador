@@ -3,10 +3,10 @@ from user.models import User
 
 class Cano(models.Model):
     class Status(models.TextChoices):
-        OPERACAO = "OPERACAO", "Em operação"
-        MANUTENCAO = "MANUTENCAO", "Manutenção"
-        DISPONIVEL = "DISPONIVEL", "Disponível"
-        INATIVO = "INATIVO", "Inativo"
+        OPERACAO = "Em operação", "Em operação"
+        MANUTENCAO = "Manutenção", "Manutenção"
+        DISPONIVEL = "Disponível", "Disponível"
+        INATIVO = "Inativo", "Inativo"
     
     class Tipo(models.TextChoices):
         AGUA = "Agua", "Água"
