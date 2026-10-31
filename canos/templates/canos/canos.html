@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Canos{% endblock %}
 
 {% block content %}
@@ -69,6 +69,10 @@
 
             {% include "canos/partials/cano_detail.html" %}
         </section>
-        <a href="#" class="flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold">+</a>
+        <button type="button" class="flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold cursor-pointer" id="btn-adicionar-cano">+</button>
     </section>
+    {% include "canos/partials/cano_form.html" %}
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/cano.js' %}"></script>
 {% endblock %}
