@@ -57,6 +57,11 @@ class User(AbstractUser, PermissionsMixin):
         # https://docs.djangoproject.com/en/6.1/topics/auth/customizing/#custom-permissions
         permissions = [  # noqa: RUF012
             ("approve_administrator", "Pode aprovar o cadastro de administrador"),
+            ("can_access_admin_panel", "Pode acessar o painel de administração"),
+            (
+                "can_access_admin_management",
+                "Pode acessar o painel de gerenciamento de admins",
+            ),
         ]
 
     def __str__(self):

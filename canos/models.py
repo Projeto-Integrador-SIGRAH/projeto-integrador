@@ -5,7 +5,7 @@ from user.models import User
 
 class Cano(models.Model):
     class Status(models.TextChoices):
-        OPERACAO = "OPERACAO", "Em operação"
+        OPERACAO = "EM_OPERACAO", "Em operação"
         MANUTENCAO = "MANUTENCAO", "Manutenção"
         DISPONIVEL = "DISPONIVEL", "Disponível"
         INATIVO = "INATIVO", "Inativo"
@@ -31,4 +31,4 @@ class Cano(models.Model):
         return self.codigo
 
     class Meta:
-        ordering = ["-data_instalacao"]  # noqa: RUF012
+        ordering = ["-data_instalacao"]  #  noqa: RUF012

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Canos{% endblock %}
 
 {% block content %}
@@ -41,34 +41,25 @@
                             <th class="px-3 py-2 font-semibold text-gray-600">Atualizado em</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm">A-1042</td>
-                            <td class="px-3 py-3">PVC PBA</td>
-                            <td class="px-3 py-3 text-sm">150 mm</td>
-                            <td class="px-3 py-3 text-sm"><span class="bg-green-100 px-2 py-1 border border-green-600 rounded-2xl text-sm text-green-600">Ativo</span></td>
-                            <td class="px-3 py-3 text-sm">28/09/2026</td>
-                        </tr>
-                        <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm">A-1043</td>
-                            <td class="px-3 py-3">Ferro fundido</td>
-                            <td class="px-3 py-3 text-sm">200 mm</td>
-                            <td class="px-3 py-3 text-sm"><span class="bg-green-100 px-2 py-1 border border-green-600 rounded-2xl text-sm text-green-600">Ativo</span></td>
-                            <td class="px-3 py-3 text-sm">28/09/2026</td>
-                        </tr>
-                        <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm">A-1044</td>
-                            <td class="px-3 py-3">PEAD</td>
-                            <td class="px-3 py-3 text-sm">250 mm</td>
-                            <td class="px-3 py-3 text-sm"><span class="bg-green-100 px-2 py-1 border border-green-600 rounded-2xl text-sm text-green-600">Ativo</span></td>
-                            <td class="px-3 py-3 text-sm">28/09/2026</td>
-                        </tr>
+                    <tbody id="lista-canos"
+                    data-api-url="{% url 'api:cano-list' %}"></tbody>
+
                     </tbody>
                 </table>
             </div>
 
             {% include "canos/partials/cano_detail.html" %}
         </section>
-        <a href="#" class="flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold">+</a>
+        <!-- TODO: Trocar para o SVG -->
+         <!-- https://docs.djangoproject.com/en/6.1/topics/auth/default/#permissions -->
+        {% if perms.canos.add_cano %}
+            <button type="button"
+                data-modal="modal-cano"
+                class="btn-abrir-modal flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold cursor-pointer">+</button>
+        {% endif %}
     </section>
+    {% include "canos/partials/cano_form.html" %}
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/cano.js' %}"></script>
 {% endblock %}
