@@ -16,9 +16,11 @@
 
         {% include "mapa/partials/map_layers_selector.html" %}
 
-        <button class="absolute right-8 bottom-6 z-[1000] flex w-16 h-16 items-center justify-center rounded-full bg-sky-800 px-4 py-3 shadow-md text-white cursor-pointer hover:bg-sky-700 transition duration-300" id="add-cano-button" aria-label="Adicionar cano">
-            <span class="scale-150">{% icon "plus" %}</span>
-        </button>
+        {% if perms.canos.add_cano %}
+            <button class="absolute right-8 bottom-6 z-[1000] flex w-16 h-16 items-center justify-center rounded-full bg-sky-800 px-4 py-3 shadow-md text-white cursor-pointer hover:bg-sky-700 transition duration-300" id="add-cano-button" aria-label="Adicionar cano">
+                <span class="scale-150">{% icon "plus" %}</span>
+            </button>
+        {% endif %}
     </section>
 {% endblock %}
 

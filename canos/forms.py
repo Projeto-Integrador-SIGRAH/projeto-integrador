@@ -1,29 +1,25 @@
-from django.forms import ModelForm
 from django import forms
+from django.forms import ModelForm
+
 from .models import Cano
+
 
 class CanoForm(ModelForm):
     class Meta:
         model = Cano
-        fields = [
-            'codigo',
-            'localizacao',
-            'coordenadas',
-            'diametro',
-            'tipo',
-            'material',
-            'status',
-            'responsavel',
-            'data_instalacao',
-            'observacao',
+        fields = [  # noqa: RUF012
+            "codigo",
+            "coordenadas",
+            "diametro",
+            "tipo",
+            "material",
+            "status",
+            "responsavel",
+            "data_instalacao",
+            "observacao",
         ]
-        widgets = {
-            "codigo": forms.TextInput(
-                attrs={"placeholder": "Ex.: A-0002"}
-            ),
-            "localizacao": forms.TextInput(
-                attrs={"placeholder": "Informe a localização do cano"}
-            ),
+        widgets = {  # noqa: RUF012
+            "codigo": forms.TextInput(attrs={"placeholder": "Ex.: A-0002"}),
             "coordenadas": forms.TextInput(
                 attrs={"placeholder": "Ex.: -6.0965, -38.2065"}
             ),
