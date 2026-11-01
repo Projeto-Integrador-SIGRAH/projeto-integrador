@@ -60,6 +60,8 @@ DJANGO_ICONS = {
         "resolve": {"name": "resolve", "renderer": "custom-svg", "title": "Resolver"},
         "logout": {"name": "logout", "renderer": "custom-svg", "title": "Logout"},
         "edit": {"name": "edit", "renderer": "custom-svg", "title": "Editar"},
+        "search": {"name": "search", "renderer": "custom-svg", "title": "Pesquisar"},
+        "plus": {"name": "plus", "renderer": "custom-svg", "title": "Adicionar"},
     },
 }
 

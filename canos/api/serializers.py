@@ -9,8 +9,6 @@ class CanoSerializer(serializers.ModelSerializer):
         model = Cano
         fields = [  # noqa: RUF012
             "codigo",
-            # TODO: REMOVER
-            "localizacao",
             "coordenadas",
             "diametro",
             "tipo",
