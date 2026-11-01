@@ -5,6 +5,7 @@ app_name = "api"
 
 urlpatterns = [
     path("users/", include("user.api.urls")),
+    path("canos/", include("canos.api.urls")),
     path("auth/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("auth/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
 ]
