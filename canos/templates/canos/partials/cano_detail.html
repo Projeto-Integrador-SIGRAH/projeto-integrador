@@ -46,8 +46,13 @@
             <p>Equipe Norte</p>
         </div>
 
-        <button type="submit" 
-        data-modal="modal-cano"
-        class="btn-abrir-modal flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer"><span>{% icon "edit" %}</svg></span>Editar</button>
+        {% if perms.canos.change_cano %}
+            <button type="submit"
+                data-modal="modal-cano"
+                class="btn-abrir-modal flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer"><span>{% icon "edit" %}</svg></span>Editar</button>
+        {% endif %}
+        {% if perms.alertas.add_alerta %}
+            <a href="#" class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black"><span>{% icon "alert" %}</svg></span>Alerta</a>
+        {% endif %}
     </main>
 </div>

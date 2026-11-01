@@ -43,16 +43,20 @@
                     </thead>
                     <tbody id="lista-canos"
                     data-api-url="{% url 'api:cano-list' %}"></tbody>
-                        
+
                     </tbody>
                 </table>
             </div>
 
             {% include "canos/partials/cano_detail.html" %}
         </section>
-        <button type="button" 
-        data-modal="modal-cano" 
-        class="btn-abrir-modal flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold cursor-pointer">+</button>
+        <!-- TODO: Trocar para o SVG -->
+         <!-- https://docs.djangoproject.com/en/6.1/topics/auth/default/#permissions -->
+        {% if perms.canos.add_cano %}
+            <button type="button"
+                data-modal="modal-cano"
+                class="btn-abrir-modal flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold cursor-pointer">+</button>
+        {% endif %}
     </section>
     {% include "canos/partials/cano_form.html" %}
 {% endblock %}

@@ -19,11 +19,21 @@
                     <img src="{% static 'img/Logo_sigrah.png' %}" alt="Logo" class="w-20 h-20 rounded-full">
                 </div>
                 <nav class="flex flex-col items-strech gap-4 text-white text-sm">
-                    <a href="#" class="rounded-lg py-2.5 px-3 ">Painel</a>
-                    <a href="#" class="bg-sky-950 rounded-lg py-2.5 px-3 drop-shadow-lg">Mapa</a>
-                    <a href="#" class="rounded-lg py-2.5 px-3">Canos</a>
-                    <a href="#" class="rounded-lg py-2.5 px-3">Alertas</a>
-                    <a href="#" class="rounded-lg py-2.5 px-3">Administradores</a>
+                    {% if perms.user.can_access_admin_panel %}
+                        {% url 'user:painel' as painel_url %}
+                        <a href="{% url 'user:painel' %}" class="rounded-lg py-2.5 px-3 {% if request.path == painel_url %}bg-sky-950 drop-shadow-lg {% endif %}">Painel</a>
+                    {% endif %}
+                    {% url 'mapa:index' as mapa_url %}
+                    <a href="{% url 'mapa:index' %}" class="rounded-lg py-2.5 px-3 {% if request.path == mapa_url %}bg-sky-950 drop-shadow-lg {% endif %}">Mapa</a>
+                    {% url 'canos:canos' as canos_url %}
+                    <a href="{% url 'canos:canos' %}" class="rounded-lg py-2.5 px-3 {% if request.path == canos_url %}bg-sky-950 drop-shadow-lg {% endif %}">Canos</a>
+                    {% url 'alertas:alertas' as alertas_url %}
+                    <a href="{% url 'alertas:alertas' %}" class="rounded-lg py-2.5 px-3 {% if request.path == alertas_url %}bg-sky-950 drop-shadow-lg {% endif %}">Alertas</a>
+                    {% if perms.user.can_access_admin_management %}
+                        <!-- {% url 'user:painel' as painel_url %} -->
+                        <!-- <a href="{% url 'user:painel' %}" class="rounded-lg py-2.5 px-3 {% if request.path == painel_url %}bg-sky-950 drop-shadow-lg {% endif %}">Administradores</a> -->
+                        <a href="#" class="rounded-lg py-2.5 px-3">Administradores</a>
+                    {% endif %}
                 </nav>
             </div>
             <form action="{% url 'api:logout' %}" method="post" class="flex justify-center items-center text-white" id="logout-form" data-login-url="{% url 'user:login' %}">
