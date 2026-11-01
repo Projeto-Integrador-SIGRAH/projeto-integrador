@@ -1,13 +1,15 @@
-from django.db import models 
+from django.db import models
+
 from user.models import User
+
 
 class Cano(models.Model):
     class Status(models.TextChoices):
-        OPERACAO = "Em operação", "Em operação"
-        MANUTENCAO = "Manutenção", "Manutenção"
-        DISPONIVEL = "Disponível", "Disponível"
-        INATIVO = "Inativo", "Inativo"
-    
+        OPERACAO = "EM_OPERACAO", "Em operação"
+        MANUTENCAO = "MANUTENCAO", "Manutenção"
+        DISPONIVEL = "DISPONIVEL", "Disponível"
+        INATIVO = "INATIVO", "Inativo"
+
     class Tipo(models.TextChoices):
         AGUA = "Agua", "Água"
         ESGOTO = "Esgoto", "Esgoto"
@@ -30,4 +32,4 @@ class Cano(models.Model):
         return self.codigo
 
     class Meta:
-        ordering = ['-data_instalacao']
+        ordering = ["-data_instalacao"]  #  noqa: RUF012
