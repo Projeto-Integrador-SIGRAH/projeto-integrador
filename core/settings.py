@@ -156,8 +156,8 @@ AUTH_USER_MODEL = "user.User"
 
 AUTHENTICATION_BACKENDS = [
     # https://docs.djangoproject.com/en/6.1/ref/contrib/auth/#django.contrib.auth.backends.ModelBackend
-    "django.contrib.auth.backends.ModelBackend",
-    # TODO: Add custom authentication backend if needed
+    "core.authentication_backends.ModelBackendWithIsApproved",
+    # "django.contrib.auth.backends.ModelBackend",
 ]
 
 REST_FRAMEWORK = {

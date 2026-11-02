@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // https://leafletjs.com/reference-2.0.0.html#map-locate
     const addCanoButton = document.querySelector('#add-cano-button');
     const encanamentoLayerCheckbox = document.querySelector('#encanamento-layer-checkbox');
+
+    const canoModal = document.querySelector('#modal-cano');
+    const closeButtonModal = document.querySelector('#close-button-modal');
+    const form = document.querySelector("#form-cano");
+
     const alertasLayerCheckbox = document.querySelector('#alertas-layer-checkbox');
     let zoomLevel = 15;
     const deltaCoords = 0.0001;
@@ -25,6 +30,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // https://leafletjs.com/reference-2.0.0.html#polyline
     let polyline_path = null;
     let polyline_coords = [];
+
+    const renderCanos = (canos) => {
+        canos.forEach((cano) => {
+            const coords = JSON.parse(cano.coordenadas);
+            const latlngs = coords.map(coord => ({lat: coord[0], lng: coord[1]}));
+            const polyline = new Polyline(latlngs, {color: 'blue'});
+            polyline.addTo(map);
+        });
+    };
+
+    const getAllCanos = async () => {
+        try {
+            const response = await fetch('/api/canos/');
+            if (!response.ok) {
+                throw new Error('Erro ao buscar os canos.');
+            }
+            const canos = await response.json();
+            renderCanos(canos);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    getAllCanos();
 
     map.on('click', function(e) {
         if (!can_create_cano) {
@@ -49,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
             polyline_coords.push(...clickedLatLngs);
             clickedLatLngs = [];
             polyline_path = null;
+            canoModal.showModal();
             return;
         }
 
@@ -109,6 +139,50 @@ document.addEventListener('DOMContentLoaded', function() {
             map.addLayer(polyline_path);
         } else {
             map.layerPointToContainerPoint(polyline_path);
+        }
+    });
+
+    closeButtonModal.addEventListener('click', function() {
+        canoModal.close();
+    });
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!form.reportValidity()) return;
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        const coordinates = JSON.stringify(polyline_coords.map(coord => [coord.lat, coord.lng]));
+        alert("Coordenadas do cano: " + coordinates);
+        payload.coordenadas = coordinates;
+
+        alert(JSON.stringify(payload, null, 2));
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                },
+                body: JSON.stringify(payload),
+            }).catch(error => {
+                alert("Erro na requisição:", error);
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert("Erro ao cadastrar:", JSON.stringify(data, null, 2));
+                return;
+            }
+
+            form.reset();
+            canoModal.close();
+
+        } catch (error) {
+            console.error("Erro na requisição:", error);
         }
     });
 });
