@@ -62,11 +62,18 @@ jobs:
           ssh -o StrictHostKeyChecking=yes \
             "$EC2_USER@$EC2_HOST" \
             "IMAGE_TAG='$IMAGE_TAG' bash -s" <<'REMOTE'
-              set -euo pipefail
+              set -euxo pipefail
 
               cd /opt/projeto-integrador
 
+              # Define a imagem correspondente ao commit que disparou o deploy.
               export DOCKERHUB_IMAGE="adryan1928/projeto-integrador:${IMAGE_TAG}"
+
+              echo "Imagem que será utilizada:"
+              docker compose \
+              --env-file .env.prod \
+              -f docker-compose.prod.yml \
+              config --images
 
               echo "Baixando nova imagem..."
               docker compose \
@@ -90,21 +97,17 @@ jobs:
               docker compose \
                 --env-file .env.prod \
                 -f docker-compose.prod.yml \
-                up -d --no-deps web
-
-              echo "Aguardando aplicação iniciar..."
-
-              docker compose \
-                --env-file .env.prod \
-                -f docker-compose.prod.yml \
-                up -d --wait web
+                up -d --no-deps --force-recreate --wait web
 
               echo "Verificando containers..."
-
               docker compose \
                 --env-file .env.prod \
                 -f docker-compose.prod.yml \
                 ps
+
+              echo "Verificando imagem utilizada..."
+              docker inspect projeto-integrador-web \
+                --format='Imagem: {{.Image}} | Criado em: {{.Created}}'
 
               echo "Deploy concluído!"
           REMOTE
