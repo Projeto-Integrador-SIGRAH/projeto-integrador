@@ -117,7 +117,7 @@ tabela.addEventListener("click", (event) => {
         const campo = elemento.dataset.campo;
         let valor = canoSelecionado[campo];
     
-        if (["criado_em", "atualizado_em"].includes(campo) && valor) {
+        if (["data_instalacao", "criado_em", "atualizado_em"].includes(campo) && valor) {
             valor = formatarData(valor);
         }
     
