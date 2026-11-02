@@ -1,0 +1,13 @@
+from django.urls import path
+
+from . import views
+
+app_name = "user"
+
+urlpatterns = [
+    path("login/", views.LoginView.as_view(), name="login"),
+    path("cadastro/", views.CadastroView.as_view(), name="cadastro"),
+    path("cadastro_admin/", views.CadastroAdminView.as_view(), name="cadastro_admin"),
+    path("painel/", views.PainelView.as_view(), name="painel"),
+    path("aprovacoes/", views.AprovacoesView.as_view(), name="aprovacoes"),
+]

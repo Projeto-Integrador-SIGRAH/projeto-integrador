@@ -1,0 +1,92 @@
+
+{% load icons %}
+
+<section id="painel-detalhe" class="hidden flex-col gap-4 w-3/10 px-3 py-4 border border-gray-200 rounded-xl bg-white max-h-[calc(100vh-190px)] overflow-y-auto">
+    <header class="flex justify-between">
+        <div class="flex flex-col">
+            <h1 class="text-sm text-gray-600">Detalhes do Cano</h1>
+            <h2 class="text-4xl font-bold" data-campo="codigo">-</h2>
+        </div>
+        <div class="flex items-center text-sky-600">
+            <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" data-campo="status">-</span>
+        </div>
+    </header>
+
+    <main class="flex flex-col gap-1 text-sm">
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Tipo</p>
+            <p data-campo="tipo">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Material</p>
+            <p data-campo="material">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Diâmetro</p>
+            <p data-campo="diametro">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <!-- <div class="flex justify-between">
+            <p class="text-gray-500">Coordenadas</p>
+            <p data-campo="coordenadas">-</p>
+        </div>
+
+        <hr class="border-gray-200"> -->
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Data de instalação</p>
+            <p data-campo="data_instalacao">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Cadastrado no dia</p>
+            <p data-campo="criado_em">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Atualizado no dia</p>
+            <p data-campo="atualizado_em">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Responsável</p>
+            <p data-campo="responsavel">-</p>
+        </div>
+
+        <hr class="border-gray-200">
+
+        <div class="flex justify-between">
+            <p class="text-gray-500">Observações</p>
+            <p data-campo="observacao">-</p>
+        </div>
+
+        {% if perms.canos.change_cano %}
+            <button type="button"
+                id="btn-editar-cano"
+                class="btn-editar flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer">
+                <span>{% icon "edit" %}</span>Editar
+            </button>
+        {% endif %}
+
+        {% if perms.alertas.add_alerta %}
+            <a href="#" class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black">
+                <span>{% icon "alert" %}</span>Alerta
+            </a>
+        {% endif %}
+    </main>
+</section>

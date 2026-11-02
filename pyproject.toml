@@ -1,0 +1,26 @@
+[project]
+name = "projeto-integrador"
+version = "0.1.0"
+requires-python = ">=3.12.0"
+authors = [
+    { name = "Adryan Eryk de Oliveira Leite", email = "adryanoliveira1928@gmail.com" },
+]
+dependencies = [
+    "asgiref==3.12.1",
+    "django==6.1.1",
+    "django-icons>=26.2",
+    "django-tailwind[cookiecutter,honcho,reload]>=4.5.0",
+    "djangorestframework>=3.18.3",
+    "djangorestframework-simplejwt>=5.5.1",
+    "gunicorn>=26.2.0",
+    "psycopg[binary]>=3.2",
+    "ruff>=0.16.9",
+    "ruff-format>=0.5.4",
+    "sqlparse==0.6.0",
+    "whitenoise>=6.12.0",
+]
+
+
+[tool.ruff.lint.per-file-ignores]
+# Ignora o erro B006 (valor padrão mutável) e RUF012 em todas as migrações do Django/Alembic
+"**/migrations/*" = ["B006", "RUF012"]

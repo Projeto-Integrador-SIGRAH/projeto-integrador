@@ -1,0 +1,56 @@
+{% load icons %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>{% block title %} {% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block extra_head %}{% endblock %}
+    {% tailwind_css %}
+</head>
+
+<body class="bg-sky-50 text-black leading-normal tracking-normal">
+    <main class="flex h-screen w-full">
+        <aside class="flex flex-col justify-between h-full w-2/10 bg-sky-800 p-4 gap-4">
+            <div class="flex flex-col">
+                <div class="flex justify-center">
+                    <img src="{% static 'img/Logo_sigrah.png' %}" alt="Logo" class="w-20 h-20 rounded-full">
+                </div>
+                <nav class="flex flex-col items-strech gap-4 text-white text-sm">
+                    {% if perms.user.can_access_admin_panel %}
+                        {% url 'user:painel' as painel_url %}
+                        <a href="{% url 'user:painel' %}" class="rounded-lg py-2.5 px-3 {% if request.path == painel_url %}bg-sky-950 drop-shadow-lg {% endif %}">Painel</a>
+                    {% endif %}
+                    {% url 'mapa:index' as mapa_url %}
+                    <a href="{% url 'mapa:index' %}" class="rounded-lg py-2.5 px-3 {% if request.path == mapa_url %}bg-sky-950 drop-shadow-lg {% endif %}">Mapa</a>
+                    {% url 'canos:canos' as canos_url %}
+                    <a href="{% url 'canos:canos' %}" class="rounded-lg py-2.5 px-3 {% if request.path == canos_url %}bg-sky-950 drop-shadow-lg {% endif %}">Canos</a>
+                    {% url 'alertas:alertas' as alertas_url %}
+                    <a href="{% url 'alertas:alertas' %}" class="rounded-lg py-2.5 px-3 {% if request.path == alertas_url %}bg-sky-950 drop-shadow-lg {% endif %}">Alertas</a>
+                    {% if perms.user.can_access_admin_management %}
+                        <!-- {% url 'user:painel' as painel_url %} -->
+                        <!-- <a href="{% url 'user:painel' %}" class="rounded-lg py-2.5 px-3 {% if request.path == painel_url %}bg-sky-950 drop-shadow-lg {% endif %}">Administradores</a> -->
+                        <a href="#" class="rounded-lg py-2.5 px-3">Administradores</a>
+                    {% endif %}
+                </nav>
+            </div>
+            <form action="{% url 'api:logout' %}" method="post" class="flex justify-center items-center text-white" id="logout-form" data-login-url="{% url 'user:login' %}">
+                {% csrf_token %}
+                <button type="submit" class="flex items-center justify-center gap-5 cursor-pointer">
+                    <span>Sair</span>
+                    <span class="flex items-center justify-center p-2 bg-white rounded-full text-red-600">{% icon "logout" %}</span>
+                </button>
+            </form>
+        </aside>
+        <section class="flex-1">
+            {% block content %}
+
+            {% endblock %}
+        </section>
+    </main>
+    {% block extra_scripts %}{% endblock %}
+    <script src="{% static 'js/logout.js' %}"></script>
+</body>
+</html>
