@@ -1,9 +1,11 @@
 // Abertura e fechamento dos modais
-const modal = document.querySelector("#modal-cano");
-const botoesAbrirModal = document.querySelectorAll(".btn-abrir-modal")
+const modalCadastrar = document.querySelector("#modal-cadastrar");
+const modalEditar = document.querySelector("#modal-editar")
+const btnCadastrar = document.querySelectorAll(".btn-cadastrar")
+const btnEditar = document.querySelectorAll(".btn-editar")
 const botoesFecharModal = document.querySelectorAll(".btn-fechar-modal");
 
-botoesAbrirModal.forEach((botao) => {
+btnCadastrar.forEach((botao) => {
     botao.addEventListener("click", () => {
         const modalID = botao.dataset.modal
         const modal = document.getElementById(modalID)
@@ -12,6 +14,38 @@ botoesAbrirModal.forEach((botao) => {
     });
 })
 
+const formEdicao = document.querySelector("#form-editar-cano");
+console.log("Formulário de edição:", formEdicao);
+function preencherFormulario(dados, formulario) {
+    Object.entries(dados).forEach(([campo, valor]) => {
+        const elemento = formulario.elements.namedItem(campo);
+
+        if (elemento) {
+            elemento.value = valor ?? "";
+        }
+    });
+}
+
+btnEditar.forEach((botao) => {
+    botao.addEventListener("click", () => {
+        if (!canoSelecionado) {
+            console.error("Nenhum cano selecionado.");
+            return;
+        }
+
+        const modalID = botao.dataset.modal
+        const modal = document.getElementById(modalID)
+
+        preencherFormulario(canoSelecionado, formEdicao);
+
+        formEdicao.dataset.urlAtual = formEdicao.dataset.apiUrl.replace(
+            "/0/",
+            `/${canoSelecionado.id}/`
+        );
+
+        modal.showModal();
+    });
+})
 
 botoesFecharModal.forEach((botao) => {
     botao.addEventListener("click", () => {
@@ -133,19 +167,19 @@ tabela.addEventListener("click", (event) => {
 
 
 // Create & Update de canos 
-const form = document.querySelector("#form-cano");
+const formCadastro = document.querySelector("#form-cadastrar-cano");
 
-form.addEventListener("submit", async (event) => {
+formCadastro.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    if (!form.reportValidity()) return;
+    if (!formCadastro.reportValidity()) return;
 
-    const formData = new FormData(form);
+    const formData = new FormData(formCadastro);
     const payload = Object.fromEntries(formData.entries());
 
     try {
-        const response = await fetch(form.dataset.apiUrl, {
-            method: form.dataset.method,
+        const response = await fetch(formCadastro.dataset.apiUrl, {
+            method: formCadastro.dataset.method,
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
@@ -163,8 +197,49 @@ form.addEventListener("submit", async (event) => {
 
         console.log("Cano cadastrado:", data);
 
-        form.reset();
-        modal.close();
+        formCadastro.reset();
+        formCadastro.closest("dialog").close();
+
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+});
+
+formEdicao.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    console.log("Submit de edição executado");
+    console.log("URL:", formEdicao.dataset.apiUrl);
+    console.log("Método:", formEdicao.dataset.method);
+
+    if (!formEdicao.reportValidity()) return;
+
+    const formData = new FormData(formEdicao);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(formEdicao.dataset.urlAtual, {
+            method: formEdicao.dataset.method,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Erro ao editar:", data);
+            return;
+        }
+
+        console.log("Cano atualizado:", data);
+
+        formEdicao.closest("dialog").close();
+
+        await listarCanos();
 
     } catch (error) {
         console.error("Erro na requisição:", error);
