@@ -45,7 +45,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = [  # noqa: RUF012
             "nome",
             "email",
-            "cpf",
             "matricula",
             "password",
             "confirm_password",
@@ -53,7 +52,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {  # noqa: RUF012
             "matricula": {"required": False, "allow_blank": True},
-            "cpf": {"required": False, "allow_blank": True},
         }
 
     def validate_email(self, value):

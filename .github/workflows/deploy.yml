@@ -92,9 +92,19 @@ jobs:
                 -f docker-compose.prod.yml \
                 up -d --no-deps web
 
-              echo "Deploy concluído!"
+              echo "Aguardando aplicação iniciar..."
+
+              docker compose \
+                --env-file .env.prod \
+                -f docker-compose.prod.yml \
+                up -d --wait web
+
+              echo "Verificando containers..."
+
               docker compose \
                 --env-file .env.prod \
                 -f docker-compose.prod.yml \
                 ps
+
+              echo "Deploy concluído!"
           REMOTE
