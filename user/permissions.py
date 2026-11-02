@@ -38,6 +38,11 @@ def configure_role_groups(*, using):
 
     for group_name, permission_codenames in GROUPS_PERMISSIONS.items():
         group, _ = Group.objects.using(using).get_or_create(name=group_name)
-        group.permissions.set(
-            [permissions_by_codename[codename] for codename in permission_codenames]
-        )
+
+        valid_permissions = [
+            permissions_by_codename[codename]
+            for codename in permission_codenames
+            if codename in permissions_by_codename
+        ]
+
+        group.permissions.set(valid_permissions)

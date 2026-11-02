@@ -1,0 +1,48 @@
+{% load icons %}
+<section class="flex flex-col gap-4 w-3/10 px-3 py-4 border border-gray-200 rounded-xl bg-white">
+    <header class="flex justify-between">
+        <div class="flex flex-col">
+            <h1 class="text-sm text-gray-600">Alerta</h1>
+            <h2 class="text-4xl font-bold" id="card-codigo">-</h2>
+        </div>
+        <div class="flex items-center text-sky-600">
+            <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" id="card-status">-</span>
+        </div>
+    </header>
+    <main class="flex flex-col gap-1 text-sm">
+
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Localização</p>
+            <p id="card-localizacao">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Reportado em</p>
+            <p id="card-data">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Gravidade</p>
+            <p id="card-gravidade">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Coordenadas</p>
+            <p id="card-coordenadas">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex flex-col gap-1">
+             <p class="text-gray-500">Responsável</p>
+            <p class="bg-gray-50 p-2 rounded border border-gray-100" id="card-responsavel"></p>
+        </div>
+
+        {% if perms.alertas.change_alerta %}
+            <button type="button"
+                data-modal="modal-alert"
+                class="btn-abrir-modal flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar</button>
+        {% endif %}
+
+        <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-green-700 hover:bg-green-800 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg"><span>{% icon "resolve" %}</span>Resolver</a>
+    </main>
+</section>
