@@ -3,54 +3,42 @@
 {% block title %}Canos{% endblock %}
 
 {% block content %}
-    <section class="flex h-full flex-col gap-3 overflow-y-auto bg-sky-50 p-5">
+    <section class="flex flex-col gap-4 p-6">
         <h1 class="text-xl font-bold text-sky-950">Canos</h1>
 
-        <section class="flex flex-wrap items-center gap-3 text-sm">
-            <div class="flex min-w-32 flex-1 items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 font-semibold">
-                <span>Todos os IDs</span>
-                <span aria-hidden="true" class="ml-3 flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-600">
-                    <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                </span>
+        <section class="flex items-center gap-4 text-sm">
+            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Todos os IDs</option>
+            </select>
+            <select name="material" id="material" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option>Todos os Materiais</option>
+            </select>
+            <select name="status" id="status" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option>Todos os Status</option>
+            </select>
+            <select name="diamentro" id="diamentro" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option>Todos os Diâmetros</option>
+            </select>
+            <div class="flex gap-4 items-center">
+                <a href="#" class="text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-8 py-1 drop-shadow-lg w-full">Filtrar</a>
+                <a href="#" class="flex text-sky-800 whitespace-nowrap">Limpar Filtros</a>
             </div>
-            <div class="flex min-w-32 flex-1 items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 font-semibold">
-                <span>Status</span>
-                <span aria-hidden="true" class="ml-3 flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-600">
-                    <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                </span>
-            </div>
-            <div class="flex min-w-32 flex-1 items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 font-semibold">
-                <span>Cidade</span>
-                <span aria-hidden="true" class="ml-3 flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-600">
-                    <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                </span>
-            </div>
-            <div class="flex min-w-32 flex-1 items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 font-semibold">
-                <span>Data</span>
-                <span aria-hidden="true" class="ml-3 flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-600">
-                    <svg class="h-3 w-3" viewBox="0 0 12 12" fill="none" aria-hidden="true"><path d="m3 4.5 3 3 3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-                </span>
-            </div>
-            <button type="button" class="rounded-full bg-sky-800 px-8 py-2 font-bold text-white shadow-md transition hover:bg-sky-900">Filtrar</button>
-            <button type="button" class="whitespace-nowrap text-sky-800">Limpar Filtros</button>
         </section>
 
-        <div class="flex flex-wrap gap-2 text-sm">
-            <p class="rounded-full bg-sky-200 px-3 py-1">Status: Ativo</p>
-            <p class="rounded-full bg-sky-200 px-3 py-1">Cidade: Pau dos Ferros</p>
-            <p class="rounded-full bg-sky-200 px-3 py-1">Diâmetro: 150 mm</p>
+        <div class="flex gap-4 text-sm">
+            <p class="flex items-center px-3 py-1 bg-sky-200 rounded-2xl">Status: Ativo</p>
         </div>
 
-        <section class="flex min-h-0 flex-1 items-start gap-3">
-            <div class="min-w-0 flex-1 overflow-x-auto rounded-xl border border-gray-200 bg-white">
-                <table class="w-full text-left text-sm">
-                    <thead class="text-gray-500">
-                        <tr class="border-b border-gray-200">
-                            <th scope="col" class="px-3 py-3 font-medium">ID</th>
-                            <th scope="col" class="px-3 py-3 font-medium">Material</th>
-                            <th scope="col" class="px-3 py-3 font-medium">Diâmetro</th>
-                            <th scope="col" class="px-3 py-3 font-medium">Status</th>
-                            <th scope="col" class="px-3 py-3 font-medium">Atualizado em</th>
+        <section class="flex gap-4 items-start">
+            <div class="overflow-hidden rounded-lg border border-gray-200 w-7/10 bg-white">
+                <table class="w-full text-left">
+                    <thead class="border border-gray-200">
+                        <tr class="border border-gray-300">
+                            <th class="px-3 py-2 font-semibold text-gray-600">ID</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Material</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Diâmetro</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Status</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Atualizado em</th>
                         </tr>
                     </thead>
                     <tbody id="lista-canos"
