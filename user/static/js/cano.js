@@ -1,28 +1,23 @@
 // Abertura e fechamento dos modais
 const modal = document.querySelector("#modal-cano");
-const botoesAbrirModal = document.querySelectorAll(".btn-abrir-modal")
-const botoesFecharModal = document.querySelectorAll(".btn-fechar-modal");
+const btnEditarCano = document.querySelector("#btn-editar-cano")
+// const btnFecharModal = document.querySelectorAll("#btn-fechar-modal");
 
-botoesAbrirModal.forEach((botao) => {
-    botao.addEventListener("click", () => {
-        const modalID = botao.dataset.modal
-        const modal = document.getElementById(modalID)
+btnEditarCano.addEventListener("click", () => {
+    const modalID = botao.dataset.modal
+    const modal = document.getElementById(modalID)
 
-        modal.showModal();
-    });
-})
+    modal.showModal();
+});
 
 
-botoesFecharModal.forEach((botao) => {
-    botao.addEventListener("click", () => {
-        const modalID = botao.dataset.modal
-        const modal = document.getElementById(modalID)
+// btnFecharModal.addEventListener("click", () => {
+//     const modalID = botao.dataset.modal
+//     const modal = document.getElementById(modalID)
 
-        modal.close();
-    });
-})
+//     modal.close();
+// });
 
-// Listagem de canos
 function formatarData(data) {
     return new Date(data).toLocaleDateString("pt-BR");
 }
@@ -91,7 +86,7 @@ const containerTabela = document.querySelector("#container-tabela");
 const painelDetalhe = document.querySelector("#painel-detalhe");
 
 tabela.addEventListener("click", (event) => {
-    
+
     const linha = event.target.closest("tr");
 
     if (!linha) return;
@@ -116,11 +111,11 @@ tabela.addEventListener("click", (event) => {
     painelDetalhe.querySelectorAll("[data-campo]").forEach((elemento) => {
         const campo = elemento.dataset.campo;
         let valor = canoSelecionado[campo];
-    
+
         if (["data_instalacao", "criado_em", "atualizado_em"].includes(campo) && valor) {
             valor = formatarData(valor);
         }
-    
+
         elemento.textContent = valor ?? "-";
     });
 
@@ -132,41 +127,3 @@ tabela.addEventListener("click", (event) => {
 });
 
 
-// Create & Update de canos 
-const form = document.querySelector("#form-cano");
-
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (!form.reportValidity()) return;
-
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
-
-    try {
-        const response = await fetch(form.dataset.apiUrl, {
-            method: form.dataset.method,
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            console.error("Erro ao cadastrar:", data);
-            return;
-        }
-
-        console.log("Cano cadastrado:", data);
-
-        form.reset();
-        modal.close();
-
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
-});

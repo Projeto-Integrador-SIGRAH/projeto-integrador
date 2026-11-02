@@ -36,19 +36,12 @@
 
         <hr class="border-gray-200">
 
-        <div class="flex justify-between">
-            <p class="text-gray-500">Localização</p>
-            <p data-campo="localizacao">-</p>
-        </div>
-
-        <hr class="border-gray-200">
-
-        <div class="flex justify-between">
+        <!-- <div class="flex justify-between">
             <p class="text-gray-500">Coordenadas</p>
             <p data-campo="coordenadas">-</p>
         </div>
 
-        <hr class="border-gray-200">
+        <hr class="border-gray-200"> -->
 
         <div class="flex justify-between">
             <p class="text-gray-500">Data de instalação</p>
@@ -85,8 +78,9 @@
 
         {% if perms.canos.change_cano %}
             <button type="submit"
+                id="btn-editar-cano"
                 data-modal="modal-cano"
-                class="btn-abrir-modal flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer">
+                class="flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer">
                 <span>{% icon "edit" %}</span>Editar
             </button>
         {% endif %}

@@ -15,7 +15,7 @@ class Cano(models.Model):
         ESGOTO = "Esgoto", "Esgoto"
 
     codigo = models.CharField(max_length=10, unique=True)
-    coordenadas = models.CharField(max_length=50)
+    coordenadas = models.TextField()
     diametro = models.PositiveIntegerField()
     tipo = models.CharField(max_length=10, choices=Tipo, default=Tipo.AGUA)
     material = models.CharField(max_length=50)

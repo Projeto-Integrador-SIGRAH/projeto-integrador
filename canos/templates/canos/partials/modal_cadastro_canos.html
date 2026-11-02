@@ -1,108 +1,155 @@
-{% extends "base.html" %}
 {% load icons %}
-{% block title %}Cadastrar cano{% endblock %}
-
-{% block content %}
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-400/40 p-4 backdrop-blur-sm">
-
-  <div
-    role="dialog"
-    aria-modal="true"
+<dialog
+    id="modal-cano"
     aria-labelledby="titulo-modal"
-    class="relative w-full max-w-md bg-white rounded-2xl shadow-2xl px-8 pt-8 pb-7"
-  >
-    <!-- Cabeçalho -->
-    <div class="flex items-start justify-between">
-      <h2 id="titulo-modal" class="text-xl font-bold text-gray-900 leading-none mt-1.5">Cadastrar cano</h2>
-      <button type="button" aria-label="Fechar" class="text-gray-900 hover:opacity-60 transition -mt-0.5">
-        {% icon 'close' %}
-      </button>
+    class="fixed inset-0 m-auto w-1/3 rounded-2xl bg-white p-0 shadow-2xl backdrop:bg-slate-400/40 backdrop:backdrop-blur-sm"
+>
+    <div class="p-4 w-full">
+        <div class="flex items-start justify-between">
+            <h2
+                id="titulo-modal"
+                class="text-lg font-bold text-gray-900"
+            >
+                Cadastrar cano
+            </h2>
+
+            <button
+                type="button"
+                id="close-button-modal"
+                class="text-gray-800 transition hover:opacity-60 rotate-45 cursor-pointer scale-150"
+            >
+                {% icon 'plus' %}
+            </button>
+        </div>
+
+        <form
+            id="form-cano"
+            action="{% url 'api:cano-list' %}"
+            method="post"
+            class="mt-6 flex flex-col gap-4 w-full"
+        >
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="rounded-lg bg-red-50 p-3 text-sm text-red-700">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="flex flex-col gap-1">
+                <label
+                    for="{{ field.id_for_label }}"
+                    class="text-sm font-medium text-gray-700"
+                >
+                    {{ form.codigo.label }}
+                </label>
+                {{ form.codigo }}
+                {% if form.codigo.errors %}
+                    <p class="text-sm text-red-600">{{ form.codigo.errors }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex gap-4">
+                <div class="flex flex-col gap-1 w-full">
+                    <label
+                        for="{{ field.id_for_label }}"
+                        class="text-sm font-medium text-gray-700"
+                    >
+                        {{ form.diametro.label }}
+                    </label>
+                    {{ form.diametro }}
+                    {% if form.diametro.errors %}
+                        <p class="text-sm text-red-600">{{ form.diametro.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-1 w-full">
+                    <label
+                        for="{{ field.id_for_label }}"
+                        class="text-sm font-medium text-gray-700"
+                    >
+                        {{ form.material.label }}
+                    </label>
+                    {{ form.material }}
+                    {% if form.material.errors %}
+                        <p class="text-sm text-red-600">{{ form.material.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <div class="flex flex-col gap-1 w-full">
+                    <label
+                        for="{{ field.id_for_label }}"
+                        class="text-sm font-medium text-gray-700"
+                    >
+                        {{ form.tipo.label }}
+                    </label>
+                    {{ form.tipo }}
+                    {% if form.tipo.errors %}
+                        <p class="text-sm text-red-600">{{ form.tipo.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-1 w-full">
+                    <label
+                        for="{{ field.id_for_label }}"
+                        class="text-sm font-medium text-gray-700"
+                    >
+                        {{ form.status.label }}
+                    </label>
+                    {{ form.status }}
+                    {% if form.status.errors %}
+                        <p class="text-sm text-red-600">{{ form.status.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex gap-4">
+                <div class="flex flex-col gap-1 w-full">
+                    <label
+                        for="{{ field.id_for_label }}"
+                        class="text-sm font-medium text-gray-700"
+                    >
+                        {{ form.responsavel.label }}
+                    </label>
+                    {{ form.responsavel }}
+                    {% if form.responsavel.errors %}
+                        <p class="text-sm text-red-600">{{ form.responsavel.errors }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex flex-col gap-1 w-full">
+                    <label
+                        for="{{ field.id_for_label }}"
+                        class="text-sm font-medium text-gray-700"
+                    >
+                        {{ form.data_instalacao.label }}
+                    </label>
+                    {{ form.data_instalacao }}
+                    {% if form.data_instalacao.errors %}
+                        <p class="text-sm text-red-600">{{ form.data_instalacao.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1 w-full">
+                <label
+                    for="{{ field.id_for_label }}"
+                    class="text-sm font-medium text-gray-700"
+                >
+                    {{ form.observacao.label }}
+                </label>
+                {{ form.observacao }}
+                {% if form.observacao.errors %}
+                    <p class="text-sm text-red-600">{{ form.observacao.errors }}</p>
+                {% endif %}
+            </div>
+
+            <button
+                type="submit"
+                class="p-1 w-full rounded-full bg-sky-800 text-xl text-white transition hover:bg-sky-900 cursor-pointer"
+            >
+                Cadastrar
+            </button>
+
+        </form>
     </div>
-    {% endblock %}
-
-    <p class="mt-5 text-sm text-gray-500">Traçado confirmado · 3 vértices</p>
-
-    <form id="form-cano" class="mt-4 space-y-4" novalidate>
-
-      <!-- Código -->
-      <div>
-        <label for="codigo" class="block text-base text-gray-500 mb-2">Código do cano</label>
-        <input
-          id="codigo"
-          type="text"
-          value="0234"
-          class="w-full h-14 rounded-xl border border-gray-300 px-4 font-mono text-base text-gray-500 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
-        />
-      </div>
-
-      <!-- Diâmetro / Material -->
-      <div class="grid grid-cols-2 gap-6">
-        <div>
-          <label for="diametro" class="block text-base text-gray-500 mb-2">Diâmetro (mm)</label>
-          <input
-            id="diametro"
-            type="number"
-            value="0"
-            min="0"
-            aria-invalid="false"
-            aria-describedby="erro-diametro"
-            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
-          />
-          <p id="erro-diametro" class="mt-2 hidden text-sm text-red-700 whitespace-nowrap">Deve ser maior que zero.</p>
-        </div>
-
-        <div>
-          <label for="material" class="block text-base text-gray-500 mb-2">Material</label>
-          <input
-            id="material"
-            type="text"
-            value="PVC"
-            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
-          />
-        </div>
-      </div>
-
-      <!-- Situação / Data -->
-      <div class="grid grid-cols-2 gap-6 !mt-3">
-        <div>
-          <label for="situacao" class="block text-base text-gray-500 mb-2">Situação</label>
-          <input
-            id="situacao"
-            type="text"
-            value="Ativo"
-            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
-          />
-        </div>
-
-        <div>
-          <label for="data" class="block text-base text-gray-500 mb-2">Data de instalação</label>
-          <input
-            id="data"
-            type="text"
-            value="03/09/2026"
-            class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
-          />
-        </div>
-      </div>
-
-      <!-- Observações -->
-      <div>
-        <label for="obs" class="block text-base text-gray-500 mb-2">Observações</label>
-        <input
-          id="obs"
-          type="text"
-          value="Trecho substituído na Rua Projetada A"
-          class="w-full h-14 rounded-xl border border-gray-300 px-4 text-lg text-gray-900 bg-white outline-none focus:border-sky-800 focus:ring-2 focus:ring-sky-800/20"
-        />
-      </div>
-
-      <!-- Botão -->
-      <button
-        type="submit"
-        class="w-full h-16 rounded-full bg-sky-800 text-white text-xl font-normal tracking-wide hover:bg-sky-900 active:scale-95 transition focus:outline-none focus:ring-4 focus:ring-sky-800/30"
-      >
-        Cadastrar
-      </button>
-    </form>
-  </div>
-</div>
+</dialog>

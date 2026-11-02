@@ -30,14 +30,14 @@ class CanoSerializer(serializers.ModelSerializer):
         ]
         # https://www.django-rest-framework.org/api-guide/serializers/#specifying-fields-explicitly
 
-        def validate_codigo(self, value):
-            if Cano.objects.filter(codigo__iexact=value).exists():
-                raise serializers.ValidationError("Já existe um cano com esse código.")
-            return value
+    def validate_codigo(self, value):
+        if Cano.objects.filter(codigo__iexact=value).exists():
+            raise serializers.ValidationError("Já existe um cano com esse código.")
+        return value
 
-        def validate_data_instalacao(self, value):
-            if value > timezone.now().date():
-                raise serializers.ValidationError(
-                    "A data de instalação não pode ser futura"
-                )
-            return value
+    def validate_data_instalacao(self, value):
+        if value > timezone.now().date():
+            raise serializers.ValidationError(
+                "A data de instalação não pode ser futura"
+            )
+        return value
