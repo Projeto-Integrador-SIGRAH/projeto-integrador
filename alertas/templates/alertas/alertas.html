@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load icons %}
 {% block title %} Alertas {% endblock %}
 
 {% block content %}
@@ -107,7 +108,7 @@
                         <p>Equipe Norte</p>
                     </div>
 
-                    <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6"><span>Icone</span>Resolver</a>
+                    <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6"><span>{% icon 'resolve' %}</span>Resolver</a>
                 </main>
             </div>
         </section>

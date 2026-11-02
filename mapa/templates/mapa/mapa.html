@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load icons %}
+
+{% block title %}Mapa{% endblock %}
+
+{% block content %}
+    <section style="height: 100%;" class="relative flex flex-col  bg-sky-50">
+        <div id="map" style="height: 100%;" aria-label="Mapa da cidade"></div>
+
+        <div class="absolute left-10 top-6 z-[1000] flex w-1/3 items-center rounded-full bg-sky-50 px-4 py-3 shadow-md">
+            <input type="search" placeholder="Busque pelo endereço ou código do cano" class="w-full bg-transparent text-base text-slate-700 outline-none placeholder:text-slate-400">
+            {% icon "search" %}
+        </div>
+
+        {% include "mapa/partials/map_layers_selector.html" %}
+
+        {% if perms.canos.add_cano %}
+            <button class="absolute right-8 bottom-6 z-[1000] flex w-16 h-16 items-center justify-center rounded-full bg-sky-800 px-4 py-3 shadow-md text-white cursor-pointer hover:bg-sky-700 transition duration-300" id="add-cano-button" aria-label="Adicionar cano">
+                <span class="scale-150">{% icon "plus" %}</span>
+            </button>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block extra_head %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.css" integrity="sha256-P+hWJNlpL+GBSRYC7cdsDbQH91URmpDeOzLp7DbFRtE=" crossorigin="anonymous" />
+
+    <script type="importmap">
+        {
+            "imports": {
+                "leaflet": "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js"
+            },
+            "integrity": {
+                "https://cdn.jsdelivr.net/npm/leaflet@2.0.0-alpha.1/dist/leaflet.js": "sha256-gj5JhNAaMi6LCs+jVFOk8sXDe1sWSS2Zlc87m+trLiQ="
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="module" src="{% static 'js/mapa.js' %}"></script>
+{% endblock %}
