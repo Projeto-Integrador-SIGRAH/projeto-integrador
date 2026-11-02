@@ -45,6 +45,14 @@ class UserRegistrationForm(forms.Form):
             attrs={"class": INPUT_CLASS, "placeholder": "exemplo@gmail.com"}
         ),
     )
+    cpf = forms.CharField(
+        label="CPF",
+        max_length=15,
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": INPUT_CLASS, "placeholder": "000.000.000-00"}
+        ),
+    )
     matricula = forms.CharField(
         label="Matrícula",
         max_length=100,
@@ -57,14 +65,14 @@ class UserRegistrationForm(forms.Form):
         label="Senha",
         strip=False,
         widget=forms.PasswordInput(
-            attrs={"class": INPUT_CLASS, "placeholder": "*******"}
+            attrs={"class": INPUT_CLASS, "placeholder": "********"}
         ),
     )
     confirm_password = forms.CharField(
         label="Confirmar senha",
         strip=False,
         widget=forms.PasswordInput(
-            attrs={"class": INPUT_CLASS, "placeholder": "*******"}
+            attrs={"class": INPUT_CLASS, "placeholder": "********"}
         ),
     )
 
