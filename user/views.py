@@ -1,5 +1,7 @@
 from django.urls import reverse
+from core.views import AuthenticatedView
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from user.permissions import GROUPS_TYPE
 
@@ -38,9 +40,11 @@ class CadastroAdminView(TemplateView):
         return context
 
 
-class PainelView(TemplateView):
+class PainelView(PermissionRequiredMixin, AuthenticatedView):
     template_name = "user/painel.html"
+    permission_required = "user.can_access_admin_panel"
 
 
-class AprovacoesView(TemplateView):
+class AprovacoesView(PermissionRequiredMixin, AuthenticatedView):
     template_name = "user/aprovações.html"
+    permission_required = "user.can_access_admin_management"
