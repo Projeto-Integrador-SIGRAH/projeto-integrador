@@ -60,6 +60,8 @@ DJANGO_ICONS = {
         "resolve": {"name": "resolve", "renderer": "custom-svg", "title": "Resolver"},
         "logout": {"name": "logout", "renderer": "custom-svg", "title": "Logout"},
         "edit": {"name": "edit", "renderer": "custom-svg", "title": "Editar"},
+        "search": {"name": "search", "renderer": "custom-svg", "title": "Pesquisar"},
+        "plus": {"name": "plus", "renderer": "custom-svg", "title": "Adicionar"},
     },
 }
 
@@ -154,8 +156,8 @@ AUTH_USER_MODEL = "user.User"
 
 AUTHENTICATION_BACKENDS = [
     # https://docs.djangoproject.com/en/6.1/ref/contrib/auth/#django.contrib.auth.backends.ModelBackend
-    "django.contrib.auth.backends.ModelBackend",
-    # TODO: Add custom authentication backend if needed
+    "core.authentication_backends.ModelBackendWithIsApproved",
+    # "django.contrib.auth.backends.ModelBackend",
 ]
 
 REST_FRAMEWORK = {

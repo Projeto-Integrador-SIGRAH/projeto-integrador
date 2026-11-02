@@ -44,6 +44,7 @@ class User(AbstractUser, PermissionsMixin):
     email = models.EmailField("e-mail", unique=True)
     matricula = models.CharField(max_length=100, blank=True, null=True)
     is_approved = models.BooleanField(default=False)
+    cpf = models.CharField(max_length=11, unique=True, null=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []  # noqa: RUF012

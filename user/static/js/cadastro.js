@@ -37,14 +37,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!form.reportValidity()) return;
 
-        const payload = Object.fromEntries(new FormData(form).entries());
+        const formData = new FormData(form);
+
+        const payload = Object.fromEntries(formData.entries());
         submitButton.disabled = true;
         submitButton.classList.add("cursor-not-allowed", "opacity-70");
 
         try {
             const response = await fetch(form.dataset.apiUrl, {
                 method: "POST",
-                headers: { "Content-Type": "application/json", Accept: "application/json", "X-CSRFToken": form.querySelector('[name="csrfmiddlewaretoken"]').value },
+                headers: { "Content-Type": "application/json", Accept: "application/json", "X-CSRFToken": formData.get("csrfmiddlewaretoken") },
                 body: JSON.stringify(payload),
             });
             const data = await response.json();

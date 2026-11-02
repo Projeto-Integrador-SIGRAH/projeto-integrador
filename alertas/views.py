@@ -1,9 +1,9 @@
-from django.views.generic import TemplateView
+from core.views import AuthenticatedView
 
 from .forms import AlertaForm
 
 
-class AlertaView(TemplateView):
+class ListAlertaView(AuthenticatedView):
     template_name = "alertas/alertas.html"
     form_class = AlertaForm
 
