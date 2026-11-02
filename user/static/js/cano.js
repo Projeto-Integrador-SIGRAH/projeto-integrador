@@ -3,7 +3,7 @@ const modal = document.querySelector("#modal-cano");
 const btnEditarCano = document.querySelector("#btn-editar-cano")
 // const btnFecharModal = document.querySelectorAll("#btn-fechar-modal");
 
-btnEditarCano.addEventListener("click", () => {
+btnEditarCano?.addEventListener("click", () => {
     const modalID = botao.dataset.modal
     const modal = document.getElementById(modalID)
 
@@ -29,7 +29,7 @@ async function listarCanos() {
     const tabela = document.querySelector("#lista-canos")
 
     try {
-        const response = await fetch(tabela.dataset.apiUrl)
+        const response = await fetch(tabela.dataset.apiUrl);
 
         if (!response.ok){
             throw new Error("Erro ao buscar os canos.")
