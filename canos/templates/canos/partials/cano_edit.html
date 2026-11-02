@@ -1,7 +1,7 @@
 <dialog id="modal-cano">
     <h2>Editar cano</h2>
 
-    <form id="form-cano" data-api-url="{% url 'api:cano-detail' cano.id %}" data-method="PATCH">
+    <form id="form-cano" data-api-url="{% url 'api:cano-detail' %}" data-method="PATCH">
         {% csrf_token %}
 
         {% for field in form %}
