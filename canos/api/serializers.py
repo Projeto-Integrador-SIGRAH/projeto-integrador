@@ -7,8 +7,8 @@ from canos.models import Cano
 class CanoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cano
-        fields = [  
-            'id',
+        fields = [  # noqa: RUF012
+            "id",
             "codigo",
             "coordenadas",
             "diametro",
@@ -23,6 +23,7 @@ class CanoSerializer(serializers.ModelSerializer):
             "user",
         ]
         read_only_fields = [  # noqa: RUF012
+            "id",
             "criado_em",
             "atualizado_em",
             "user",
