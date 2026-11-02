@@ -1,10 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+from core.views import AuthenticatedView
 
 from canos.forms import CanoForm
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
+class IndexView(AuthenticatedView):
     template_name = "mapa/mapa.html"
 
     def get_context_data(self, **kwargs):

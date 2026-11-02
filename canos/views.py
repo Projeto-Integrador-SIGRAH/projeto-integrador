@@ -1,9 +1,10 @@
-from django.views.generic import TemplateView
+from core.views import AuthenticatedView
 
 from .forms import CanoForm
 
 
-class CanosView(TemplateView):
+
+class CanosView(AuthenticatedView):
     template_name = "canos/canos.html"
     form_class = CanoForm
 
