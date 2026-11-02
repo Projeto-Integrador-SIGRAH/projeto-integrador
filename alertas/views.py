@@ -1,4 +1,4 @@
-from django.views.generic import TemplateView
+from core.views import AuthenticatedView
 
-class ListAlertaView(TemplateView):
+class ListAlertaView(AuthenticatedView):
     template_name = "alertas/alertas.html"
