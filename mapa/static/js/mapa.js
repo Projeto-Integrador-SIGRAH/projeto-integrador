@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // https://leafletjs.com/reference-2.0.0.html#map-locate
     const addCanoButton = document.querySelector('#add-cano-button');
     const encanamentoLayerCheckbox = document.querySelector('#encanamento-layer-checkbox');
+
+    const canoModal = document.querySelector('#modal-cano');
+    const closeButtonModal = document.querySelector('#close-button-modal');
+
     const alertasLayerCheckbox = document.querySelector('#alertas-layer-checkbox');
     let zoomLevel = 15;
     const deltaCoords = 0.0001;
@@ -49,6 +53,7 @@ document.addEventListener('DOMContentLoaded', function() {
             polyline_coords.push(...clickedLatLngs);
             clickedLatLngs = [];
             polyline_path = null;
+            canoModal.showModal();
             return;
         }
 
@@ -110,5 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             map.layerPointToContainerPoint(polyline_path);
         }
+    });
+
+    closeButtonModal.addEventListener('click', function() {
+        canoModal.close();
     });
 });
