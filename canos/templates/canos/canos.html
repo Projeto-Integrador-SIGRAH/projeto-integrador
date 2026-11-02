@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block title %}Canos{% endblock %}
 
 {% block content %}
@@ -53,84 +53,25 @@
                             <th scope="col" class="px-3 py-3 font-medium">Atualizado em</th>
                         </tr>
                     </thead>
-                    <tbody class="text-slate-700">
-                        <tr class="border-b border-sky-200 bg-sky-500/70">
-                            <td class="whitespace-nowrap px-3 py-3">A-1042</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-green-600/40 bg-green-100 px-2 py-1 text-xs text-green-800">Ativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">05/09/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1041</td>
-                            <td class="whitespace-nowrap px-3 py-3">Ferro fundido</td>
-                            <td class="whitespace-nowrap px-3 py-3">200 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full bg-sky-100 px-2 py-1 text-xs text-sky-900">Em análise</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">04/09/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1040</td>
-                            <td class="whitespace-nowrap px-3 py-3">PEAD</td>
-                            <td class="whitespace-nowrap px-3 py-3">110 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-green-600/40 bg-green-100 px-2 py-1 text-xs text-green-800">Ativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">02/09/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1039</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-green-600/40 bg-green-100 px-2 py-1 text-xs text-green-800">Ativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1038</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-gray-400 bg-gray-200 px-2 py-1 text-xs text-gray-600">Inativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1037</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-gray-400 bg-gray-200 px-2 py-1 text-xs text-gray-600">Inativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1036</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-green-600/40 bg-green-100 px-2 py-1 text-xs text-green-800">Ativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1035</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-gray-400 bg-gray-200 px-2 py-1 text-xs text-gray-600">Inativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
-                        <tr class="border-b border-gray-200">
-                            <td class="whitespace-nowrap px-3 py-3">A-1034</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-gray-400 bg-gray-200 px-2 py-1 text-xs text-gray-600">Inativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
-                        <tr>
-                            <td class="whitespace-nowrap px-3 py-3">A-1033</td>
-                            <td class="whitespace-nowrap px-3 py-3">PVC PBA</td>
-                            <td class="whitespace-nowrap px-3 py-3">150 mm</td>
-                            <td class="whitespace-nowrap px-3 py-3"><span class="rounded-full border border-gray-400 bg-gray-200 px-2 py-1 text-xs text-gray-600">Inativo</span></td>
-                            <td class="whitespace-nowrap px-3 py-3">30/08/2026</td>
-                        </tr>
+                    <tbody id="lista-canos"
+                    data-api-url="{% url 'api:cano-list' %}"></tbody>
+
                     </tbody>
                 </table>
             </div>
 
             {% include "canos/partials/cano_detail.html" %}
         </section>
-        <p class="text-sm text-gray-500">Mostrando 1 de 482 canos com os filtros aplicados</p>
-        <a href="#" aria-label="Adicionar cano" class="fixed bottom-5 right-5 flex h-14 w-14 items-center justify-center rounded-full bg-sky-700 text-3xl font-semibold text-white shadow-md transition hover:bg-sky-800">+</a>
+        <!-- TODO: Trocar para o SVG -->
+         <!-- https://docs.djangoproject.com/en/6.1/topics/auth/default/#permissions -->
+        {% if perms.canos.add_cano %}
+            <button type="button"
+                data-modal="modal-cano"
+                class="btn-abrir-modal flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold cursor-pointer">+</button>
+        {% endif %}
     </section>
+    {% include "canos/partials/cano_form.html" %}
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{% static 'js/cano.js' %}"></script>
 {% endblock %}

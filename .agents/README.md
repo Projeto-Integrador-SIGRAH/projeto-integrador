@@ -5,8 +5,10 @@ Leia este arquivo e os demais documentos da pasta `.agents` antes de propor ou i
 ## Ordem de leitura
 
 1. [PROJECT.md](PROJECT.md): limites e estrutura atual do projeto.
-2. [CODE.md](CODE.md): regras de implementação e verificação.
-3. [WORKFLOW.md](WORKFLOW.md): dependências, Git e validações.
+2. [RFs.md](RFs.md): requisitos funcionais do sistema.
+3. [RNs.md](RNs.md): regras de negócio do sistema.
+4. [CODE.md](CODE.md): regras de implementação e verificação.
+5. [WORKFLOW.md](WORKFLOW.md): dependências, Git e validações.
 
 ## Princípios
 
