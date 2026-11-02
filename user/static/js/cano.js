@@ -1,22 +1,70 @@
-// Abertura e fechamento dos modais
 const modal = document.querySelector("#modal-cano");
 const btnEditarCano = document.querySelector("#btn-editar-cano")
-// const btnFecharModal = document.querySelectorAll("#btn-fechar-modal");
+const modelForm = document.querySelector("#form-cano")
+const buttonCloseModal = document.querySelector("#close-button-modal")
+const modalTitle = document.querySelector("#titulo-modal")
+const submitButton = document.querySelector("#submit-button")
 
 btnEditarCano?.addEventListener("click", () => {
-    const modalID = botao.dataset.modal
-    const modal = document.getElementById(modalID)
-
+    modalTitle.textContent = "Editar Cano"
+    submitButton.textContent = "Salvar"
+    modelForm.reset();
+    preencherFormulario(canoSelecionado, modelForm);
+    modelForm.action += canoSelecionado.id + "/"
+    modelForm.dataset.method = "PATCH"
     modal.showModal();
 });
 
+buttonCloseModal?.addEventListener("click", () => {
+    modal.close();
+});
 
-// btnFecharModal.addEventListener("click", () => {
-//     const modalID = botao.dataset.modal
-//     const modal = document.getElementById(modalID)
+submitButton?.addEventListener("click", async (event) => {
+    event.preventDefault();
 
-//     modal.close();
-// });
+    if (!modelForm.reportValidity()) return;
+
+    const formData = new FormData(modelForm);
+
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(modelForm.action, {
+            method: modelForm.dataset.method,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Erro ao editar:", data);
+            return;
+        }
+
+        modal.close();
+
+        await listarCanos();
+
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+
+});
+
+function preencherFormulario(dados, formulario) {
+    Object.entries(dados).forEach(([campo, valor]) => {
+        const elemento = formulario.elements.namedItem(campo);
+
+        if (elemento) {
+            elemento.value = valor ?? "";
+        }
+    });
+}
 
 function formatarData(data) {
     return new Date(data).toLocaleDateString("pt-BR");
@@ -80,7 +128,6 @@ function renderizarCanos(canos){
     })
 }
 
-// Detalhe do cano
 const tabela = document.querySelector("#lista-canos");
 const containerTabela = document.querySelector("#container-tabela");
 const painelDetalhe = document.querySelector("#painel-detalhe");
@@ -91,7 +138,6 @@ tabela.addEventListener("click", (event) => {
 
     if (!linha) return;
 
-    // Destacar linha selecionada
     const linhaAnterior = tabela.querySelector(".linha-selecionada");
 
     if (linhaAnterior) {

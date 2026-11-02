@@ -30,11 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // https://leafletjs.com/reference-2.0.0.html#polyline
     let polyline_path = null;
     let polyline_coords = [];
+    let polyline_to_create = [];
 
     const renderCanos = (canos) => {
         canos.forEach((cano) => {
             const coords = JSON.parse(cano.coordenadas);
             const latlngs = coords.map(coord => ({lat: coord[0], lng: coord[1]}));
+            polyline_coords.push(...latlngs);
             const polyline = new Polyline(latlngs, {color: 'blue'});
             polyline.addTo(map);
         });
@@ -66,16 +68,20 @@ document.addEventListener('DOMContentLoaded', function() {
             let delta = (deltaCoords / zoomLevel) * (map.getZoom());
 
             for (let i = 0; i < polyline_coords.length; i++) {
-                if (Math.abs(polyline_coords[i].lat - latlng.lag) < delta && Math.abs(polyline_coords[i].lng - latlng.lng) < delta) {
+                if (Math.abs(polyline_coords[i].lat - latlng.lat) < delta && Math.abs(polyline_coords[i].lng - latlng.lng) < delta) {
                     clickedLatLngs.pop();
                     clickedLatLngs.push(polyline_coords[i]);
                     polyline_path.setLatLngs(clickedLatLngs);
+                    polyline_to_create = [];
+                    polyline_to_create.push(...clickedLatLngs);
                     break;
                 }
             }
 
 
             polyline_coords.push(...clickedLatLngs);
+            polyline_to_create = [];
+            polyline_to_create.push(...clickedLatLngs);
             clickedLatLngs = [];
             polyline_path = null;
             canoModal.showModal();
@@ -136,9 +142,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     encanamentoLayerCheckbox.addEventListener('change', function() {
         if (this.checked) {
-            map.addLayer(polyline_path);
+            getAllCanos();
         } else {
-            map.layerPointToContainerPoint(polyline_path);
+            polyline_coords = [];
+            map.eachLayer(function(layer) {
+                if (layer instanceof Polyline) {
+                    map.removeLayer(layer);
+                }
+            });
         }
     });
 
@@ -153,11 +164,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const formData = new FormData(form);
         const payload = Object.fromEntries(formData.entries());
-        const coordinates = JSON.stringify(polyline_coords.map(coord => [coord.lat, coord.lng]));
-        alert("Coordenadas do cano: " + coordinates);
+        const coordinates = JSON.stringify(polyline_to_create.map(coord => [coord.lat, coord.lng]));
+        polyline_to_create = [];
         payload.coordenadas = coordinates;
 
-        alert(JSON.stringify(payload, null, 2));
         try {
             const response = await fetch(form.action, {
                 method: "POST",
