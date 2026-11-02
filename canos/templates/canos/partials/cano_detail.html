@@ -1,7 +1,7 @@
 
 {% load icons %}
 
-<section id="painel-detalhe" class="hidden flex-col gap-4 w-3/10 px-3 py-4 border border-gray-200 rounded-xl bg-white">
+<section id="painel-detalhe" class="hidden flex-col gap-4 w-3/10 px-3 py-4 border border-gray-200 rounded-xl bg-white max-h-[calc(100vh-190px)] overflow-y-auto">
     <header class="flex justify-between">
         <div class="flex flex-col">
             <h1 class="text-sm text-gray-600">Detalhes do Cano</h1>
@@ -14,7 +14,6 @@
 
     <main class="flex flex-col gap-1 text-sm">
         <hr class="border-gray-200">
-
         <div class="flex justify-between">
             <p class="text-gray-500">Tipo</p>
             <p data-campo="tipo">-</p>
@@ -77,10 +76,9 @@
         </div>
 
         {% if perms.canos.change_cano %}
-            <button type="submit"
+            <button type="button"
                 id="btn-editar-cano"
-                data-modal="modal-cano"
-                class="flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer">
+                class="btn-editar flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 cursor-pointer">
                 <span>{% icon "edit" %}</span>Editar
             </button>
         {% endif %}

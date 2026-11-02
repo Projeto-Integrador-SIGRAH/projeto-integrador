@@ -31,7 +31,7 @@ class CanoSerializer(serializers.ModelSerializer):
         # https://www.django-rest-framework.org/api-guide/serializers/#specifying-fields-explicitly
 
     def validate_codigo(self, value):
-        if Cano.objects.filter(codigo__iexact=value).exists():
+        if Cano.objects.filter(codigo__iexact=value).exists() and self.instance is None:
             raise serializers.ValidationError("Já existe um cano com esse código.")
         return value
 
