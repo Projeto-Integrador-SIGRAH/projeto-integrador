@@ -1,0 +1,53 @@
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: projeto-integrador-web
+    command: uv run python manage.py runserver 0.0.0.0:8000
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  tailwind:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: projeto-integrador-tailwind
+    command: uv run python manage.py tailwind start
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    depends_on:
+      - web
+    restart: unless-stopped
+
+  db:
+    image: postgres:17-alpine
+    container_name: projeto-integrador-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
