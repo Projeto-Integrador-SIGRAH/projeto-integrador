@@ -23,6 +23,13 @@ botoesFecharModal.forEach((botao) => {
 })
 
 // Listagem de canos
+function formatarData(data) {
+    return new Date(data).toLocaleDateString("pt-BR");
+}
+
+let canos = []
+let canoSelecionado = null
+
 async function listarCanos() {
     const tabela = document.querySelector("#lista-canos")
 
@@ -33,7 +40,7 @@ async function listarCanos() {
             throw new Error("Erro ao buscar os canos.")
         }
 
-        const canos = await response.json()
+        canos = await response.json()
 
         renderizarCanos(canos)
 
@@ -53,7 +60,9 @@ function renderizarCanos(canos){
     canos.forEach((cano) => {
         const linha = document.createElement("tr")
 
-        linha.classList.add("border", "border-gray-200")
+        linha.classList.add("border", "border-gray-200", "cursor-pointer")
+
+        linha.dataset.canoId = cano.id
 
         const campos = [
             cano.codigo,
@@ -76,9 +85,52 @@ function renderizarCanos(canos){
     })
 }
 
-function formatarData(data) {
-    return new Date(data).toLocaleString("pt-BR");
-}
+// Detalhe do cano
+const tabela = document.querySelector("#lista-canos");
+const containerTabela = document.querySelector("#container-tabela");
+const painelDetalhe = document.querySelector("#painel-detalhe");
+
+tabela.addEventListener("click", (event) => {
+    
+    const linha = event.target.closest("tr");
+
+    if (!linha) return;
+
+    // Destacar linha selecionada
+    const linhaAnterior = tabela.querySelector(".linha-selecionada");
+
+    if (linhaAnterior) {
+        linhaAnterior.classList.remove("bg-sky-500", "linha-selecionada");
+    }
+
+    linha.classList.add("bg-sky-500", "linha-selecionada");
+
+    const canoId = linha.dataset.canoId;
+
+    canoSelecionado = canos.find(
+        (cano) => String(cano.id) === canoId
+    );
+
+    console.log("Cano selecionado:", canoSelecionado);
+
+    painelDetalhe.querySelectorAll("[data-campo]").forEach((elemento) => {
+        const campo = elemento.dataset.campo;
+        let valor = canoSelecionado[campo];
+    
+        if (["criado_em", "atualizado_em"].includes(campo) && valor) {
+            valor = formatarData(valor);
+        }
+    
+        elemento.textContent = valor ?? "-";
+    });
+
+    containerTabela.classList.remove("w-full");
+    containerTabela.classList.add("w-7/10");
+
+    painelDetalhe.classList.remove("hidden");
+    painelDetalhe.classList.add("flex");
+});
+
 
 // Create & Update de canos 
 const form = document.querySelector("#form-cano");

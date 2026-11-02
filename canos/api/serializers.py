@@ -7,7 +7,8 @@ from canos.models import Cano
 class CanoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cano
-        fields = [  # noqa: RUF012
+        fields = [  
+            'id',
             "codigo",
             "coordenadas",
             "diametro",
