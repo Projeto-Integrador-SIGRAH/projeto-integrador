@@ -8,17 +8,17 @@
         <h1 class="text-xl font-bold text-sky-950">Alertas</h1>
 
         <section class="flex items-center gap-4 text-sm">
-            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option value="">Todos os IDs</option>
+            <select name="codigo-cano" id="codigo-cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Todos os Códigos</option>
             </select>
-            <select name="status_select" id="status_select" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option value="">Status</option>
+            <select name="status" id="status" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option>Todos os Status</option>
             </select>
-            <select name="cidade" id="cidade" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option value="">Localização</option>
+            <select name="gravidade" id="gravidade" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option>Todas as Gravidades</option>
             </select>
-            <select name="data" id="data" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option value="">Data</option>
+            <select name="tipo" id="tipo" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option>Todos os Tipos</option>
             </select>
             <div class="flex gap-4 items-center">
                 <a href="#" class="text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-8 py-1 drop-shadow-lg w-full">Filtrar</a>
@@ -26,21 +26,24 @@
             </div>
         </section>
 
+        <div class="flex gap-4 text-sm">
+            <p class="flex items-center px-3 py-1 bg-sky-200 rounded-2xl">Status: Enviado</p>
+        </div>
+
         <section class="flex gap-4 items-start">
-            <div class="overflow-hidden rounded-lg border border-gray-200 w-7/10 bg-white">
+            <div id="container-tabela" class="overflow-hidden rounded-lg border border-gray-200 w-full bg-white">
                 <table class="w-full text-left">
                     <thead class="border border-gray-200">
                         <tr class="border border-gray-300">
-                            <th class="px-3 py-2 font-semibold text-gray-600">ID</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Código</th>
                             <th class="px-3 py-2 font-semibold text-gray-600">Status</th>
-                            <th class="px-3 py-2 font-semibold text-gray-600">Tipo/Cano</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Gravidade</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Tipo</th>
                             <th class="px-3 py-2 font-semibold text-gray-600">Reportado em</th>
                         </tr>
                     </thead>
                     <tbody id="lista-alertas" data-api-url="{% url 'api:alerta-list' %}">
-                        <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm" colspan="4">Carregando alertas...</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>
@@ -48,11 +51,6 @@
             {% include "alertas/partials/alerta_detail.html" %}
         </section>
 
-        {% if perms.alertas.add_alerta %}
-            <button type="button"
-                data-modal="modal-alert"
-                class="btn-abrir-modal flex justify-center fixed bottom-7 right-7 bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-full w-12 h-12 text-white text-4xl font-semibold cursor-pointer">+</button>
-        {% endif %}
     </section>
 {% endblock %}
 

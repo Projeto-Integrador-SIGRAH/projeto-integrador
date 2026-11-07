@@ -1,5 +1,3 @@
-from typing import ClassVar
-
 from django import forms
 from django.forms import ModelForm
 
@@ -9,22 +7,26 @@ from .models import Alerta
 class AlertaForm(ModelForm):
     class Meta:
         model = Alerta
-        fields: ClassVar[list[str]] = [
+        fields = [  # noqa: RUF012
             "codigo",
-            "tipo",
             "status",
             "gravidade",
-            "coordenadas",
+            "titulo",
+            "tipo",
             "descricao",
         ]
 
-    widgets: ClassVar[dict] = {
-        "codigo": forms.Select(),
-        "status": forms.Select(),
-        "gravidade": forms.Select(),
-        "descricao": forms.Textarea(
-            attrs={
-                "placeholder": "Adicione uma descrição detalhada do alerta (entre 20 e 250 caracteres)"
-            }
-        ),
-    }
+        widgets = {  # noqa: RUF012
+            "codigo": forms.Select(),
+            "status": forms.Select(),
+            "gravidade": forms.Select(),
+            "titulo": forms.TextInput(
+                attrs={"placeholder": "Adicione um título para o alerta"}
+            ),
+            "tipo": forms.Select(),
+            "descricao": forms.Textarea(
+                attrs={
+                    "placeholder": "Adicione uma descrição detalhada do alerta (entre 20 e 250 caracteres)"
+                }
+            ),
+        }

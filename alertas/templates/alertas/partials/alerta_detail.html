@@ -1,40 +1,47 @@
 {% load icons %}
-<section class="flex flex-col gap-4 w-3/10 px-3 py-4 border border-gray-200 rounded-xl bg-white">
+<section id="painel-detalhe" class="hidden flex-col gap-4 w-3/10 max-h-[calc(100vh-180px)] overflow-y-auto px-3 py-4 border border-gray-200 rounded-xl bg-white">
     <header class="flex justify-between">
         <div class="flex flex-col">
-            <h1 class="text-sm text-gray-600">Alerta</h1>
+            <h1 class="text-sm text-gray-600">Detalhes do Alerta</h1>
             <h2 class="text-4xl font-bold" id="card-codigo">-</h2>
         </div>
         <div class="flex items-center text-sky-600">
-            <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" id="card-status">-</span>
+            <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" id="card-status-detalhe">-</span>
         </div>
     </header>
     <main class="flex flex-col gap-1 text-sm">
-
         <hr class="border-gray-200">
         <div class="flex justify-between">
-            <p class="text-gray-500">Localização</p>
-            <p id="card-localizacao">-</p>
+            <p class="text-gray-500">Título</p>
+            <p data-campo="titulo">-</p>
         </div>
         <hr class="border-gray-200">
         <div class="flex justify-between">
-            <p class="text-gray-500">Reportado em</p>
-            <p id="card-data">-</p>
+            <p class="text-gray-500">Tipo</p>
+            <p data-campo="tipo">-</p>
         </div>
         <hr class="border-gray-200">
         <div class="flex justify-between">
             <p class="text-gray-500">Gravidade</p>
-            <p id="card-gravidade">-</p>
+            <p data-campo="gravidade">-</p>
         </div>
         <hr class="border-gray-200">
         <div class="flex justify-between">
-            <p class="text-gray-500">Coordenadas</p>
-            <p id="card-coordenadas">-</p>
+            <p class="text-gray-500">Status</p>
+            <p data-campo="status">-</p>
         </div>
         <hr class="border-gray-200">
-        <div class="flex flex-col gap-1">
-             <p class="text-gray-500">Responsável</p>
-            <p class="bg-gray-50 p-2 rounded border border-gray-100" id="card-responsavel"></p>
+        <div class="flex justify-between">
+            <p class="text-gray-500">Reportado em</p>
+            <p data-campo="reportado_em">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex flex-col min-w-0 text-sm leading-relaxed">
+            <span class="text-gray-500 mb-1">Descrição: </span><span
+                data-campo="descricao"
+                class="block w-full max-h-32 overflow-y-auto overflow-x-hidden hyphens-auto [overflow-wrap:anywhere] pr-1">
+                -
+            </span>
         </div>
 
         {% if perms.alertas.change_alerta %}
@@ -42,7 +49,8 @@
                 data-modal="modal-alert"
                 class="btn-abrir-modal flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar</button>
         {% endif %}
-
-        <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-green-700 hover:bg-green-800 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg"><span>{% icon "resolve" %}</span>Resolver</a>
+        {% if request.user.is_staff and alertaSelecionado and alertaSelecionado.status != 'Resolvido' %}
+            <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-green-700 hover:bg-green-800 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg"><span>{% icon "resolve" %}</span>Resolver</a>
+        {% endif %}
     </main>
 </section>

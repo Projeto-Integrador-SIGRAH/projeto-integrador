@@ -16,16 +16,27 @@ class Alerta(models.Model):
         MEDIA = "2_Media", "Média"
         ALTA = "1_Alta", "Alta"
 
+    class Tipo(models.TextChoices):
+        ENTUPIMENTO = "ENTUPIMENTO", "Entupimento"
+        VAZAMENTO = "VAZAMENTO", "Vazamento"
+        OBSTRUCAO = "OBSTRUCAO", "Obstrução"
+        OUTRO = "OUTRO", "Outro"
+
     codigo = models.ForeignKey(
         Cano, on_delete=models.PROTECT, related_name="alertas_codigo"
     )
-    reportado_em = models.DateTimeField(auto_now_add=True)
-    tipo = models.CharField(max_length=10, choices=Cano.Tipo.choices, blank=True)
-    status = models.CharField(max_length=15, choices=Status, default=Status.ENVIADO)
-    gravidade = models.CharField(
-        max_length=10, choices=Gravidade, default=Gravidade.ALTA
-    )
     coordenadas = models.CharField(max_length=50, blank=True)
+    reportado_em = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(
+        max_length=15, choices=Status.choices, default=Status.ENVIADO
+    )
+    gravidade = models.CharField(
+        max_length=10, choices=Gravidade.choices, default=Gravidade.ALTA
+    )
+    titulo = models.CharField(max_length=100, blank=True)
+    tipo = models.CharField(
+        max_length=15, choices=Tipo.choices, default=Tipo.ENTUPIMENTO
+    )
     descricao = models.TextField(
         validators=[
             MinLengthValidator(
@@ -41,12 +52,5 @@ class Alerta(models.Model):
     def __str__(self):
         return f"Alerta {self.id} - {self.status}"
 
-    def save(self, *args, **kwargs):
-        if self.codigo:
-            self.tipo = self.codigo.tipo
-            self.coordenadas = self.codigo.coordenadas
-        super().save(*args, **kwargs)
-
-    # https://docs.djangoproject.com/en/6.1/topics/db/models/
     class Meta:
-        ordering = ["gravidade", "-reportado_em"]  #  noqa: RUF012
+        ordering = ["gravidade", "-reportado_em", "tipo"]  #  noqa: RUF012
