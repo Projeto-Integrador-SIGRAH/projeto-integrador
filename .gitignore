@@ -148,6 +148,7 @@ activemq-data/
 *.sage.py
 
 # Environments
+.env.prod
 .env
 .envrc
 .venv
@@ -216,3 +217,13 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+crash.log
+
+# SSH
+*.pem

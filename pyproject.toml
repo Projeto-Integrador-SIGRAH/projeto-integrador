@@ -12,9 +12,12 @@ dependencies = [
     "django-tailwind[cookiecutter,honcho,reload]>=4.5.0",
     "djangorestframework>=3.18.3",
     "djangorestframework-simplejwt>=5.5.1",
+    "gunicorn>=26.2.0",
+    "psycopg[binary]>=3.2",
     "ruff>=0.16.9",
     "ruff-format>=0.5.4",
     "sqlparse==0.6.0",
+    "whitenoise>=6.12.0",
 ]
 
 
