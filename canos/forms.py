@@ -15,9 +15,9 @@ class CanoForm(ModelForm):
             "tipo",
             "material",
             "status",
-            "responsavel",
+            "equipe_responsavel",
             "data_instalacao",
-            "observacao",
+            "observacoes",
         ]
         widgets = {  # noqa: RUF012
             "codigo": forms.TextInput(
@@ -34,7 +34,7 @@ class CanoForm(ModelForm):
                 }
             ),
             "status": forms.Select(attrs={"class": INPUT_CLASS}),
-            "responsavel": forms.TextInput(
+            "equipe_responsavel": forms.TextInput(
                 attrs={
                     "placeholder": "Informe o responsável pelo cano",
                     "class": INPUT_CLASS,

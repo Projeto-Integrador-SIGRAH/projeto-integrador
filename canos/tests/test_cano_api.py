@@ -8,7 +8,7 @@ from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from canos.models import Cano
+from canos.models import Cano, Equipe, Material
 from user.models import User
 from user.permissions import GROUPS_TYPE
 
@@ -74,6 +74,8 @@ class CanoAPITests(TestCase):
             is_approved=True,
         )
         self.cidadao.groups.add(self.cidadao_group)
+        self.material = Material.objects.create(tipo="PVC")
+        self.equipe = Equipe.objects.create(nome="Equipe de manutenção")
 
     def authenticate(self, user):
         self.client.force_authenticate(user=user)
@@ -99,12 +101,12 @@ class CanoAPITests(TestCase):
             "codigo": "CANO-001",
             "coordenadas": "[[-5.7900, -38.2000], [-5.7910, -38.2010]]",
             "diametro": 100,
-            "tipo": get_first_choice("tipo", "DISTRIBUICAO"),
-            "material": get_first_choice("material", "PVC"),
-            "status": get_first_choice("status", "ATIVO"),
-            "responsavel": "Equipe de manutenção",
+            "tipo": Cano.Tipo.AGUA,
+            "material": self.material.pk,
+            "status": Cano.Status.DISPONIVEL,
+            "equipe_responsavel": self.equipe.pk,
             "data_instalacao": timezone.now().date().isoformat(),
-            "observacao": "Cano de teste.",
+            "observacoes": "Cano de teste.",
         }
 
         data.update(overrides)
@@ -260,7 +262,7 @@ class CanoAPITests(TestCase):
         response = self.client.patch(
             self.get_detail_url(cano_id),
             {
-                "observacao": "Observação atualizada.",
+                "observacoes": "Observação atualizada.",
             },
             format="json",
         )
@@ -273,7 +275,7 @@ class CanoAPITests(TestCase):
         cano = Cano.objects.get(pk=cano_id)
 
         self.assertEqual(
-            cano.observacao,
+            cano.observacoes,
             "Observação atualizada.",
         )
 
@@ -288,7 +290,7 @@ class CanoAPITests(TestCase):
         response = self.client.patch(
             self.get_detail_url(cano_id),
             {
-                "observacao": "Tentativa de alteração.",
+                "observacoes": "Tentativa de alteração.",
             },
             format="json",
         )
@@ -301,7 +303,7 @@ class CanoAPITests(TestCase):
         cano = Cano.objects.get(pk=cano_id)
 
         self.assertEqual(
-            cano.observacao,
+            cano.observacoes,
             "Cano de teste.",
         )
 

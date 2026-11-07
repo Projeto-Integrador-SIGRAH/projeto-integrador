@@ -4,4 +4,4 @@ from . import views
 
 app_name = "alertas"
 
-urlpatterns = [path("", views.AlertaView.as_view(), name="alertas")]
+urlpatterns = [path("", views.ListAlertaView.as_view(), name="alertas")]

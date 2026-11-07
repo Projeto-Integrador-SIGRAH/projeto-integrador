@@ -15,11 +15,11 @@ class CanoSerializer(serializers.ModelSerializer):
             "tipo",
             "material",
             "status",
-            "responsavel",
+            "equipe_responsavel",
             "data_instalacao",
             "criado_em",
             "atualizado_em",
-            "observacao",
+            "observacoes",
             "user",
         ]
         read_only_fields = [  # noqa: RUF012
