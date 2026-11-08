@@ -98,3 +98,30 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         group = get_object_or_404(Group, name=group)
         user.groups.add(group)
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [  # noqa: RUF012
+            "id",
+            "nome",
+            "email",
+            "cpf",
+            "matricula",
+            "is_active",
+            "is_approved",
+            "is_rejected",
+            "groups",
+        ]
+        read_only_fields = [  # noqa: RUF012
+            "id",
+            "nome",
+            "email",
+            "cpf",
+            "matricula",
+            "is_active",
+            "is_approved",
+            "is_rejected",
+            "groups",
+        ]
