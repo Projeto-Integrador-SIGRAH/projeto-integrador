@@ -1,3 +1,68 @@
+const modalAlerta = document.querySelector("#modal-alerta");
+const formAlerta = document.querySelector("#form-alerta");
+const btnCloseAlerta = modalAlerta?.querySelector("#close-button-modal");
+const btnAlertar = document.querySelector("#btnAlertar");
+
+btnAlertar?.addEventListener("click", (event) => {
+    event.preventDefault();
+
+
+    if (!modalAlerta || !formAlerta) return;
+
+    if (!window.canoSelecionado) {
+        console.error("O cano selecionado não está disponível em window.");
+        return;
+    }
+
+    formAlerta.reset();
+    modalAlerta.showModal();
+
+});
+
+btnCloseAlerta?.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    modalAlerta.close();
+
+});
+
+formAlerta?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!formAlerta.reportValidity()) return;
+
+    const formData = new FormData(formAlerta);
+
+    const payload = Object.fromEntries(formData.entries());
+
+    payload.codigo_id = window.canoSelecionado.id;
+
+    try {
+        const response = await fetch(formAlerta.action, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Erro ao criar alerta:", data);
+            return;
+        }
+
+        modalAlerta.close();
+        formAlerta.reset();
+        await listarAlertas();
+
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+});
 
 function formatarData(data) {
     return new Date(data).toLocaleDateString("pt-BR");
@@ -8,10 +73,12 @@ let alertaSelecionado = null;
 
 
 async function listarAlertas() {
-    const tabela = document.querySelector("#lista-alertas");
+    const tabelaAlertas = document.querySelector("#lista-alertas");
+
+    if (!tabelaAlertas) return;
 
     try {
-        const response = await fetch(tabela.dataset.apiUrl);
+        const response = await fetch(tabelaAlertas.dataset.apiUrl);
 
         if (!response.ok) {
             throw new Error("Erro ao buscar os alertas.");
@@ -32,9 +99,9 @@ listarAlertas();
 
 
 function renderizarAlertas(alertas) {
-    const tabela = document.querySelector("#lista-alertas");
+    const tabelaAlertas = document.querySelector("#lista-alertas");
 
-    tabela.innerHTML = "";
+    tabelaAlertas.innerHTML = "";
 
     alertas.forEach((alerta) => {
         const linha = document.createElement("tr");
@@ -66,30 +133,30 @@ function renderizarAlertas(alertas) {
             linha.appendChild(coluna);
         });
 
-        tabela.appendChild(linha);
+        tabelaAlertas.appendChild(linha);
     });
 }
 
 
-const tabela = document.querySelector("#lista-alertas");
-const containerTabela = document.querySelector("#container-tabela");
-const painelDetalhe = document.querySelector("#painel-detalhe");
+const tabelaAlertas = document.querySelector("#lista-alertas");
+const containerAlertas = document.querySelector("#container-tabela");
+const painelAlertas = document.querySelector("#painel-detalhe");
 
-tabela.addEventListener("click", (event) => {
+tabelaAlertas?.addEventListener("click", (event) => {
     const linha = event.target.closest("tr");
 
     if (!linha || !linha.dataset.alertaId) return;
 
-    const linhaAnterior = tabela.querySelector(".linha-selecionada");
+    const linhaAnterior = tabelaAlertas.querySelector(".linha-selecionada");
 
     if (linhaAnterior) {
         linhaAnterior.classList.remove(
-            "bg-yellow-500",
+            "bg-yellow-400",
             "linha-selecionada"
         );
     }
 
-    linha.classList.add("bg-yellow-500", "linha-selecionada");
+    linha.classList.add("bg-yellow-400", "linha-selecionada");
 
     const alertaId = linha.dataset.alertaId;
 
@@ -99,7 +166,7 @@ tabela.addEventListener("click", (event) => {
 
     console.log("Alerta selecionado:", alertaSelecionado);
 
-    painelDetalhe.querySelectorAll("[data-campo]").forEach((elemento) => {
+    painelAlertas.querySelectorAll("[data-campo]").forEach((elemento) => {
         const campo = elemento.dataset.campo;
         let valor = alertaSelecionado[campo];
 
@@ -114,8 +181,8 @@ tabela.addEventListener("click", (event) => {
         elemento.textContent = valor ?? "-";
     });
 
-    const cardCodigo = painelDetalhe.querySelector("#card-codigo");
-    const cardStatus = painelDetalhe.querySelector("#card-status-detalhe");
+    const cardCodigo = painelAlertas.querySelector("#card-codigo");
+    const cardStatus = painelAlertas.querySelector("#card-status-detalhe");
 
     if (cardCodigo) {
         cardCodigo.textContent = alertaSelecionado.codigo ?? "-";
@@ -126,9 +193,9 @@ tabela.addEventListener("click", (event) => {
     }
 
 
-    containerTabela.classList.remove("w-full");
-    containerTabela.classList.add("w-7/10");
+    containerAlertas.classList.remove("w-full");
+    containerAlertas.classList.add("w-7/10");
 
-    painelDetalhe.classList.remove("hidden");
-    painelDetalhe.classList.add("flex");
+    painelAlertas.classList.remove("hidden");
+    painelAlertas.classList.add("flex");
 });

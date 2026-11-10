@@ -61,7 +61,9 @@
         {% endif %}
     </section>
     {% include "canos/partials/modal_cadastro_canos.html" %}
+    {% include "alertas/partials/modal_cadastro_alertas.html" %}
 {% endblock %}
 {% block extra_scripts %}
     <script src="{% static 'js/cano.js' %}"></script>
+    <script src="{% static 'js/alertas.js' %}"></script>
 {% endblock %}

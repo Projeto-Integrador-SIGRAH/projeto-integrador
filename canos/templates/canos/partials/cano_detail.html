@@ -84,8 +84,8 @@
         {% endif %}
 
         {% if perms.alertas.add_alerta %}
-            <a href="#" class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black">
-                <span>{% icon "alert" %}</span>Alerta
+            <a href="#" class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black" id="btnAlertar" data-cano-id="{{ cano.id }}">
+                <span>{% icon "alert" %}</span>Alertar
             </a>
         {% endif %}
     </main>

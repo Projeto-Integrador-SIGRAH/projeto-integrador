@@ -71,7 +71,7 @@ function formatarData(data) {
 }
 
 let canos = []
-let canoSelecionado = null
+window.canoSelecionado = null
 
 async function listarCanos() {
     const tabela = document.querySelector("#lista-canos")
@@ -148,7 +148,7 @@ tabela.addEventListener("click", (event) => {
 
     const canoId = linha.dataset.canoId;
 
-    canoSelecionado = canos.find(
+    window.canoSelecionado = canos.find(
         (cano) => String(cano.id) === canoId
     );
 
