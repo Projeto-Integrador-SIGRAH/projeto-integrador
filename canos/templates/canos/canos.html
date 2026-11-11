@@ -6,28 +6,28 @@
     <section class="flex flex-col gap-4 p-6">
         <h1 class="text-xl font-bold text-sky-950">Canos</h1>
 
-        <section class="flex items-center gap-4 text-sm">
-            <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+        <form id="filtros-canos" class="flex items-center gap-4 text-sm">
+            <select name="codigo" id="filtro-codigo" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
                 <option value="">Todos os IDs</option>
             </select>
-            <select name="material" id="material" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option>Todos os Materiais</option>
+            <select name="material" id="filtro-material" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Todos os materiais</option>
             </select>
-            <select name="status" id="status" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option>Todos os Status</option>
+            <select name="status" id="filtro-status" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Todos os status</option>
+                <option value="EM_OPERACAO">Em operação</option>
+                <option value="MANUTENCAO">Manutenção</option>
+                <option value="DISPONIVEL">Disponível</option>
+                <option value="INATIVO">Inativo</option>
             </select>
-            <select name="diamentro" id="diamentro" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option>Todos os Diâmetros</option>
+            <select name="diametro" id="filtro-diametro" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
+                <option value="">Todos os diâmetros</option>
             </select>
             <div class="flex gap-4 items-center">
-                <a href="#" class="text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-8 py-1 drop-shadow-lg w-full">Filtrar</a>
-                <a href="#" class="flex text-sky-800 whitespace-nowrap">Limpar Filtros</a>
+                <button type="submit" class="text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-8 py-1 drop-shadow-lg whitespace-nowrap">Filtrar</button>
+                <button type="reset" class="text-sky-800 whitespace-nowrap">Limpar filtros</button>
             </div>
-        </section>
-
-        <div class="flex gap-4 text-sm">
-            <p class="flex items-center px-3 py-1 bg-sky-200 rounded-2xl">Status: Ativo</p>
-        </div>
+        </form>
 
         <section class="flex gap-4 items-start">
             <div class="overflow-hidden rounded-lg border border-gray-200 w-7/10 bg-white">
@@ -41,10 +41,7 @@
                             <th class="px-3 py-2 font-semibold text-gray-600">Atualizado em</th>
                         </tr>
                     </thead>
-                    <tbody id="lista-canos"
-                    data-api-url="{% url 'api:cano-list' %}"></tbody>
-
-                    </tbody>
+                    <tbody id="lista-canos" data-api-url="{% url 'api:cano-list' %}"></tbody>
                 </table>
             </div>
 

@@ -22,33 +22,68 @@ botoesFecharModal.forEach((botao) => {
     });
 })
 
-// Listagem de canos
-async function listarCanos() {
-    const tabela = document.querySelector("#lista-canos")
+//* listagem de canos3
+const tabelaCanos = document.querySelector("#lista-canos");
+const formularioFiltros = document.querySelector("#filtros-canos");
 
-    try {
-        const response = await fetch(tabela.dataset.apiUrl)
+async function listarCanos(filtros = new URLSearchParams()) {
+    const url = new URL(tabelaCanos.dataset.apiUrl, window.location.origin);
+    url.search = filtros.toString();
+    const response = await fetch(url);
 
-        if (!response.ok){
-            throw new Error("Erro ao buscar os canos.")
-        }
-
-        const canos = await response.json()
-
-        renderizarCanos(canos)
-
-        console.log(canos)
-    } catch(error){
-        console.log(error);
+    if (!response.ok){
+        throw new Error("Erro ao buscar os canos.")
     }
+
+    const canos = await response.json()
+    renderizarCanos(canos)
+
+    return canos;
 }
 
+
+function preencherOpcoes(select, valores) {
+    const valoresUnicos = [...new Set(valores.filter(Boolean))]
+        .sort((a, b) => String(a).localeCompare(String(b), "pt-BR", { numeric: true }));
+
+    valoresUnicos.forEach((valor) => {
+        select.add(new Option(valor, valor));
+    });
+}
+
+
 listarCanos()
+    .then((canos) => {
+        preencherOpcoes(
+            document.querySelector("#filtro-codigo"),
+            canos.map((cano) => cano.codigo),
+        );
+        preencherOpcoes(
+            document.querySelector("#filtro-material"),
+            canos.map((cano) => cano.material),
+        );
+        preencherOpcoes(
+            document.querySelector("#filtro-diametro"),
+            canos.map((cano) => cano.diametro),
+        );
+    })
+    .catch((error) => console.error(error));
+
+formularioFiltros.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const filtros = new URLSearchParams(new FormData(formularioFiltros));
+    listarCanos(filtros).catch((error) => console.error(error));
+});
+
+formularioFiltros.addEventListener("reset", () => {
+    window.requestAnimationFrame(() => {
+        listarCanos().catch((error) => console.error(error));
+    });
+});
+
 
 function renderizarCanos(canos){
-    const tabela = document.querySelector("#lista-canos")
-
-    tabela.innerHTML = ""
+    tabelaCanos.innerHTML = ""
 
     canos.forEach((cano) => {
         const linha = document.createElement("tr")
@@ -72,7 +107,7 @@ function renderizarCanos(canos){
             linha.appendChild(coluna)
         })
 
-        tabela.appendChild(linha)
+        tabelaCanos.appendChild(linha)
     })
 }
 
