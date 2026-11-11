@@ -15,7 +15,12 @@ class AlertaForm(ModelForm):
             "tipo",
             "descricao",
         ]
-
+        labels = {  # noqa: RUF012
+            "gravidade": "Gravidade",
+            "titulo": "Título",
+            "tipo": "Tipo",
+            "descricao": "Descrição",
+        }
         widgets = {  # noqa: RUF012
             "titulo": forms.TextInput(
                 attrs={

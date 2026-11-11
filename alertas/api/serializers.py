@@ -18,6 +18,7 @@ class AlertaSerializer(serializers.ModelSerializer):
         fields = "__all__"
         read_only_fields = [  # noqa: RUF012
             "reportado_em",
+            "user",
         ]
 
     def validate(self, data):
@@ -29,7 +30,7 @@ class AlertaSerializer(serializers.ModelSerializer):
             alerta_exists = Alerta.objects.filter(
                 codigo=cano,
                 codigo__user=request.user,
-                status_in=[Alerta.Status.ENVIADO, Alerta.Status.EM_RESOLUCAO],
+                status__in=[Alerta.Status.ENVIADO, Alerta.Status.EM_RESOLUCAO],
             ).exists()
 
             if alerta_exists:

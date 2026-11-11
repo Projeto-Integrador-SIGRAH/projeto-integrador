@@ -29,18 +29,11 @@
         <hr class="border-gray-200">
 
         <div class="flex justify-between">
-            <p class="text-gray-500">Diâmetro</p>
+            <p class="text-gray-500">Diâmetro (mm)</p>
             <p data-campo="diametro">-</p>
         </div>
 
         <hr class="border-gray-200">
-
-        <!-- <div class="flex justify-between">
-            <p class="text-gray-500">Coordenadas</p>
-            <p data-campo="coordenadas">-</p>
-        </div>
-
-        <hr class="border-gray-200"> -->
 
         <div class="flex justify-between">
             <p class="text-gray-500">Data de instalação</p>
@@ -65,14 +58,14 @@
 
         <div class="flex justify-between">
             <p class="text-gray-500">Responsável</p>
-            <p data-campo="responsavel">-</p>
+            <p data-campo="equipe_responsavel">-</p>
         </div>
 
         <hr class="border-gray-200">
 
-        <div class="flex justify-between">
-            <p class="text-gray-500">Observações</p>
-            <p data-campo="observacao">-</p>
+        <div class="flex flex-col min-w-0 text-sm leading-relaxed">
+            <span class="text-gray-500">Observações:</span>
+            <p data-campo="observacoes" class="block w-full max-h-32 overflow-y-auto overflow-x-hidden hyphens-auto [overflow-wrap:anywhere] pr-1">-</p>
         </div>
 
         {% if perms.canos.change_cano %}
@@ -82,11 +75,15 @@
                 <span>{% icon "edit" %}</span>Editar
             </button>
         {% endif %}
-
         {% if perms.alertas.add_alerta %}
-            <a href="#" class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black" id="btnAlertar" data-cano-id="{{ cano.id }}">
-                <span>{% icon "alert" %}</span>Alertar
-            </a>
+                <button type="button"
+                href="#"
+                class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black cursor-pointer"
+                id="btnAlertar"
+            >
+                <span>{% icon "alert" %}</span>
+                Alertar
+            </button>
         {% endif %}
     </main>
 </section>

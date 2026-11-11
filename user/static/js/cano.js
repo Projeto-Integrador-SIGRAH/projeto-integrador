@@ -109,7 +109,7 @@ function renderizarCanos(canos){
 
         const campos = [
             cano.codigo,
-            cano.material,
+            cano.material_nome,
             `${cano.diametro} mm`,
             cano.status,
             `${formatarData(cano.atualizado_em)}`,
@@ -158,6 +158,16 @@ tabela.addEventListener("click", (event) => {
         const campo = elemento.dataset.campo;
         let valor = canoSelecionado[campo];
 
+        if (campo === "material") {
+            valor = canoSelecionado.material_nome;
+        }
+        if (campo === "equipe_responsavel") {
+            valor = canoSelecionado.equipe_responsavel_nome;
+        }
+        if (campo === "observacoes") {
+            valor = canoSelecionado.observacoes || "Nenhuma observação registrada";
+        }
+
         if (["data_instalacao", "criado_em", "atualizado_em"].includes(campo) && valor) {
             valor = formatarData(valor);
         }
@@ -171,5 +181,3 @@ tabela.addEventListener("click", (event) => {
     painelDetalhe.classList.remove("hidden");
     painelDetalhe.classList.add("flex");
 });
-
-

@@ -2,6 +2,7 @@ from django.core.validators import MaxLengthValidator, MinLengthValidator
 from django.db import models
 
 from canos.models import Cano
+from user.models import User
 
 
 # Create your models here.
@@ -46,6 +47,9 @@ class Alerta(models.Model):
                 250, message="A descrição não pode passar de 250 caracteres."
             ),
         ]
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.PROTECT, related_name="alertas_user"
     )
     # https://docs.djangoproject.com/en/6.1/ref/validators/
 

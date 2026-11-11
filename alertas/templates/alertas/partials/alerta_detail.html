@@ -43,14 +43,11 @@
                 -
             </span>
         </div>
-
         {% if perms.alertas.change_alerta %}
-            <button type="button"
-                data-modal="modal-alert"
-                class="btn-abrir-modal flex self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar</button>
-        {% endif %}
-        {% if request.user.is_staff and alertaSelecionado and alertaSelecionado.status != 'Resolvido' %}
-            <a href="#" class="flex self-center items-center gap-2 text-white font-bold bg-green-700 hover:bg-green-800 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg"><span>{% icon "resolve" %}</span>Resolver</a>
+            <button type="button" id="btn-editar-alerta"
+                data-modal="modal-alerta"
+                class="hidden btn-abrir-modal self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar
+            </button>
         {% endif %}
     </main>
 </section>

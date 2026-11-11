@@ -5,6 +5,15 @@ from canos.models import Cano
 
 
 class CanoSerializer(serializers.ModelSerializer):
+    material_nome = serializers.CharField(
+        source="material.tipo",
+        read_only=True,
+    )
+    equipe_responsavel_nome = serializers.CharField(
+        source="equipe_responsavel.nome",
+        read_only=True,
+    )
+
     class Meta:
         model = Cano
         fields = [  # noqa: RUF012
@@ -14,8 +23,10 @@ class CanoSerializer(serializers.ModelSerializer):
             "diametro",
             "tipo",
             "material",
+            "material_nome",
             "status",
             "equipe_responsavel",
+            "equipe_responsavel_nome",
             "data_instalacao",
             "criado_em",
             "atualizado_em",
@@ -27,6 +38,8 @@ class CanoSerializer(serializers.ModelSerializer):
             "criado_em",
             "atualizado_em",
             "user",
+            "material_nome",
+            "equipe_responsavel_nome",
         ]
         # https://www.django-rest-framework.org/api-guide/serializers/#specifying-fields-explicitly
 

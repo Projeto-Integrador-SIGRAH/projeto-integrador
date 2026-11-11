@@ -32,13 +32,13 @@ class Cano(models.Model):
         ESGOTO = "Esgoto", "Esgoto"
 
     codigo = models.CharField(max_length=10, unique=True)
-    coordenadas = models.CharField(max_length=50)
+    coordenadas = models.TextField()
     diametro = models.PositiveIntegerField()
     tipo = models.CharField(max_length=10, choices=Tipo, default=Tipo.AGUA)
     material = models.ForeignKey(Material, on_delete=models.DO_NOTHING)
     status = models.CharField(max_length=15, choices=Status, default=Status.DISPONIVEL)
     equipe_responsavel = models.ForeignKey(
-        Equipe, on_delete=models.DO_NOTHING, null=True
+        Equipe, on_delete=models.DO_NOTHING, null=True, blank=True
     )
     data_instalacao = models.DateField()
     criado_em = models.DateTimeField(auto_now_add=True)
