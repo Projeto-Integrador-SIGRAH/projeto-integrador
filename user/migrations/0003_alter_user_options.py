@@ -4,14 +4,22 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('user', '0002_alter_user_matricula'),
+        ("user", "0002_alter_user_matricula"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='user',
-            options={'permissions': [('approve_administrator', 'Pode aprovar o cadastro de administrador')], 'verbose_name': 'usuário', 'verbose_name_plural': 'usuários'},
+            name="user",
+            options={
+                "permissions": [
+                    (
+                        "approve_administrator",
+                        "Pode aprovar o cadastro de administrador",
+                    )
+                ],
+                "verbose_name": "usuário",
+                "verbose_name_plural": "usuários",
+            },
         ),
     ]

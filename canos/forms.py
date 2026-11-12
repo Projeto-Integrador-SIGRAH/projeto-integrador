@@ -7,6 +7,11 @@ INPUT_CLASS = "rounded-lg p-2 border border-gray-400 focus:border-gray-500 focus
 
 
 class CanoForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["material"].empty_label = "Selecione o material"
+        self.fields["equipe_responsavel"].empty_label = "Selecione a equipe"
+
     class Meta:
         model = Cano
         fields = [  # noqa: RUF012
@@ -15,28 +20,38 @@ class CanoForm(ModelForm):
             "tipo",
             "material",
             "status",
-            "responsavel",
+            "equipe_responsavel",
             "data_instalacao",
-            "observacao",
+            "observacoes",
         ]
+        labels = {  # noqa: RUF012
+            "codigo": "Código",
+            "diametro": "Diâmetro (mm)",
+            "tipo": "Tipo",
+            "material": "Material",
+            "status": "Status",
+            "equipe_responsavel": "Equipe responsável",
+            "data_instalacao": "Data de instalação",
+            "observacoes": "Observações (opcional)",
+        }
         widgets = {  # noqa: RUF012
             "codigo": forms.TextInput(
                 attrs={"placeholder": "Ex.: A-0002", "class": INPUT_CLASS}
             ),
             "diametro": forms.NumberInput(
-                attrs={"placeholder": "Informe o diâmetro em mm", "class": INPUT_CLASS}
+                attrs={"placeholder": "Informe o diâmetro", "class": INPUT_CLASS}
             ),
             "tipo": forms.Select(attrs={"class": INPUT_CLASS, "label": "Tipo do cano"}),
-            "material": forms.TextInput(
+            "material": forms.Select(
                 attrs={
                     "placeholder": "Informe o material do cano",
                     "class": INPUT_CLASS,
                 }
             ),
             "status": forms.Select(attrs={"class": INPUT_CLASS}),
-            "responsavel": forms.TextInput(
+            "equipe_responsavel": forms.Select(
                 attrs={
-                    "placeholder": "Informe o responsável pelo cano",
+                    "placeholder": "Informe a equipe responsável pelo cano",
                     "class": INPUT_CLASS,
                 }
             ),
@@ -44,11 +59,11 @@ class CanoForm(ModelForm):
                 format="%Y-%m-%d",
                 attrs={"type": "date", "class": INPUT_CLASS},
             ),
-            "observacao": forms.Textarea(
+            "observacoes": forms.Textarea(
                 attrs={
                     "placeholder": "Adicione observações sobre o cano",
                     "class": INPUT_CLASS,
-                    "rows": 2,
+                    "rows": 3,
                 }
             ),
         }

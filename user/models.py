@@ -62,6 +62,10 @@ class User(AbstractUser, PermissionsMixin):
                 "can_access_admin_management",
                 "Pode acessar o painel de gerenciamento de admins",
             ),
+            (
+                "can_resolve_alerts",
+                "Pode resolver alertas",
+            ),
         ]
 
     def __str__(self):

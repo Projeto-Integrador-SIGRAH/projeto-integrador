@@ -1,6 +1,6 @@
 from rest_framework import routers
 
-from .views import CanoViewSet
+from canos.api.views import CanoViewSet
 
 router = routers.SimpleRouter()
 router.register("", CanoViewSet, basename="cano")

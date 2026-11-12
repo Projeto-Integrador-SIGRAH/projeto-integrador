@@ -1,0 +1,70 @@
+{% load icons %}
+<section id="painel-detalhe" class="relative hidden flex-col gap-4 w-3/10 max-h-[calc(100vh-180px)] overflow-y-auto px-3 py-4 border border-gray-200 rounded-xl bg-white">
+    <header class="flex items-center relative justify-between">
+        <div class="flex flex-col">
+            <h1 class="text-sm text-gray-600">Detalhes do Alerta</h1>
+            <h2 class="text-4xl font-bold" id="card-codigo">-</h2>
+        </div>
+        <div class="flex flex-col items-end justify-between gap-2">
+            <button
+                type="button"
+                id="close-button-detalhe-alerta"
+                class="text-gray-800 transition hover:opacity-60 rotate-45 cursor-pointer scale-150"
+                aria-label="Fechar detalhes"
+            >
+                {% icon 'plus' %}
+            </button>
+
+            <div class="flex items-center text-sky-600">
+                <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" id="card-status-detalhe">-</span>
+            </div>
+        </div>
+    </header>
+    <main class="flex flex-col gap-1 text-sm">
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Título</p>
+            <p data-campo="titulo">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Tipo</p>
+            <p data-campo="tipo">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Gravidade</p>
+            <p data-campo="gravidade">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Status</p>
+            <p data-campo="status">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex justify-between">
+            <p class="text-gray-500">Reportado em</p>
+            <p data-campo="reportado_em">-</p>
+        </div>
+        <hr class="border-gray-200">
+        <div class="flex flex-col min-w-0 text-sm leading-relaxed">
+            <span class="text-gray-500 mb-1">Descrição: </span><span
+                data-campo="descricao"
+                class="block w-full max-h-32 overflow-y-auto overflow-x-hidden hyphens-auto [overflow-wrap:anywhere] pr-1">
+                -
+            </span>
+        </div>
+        {% if perms.alertas.change_alerta %}
+            <button type="button" id="btn-editar-alerta"
+                data-modal="modal-alerta"
+                class="btn-abrir-modal self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar
+            </button>
+        {% endif %}
+        {% if perms.alertas.can_resolve_alerts %}
+            <button type="button"
+                id="btn-resolve"
+                class="btn-resolve-alerta self-center flex flex-row items-center justify-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "resolve" %}</span>Resolver
+            </button>
+        {% endif %}
+    </main>
+</section>

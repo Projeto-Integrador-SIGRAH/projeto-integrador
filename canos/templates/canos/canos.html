@@ -9,7 +9,7 @@
 
         <section class="flex items-center gap-4 text-sm">
             <select name="cano" id="cano" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
-                <option value="">Todos os IDs</option>
+                <option value="">Todos os Códigos</option>
             </select>
             <select name="material" id="material" class="appearance-none rounded-lg border border-gray-300 px-2 py-1 w-full">
                 <option>Todos os Materiais</option>
@@ -36,7 +36,7 @@
                 <table class="w-full text-left">
                     <thead class="border border-gray-200">
                         <tr class="border border-gray-300">
-                            <th class="px-3 py-2 font-semibold text-gray-600">ID</th>
+                            <th class="px-3 py-2 font-semibold text-gray-600">Código</th>
                             <th class="px-3 py-2 font-semibold text-gray-600">Material</th>
                             <th class="px-3 py-2 font-semibold text-gray-600">Diâmetro</th>
                             <th class="px-3 py-2 font-semibold text-gray-600">Status</th>
@@ -61,7 +61,9 @@
         {% endif %}
     </section>
     {% include "canos/partials/modal_cadastro_canos.html" %}
+    {% include "alertas/partials/modal_cadastro_alertas.html" %}
 {% endblock %}
 {% block extra_scripts %}
     <script src="{% static 'js/cano.js' %}"></script>
+    <script src="{% static 'js/alertas.js' %}"></script>
 {% endblock %}

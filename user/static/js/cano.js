@@ -4,6 +4,7 @@ const modelForm = document.querySelector("#form-cano")
 const buttonCloseModal = document.querySelector("#close-button-modal")
 const modalTitle = document.querySelector("#titulo-modal")
 const submitButton = document.querySelector("#submit-button")
+const closeButtonDetalhe = document.querySelector("#close-button-detalhe-cano")
 
 btnEditarCano?.addEventListener("click", () => {
     modalTitle.textContent = "Editar Cano"
@@ -71,7 +72,7 @@ function formatarData(data) {
 }
 
 let canos = []
-let canoSelecionado = null
+window.canoSelecionado = null
 
 async function listarCanos() {
     const tabela = document.querySelector("#lista-canos")
@@ -109,7 +110,7 @@ function renderizarCanos(canos){
 
         const campos = [
             cano.codigo,
-            cano.material,
+            cano.material_nome,
             `${cano.diametro} mm`,
             cano.status,
             `${formatarData(cano.atualizado_em)}`,
@@ -148,7 +149,7 @@ tabela.addEventListener("click", (event) => {
 
     const canoId = linha.dataset.canoId;
 
-    canoSelecionado = canos.find(
+    window.canoSelecionado = canos.find(
         (cano) => String(cano.id) === canoId
     );
 
@@ -157,6 +158,16 @@ tabela.addEventListener("click", (event) => {
     painelDetalhe.querySelectorAll("[data-campo]").forEach((elemento) => {
         const campo = elemento.dataset.campo;
         let valor = canoSelecionado[campo];
+
+        if (campo === "material") {
+            valor = canoSelecionado.material_nome;
+        }
+        if (campo === "equipe_responsavel") {
+            valor = canoSelecionado.equipe_responsavel_nome;
+        }
+        if (campo === "observacoes") {
+            valor = canoSelecionado.observacoes || "Nenhuma observação registrada";
+        }
 
         if (["data_instalacao", "criado_em", "atualizado_em"].includes(campo) && valor) {
             valor = formatarData(valor);
@@ -172,4 +183,19 @@ tabela.addEventListener("click", (event) => {
     painelDetalhe.classList.add("flex");
 });
 
+closeButtonDetalhe?.addEventListener("click", () => {
+    painelDetalhe.classList.remove("flex");
+    painelDetalhe.classList.add("hidden");
 
+    containerTabela.classList.remove("w-7/10");
+    containerTabela.classList.add("w-full");
+
+    const linhaSelecionada = tabela.querySelector(".linha-selecionada");
+
+    if (linhaSelecionada) {
+        linhaSelecionada.classList.remove("bg-sky-500", "linha-selecionada");
+    }
+
+    canoSelecionado = null;
+
+});

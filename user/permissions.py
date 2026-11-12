@@ -17,6 +17,9 @@ CANO_PERMISSIONS = {
 GROUPS_PERMISSIONS = {
     GROUPS_TYPE.CIDADAO: [
         "view_cano",
+        "add_alerta",
+        "view_alerta",
+        "change_alerta",
     ],
     GROUPS_TYPE.ADMIN: [
         "approve_administrator",
@@ -26,6 +29,7 @@ GROUPS_PERMISSIONS = {
         "change_cano",
         "delete_cano",
         "view_cano",
+        "can_resolve_alerts",
     ],
 }
 

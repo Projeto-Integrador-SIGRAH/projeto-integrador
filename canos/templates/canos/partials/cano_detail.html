@@ -7,8 +7,17 @@
             <h1 class="text-sm text-gray-600">Detalhes do Cano</h1>
             <h2 class="text-4xl font-bold" data-campo="codigo">-</h2>
         </div>
-        <div class="flex items-center text-sky-600">
-            <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" data-campo="status">-</span>
+        <div class="flex flex-col items-end justify-between gap-2">
+            <button
+                type="button"
+                id="close-button-detalhe-cano"
+                class="flex flex-col text-gray-800 transition hover:opacity-60 rotate-45 cursor-pointer scale-150"
+            >
+                {% icon 'plus' %}
+            </button>
+            <div class="flex items-center text-sky-600">
+                <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" data-campo="status">-</span>
+            </div>
         </div>
     </header>
 
@@ -29,18 +38,11 @@
         <hr class="border-gray-200">
 
         <div class="flex justify-between">
-            <p class="text-gray-500">Diâmetro</p>
+            <p class="text-gray-500">Diâmetro (mm)</p>
             <p data-campo="diametro">-</p>
         </div>
 
         <hr class="border-gray-200">
-
-        <!-- <div class="flex justify-between">
-            <p class="text-gray-500">Coordenadas</p>
-            <p data-campo="coordenadas">-</p>
-        </div>
-
-        <hr class="border-gray-200"> -->
 
         <div class="flex justify-between">
             <p class="text-gray-500">Data de instalação</p>
@@ -65,14 +67,14 @@
 
         <div class="flex justify-between">
             <p class="text-gray-500">Responsável</p>
-            <p data-campo="responsavel">-</p>
+            <p data-campo="equipe_responsavel">-</p>
         </div>
 
         <hr class="border-gray-200">
 
-        <div class="flex justify-between">
-            <p class="text-gray-500">Observações</p>
-            <p data-campo="observacao">-</p>
+        <div class="flex flex-col min-w-0 text-sm leading-relaxed">
+            <span class="text-gray-500">Observações:</span>
+            <p data-campo="observacoes" class="block w-full max-h-32 overflow-y-auto overflow-x-hidden hyphens-auto [overflow-wrap:anywhere] pr-1">-</p>
         </div>
 
         {% if perms.canos.change_cano %}
@@ -82,11 +84,15 @@
                 <span>{% icon "edit" %}</span>Editar
             </button>
         {% endif %}
-
         {% if perms.alertas.add_alerta %}
-            <a href="#" class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black">
-                <span>{% icon "alert" %}</span>Alerta
-            </a>
+                <button type="button"
+                href="#"
+                class="flex self-center items-center gap-2 font-bold bg-yellow-500 hover:bg-yellow-600 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg mt-6 text-black cursor-pointer"
+                id="btnAlertar"
+            >
+                <span>{% icon "alert" %}</span>
+                Alertar
+            </button>
         {% endif %}
     </main>
 </section>
