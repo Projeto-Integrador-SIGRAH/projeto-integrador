@@ -1,13 +1,15 @@
-
 const tabelaAlertas = document.querySelector("#lista-alertas");
 const containerAlertas = document.querySelector("#container-tabela");
 const painelAlertas = document.querySelector("#painel-detalhe");
 
 const modalAlerta = document.querySelector("#modal-alerta");
+const modalAlertaTitle = modalAlerta?.querySelector("#titulo-modal-alerta");
 const formAlerta = document.querySelector("#form-alerta");
 const btnCloseAlerta = modalAlerta?.querySelector("#close-button-modal");
+const btnFCloseAlertaDetalhe = painelAlertas?.querySelector("#close-button-detalhe-alerta");
 const btnAlertar = document.querySelector("#btnAlertar");
 const btnEditarAlerta = document.querySelector("#btn-editar-alerta");
+const submitButtonAlerta = formAlerta?.querySelector("#submit-button-alerta");
 
 const usuarioId = Number(tabelaAlertas?.dataset.userId);
 
@@ -16,7 +18,7 @@ const podeEditarAlertas =
 
 let alertas = [];
 let alertaSelecionado = null;
-
+let modoEdit = false;
 
 btnAlertar?.addEventListener("click", (event) => {
     event.preventDefault();
@@ -27,8 +29,15 @@ btnAlertar?.addEventListener("click", (event) => {
         console.error("O cano selecionado não está disponível em window.");
         return;
     }
+    modoEdit = false;
 
     formAlerta.reset();
+    modalAlertaTitle.textContent = "Criar Alerta";
+    submitButtonAlerta.textContent = "Alertar";
+
+    formAlerta.action = tabelaAlertas.dataset.apiUrl;
+    formAlerta.dataset.method = "POST";
+
     modalAlerta.showModal();
 });
 
@@ -40,50 +49,9 @@ btnCloseAlerta?.addEventListener("click", (event) => {
 });
 
 
-formAlerta?.addEventListener("submit", async (event) => {
-    event.preventDefault();
-
-    if (!formAlerta.reportValidity()) return;
-
-    const formData = new FormData(formAlerta);
-    const payload = Object.fromEntries(formData.entries());
-
-    payload.codigo_id = window.canoSelecionado.id;
-
-    try {
-        const response = await fetch(formAlerta.action, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
-            },
-            body: JSON.stringify(payload),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            console.error("Erro ao criar alerta:", data);
-            return;
-        }
-
-        modalAlerta.close();
-        formAlerta.reset();
-
-        await listarAlertas();
-
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
-});
-
-
 function formatarData(data) {
     return new Date(data).toLocaleDateString("pt-BR");
 }
-
-
 
 async function listarAlertas() {
     if (!tabelaAlertas) return;
@@ -99,7 +67,7 @@ async function listarAlertas() {
 
         renderizarAlertas(alertas);
 
-        console.log("Alertas carregados:", alertas);
+        console.log(alertas);
 
     } catch (error) {
         console.error(error);
@@ -216,3 +184,117 @@ tabelaAlertas?.addEventListener("click", (event) => {
     painelAlertas.classList.remove("hidden");
     painelAlertas.classList.add("flex");
 });
+
+btnFCloseAlertaDetalhe?.addEventListener("click", (event) => {
+    painelAlertas.classList.remove("flex");
+    painelAlertas.classList.add("hidden");
+
+    containerAlertas.classList.remove("w-7/10");
+    containerAlertas.classList.add("w-full");
+
+    const linhaSelecionada = tabelaAlertas.querySelector(".linha-selecionada");
+
+    linhaSelecionada?.classList.remove(
+        "bg-yellow-400",
+        "linha-selecionada"
+    );
+
+    alertaSelecionado = null;
+
+    btnEditarAlerta?.classList.add("hidden");
+    btnEditarAlerta?.classList.remove("flex");
+});
+
+formAlerta?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!formAlerta.reportValidity()) return;
+
+    const formData = new FormData(formAlerta);
+    const payload = Object.fromEntries(formData.entries());
+
+    delete payload.csrfmiddlewaretoken;
+
+    if (!modoEdit) {
+        if (!window.canoSelecionado) return;
+
+        payload.codigo_id = window.canoSelecionado.id;
+    }
+
+    try {
+        const response = await fetch(formAlerta.action, {
+            method: formAlerta.dataset.method,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Erro ao salvar alerta:", data);
+            return;
+        }
+        const alertaIdAtualizado = alertaSelecionado?.id;
+
+        modalAlerta.close();
+        formAlerta.reset();
+
+        modoEdit = false;
+
+        formAlerta.action = tabelaAlertas.dataset.apiUrl;
+        formAlerta.dataset.method = "POST";
+
+        await listarAlertas();
+
+        if (alertaIdAtualizado) {
+        const alertaAtualizado = alertas.find(
+            (alerta) => Number(alerta.id) === Number(alertaIdAtualizado)
+        );
+
+        if (alertaAtualizado) {
+            const linha = tabelaAlertas.querySelector(
+                `[data-alerta-id="${alertaIdAtualizado}"]`
+            );
+
+            linha?.click();
+        }
+    }
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+});
+
+btnEditarAlerta?.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (!alertaSelecionado) return;
+
+    modoEdit = true;
+
+    modalAlertaTitle.textContent = "Editar Alerta";
+    submitButtonAlerta.textContent = "Salvar";
+
+    formAlerta.reset();
+    preencherFormulario(alertaSelecionado, formAlerta);
+
+    formAlerta.action = tabelaAlertas.dataset.apiUrl;
+    formAlerta.action += `${alertaSelecionado.id}/`;
+
+    formAlerta.dataset.method = "PATCH";
+
+    modalAlerta.showModal();
+});
+
+function preencherFormulario(dados, formulario) {
+    Object.entries(dados).forEach(([campo, valor]) => {
+        const elemento = formulario.elements.namedItem(campo);
+
+        if (elemento) {
+            elemento.value = valor ?? "";
+        }
+    });
+}

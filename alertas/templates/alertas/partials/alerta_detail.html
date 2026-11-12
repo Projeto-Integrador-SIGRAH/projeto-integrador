@@ -1,12 +1,23 @@
 {% load icons %}
-<section id="painel-detalhe" class="hidden flex-col gap-4 w-3/10 max-h-[calc(100vh-180px)] overflow-y-auto px-3 py-4 border border-gray-200 rounded-xl bg-white">
-    <header class="flex justify-between">
+<section id="painel-detalhe" class="relative hidden flex-col gap-4 w-3/10 max-h-[calc(100vh-180px)] overflow-y-auto px-3 py-4 border border-gray-200 rounded-xl bg-white">
+    <header class="flex items-center relative justify-between">
         <div class="flex flex-col">
             <h1 class="text-sm text-gray-600">Detalhes do Alerta</h1>
             <h2 class="text-4xl font-bold" id="card-codigo">-</h2>
         </div>
-        <div class="flex items-center text-sky-600">
-            <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" id="card-status-detalhe">-</span>
+        <div class="flex flex-col items-end justify-between gap-2">
+            <button
+                type="button"
+                id="close-button-detalhe-alerta"
+                class="text-gray-800 transition hover:opacity-60 rotate-45 cursor-pointer scale-150"
+                aria-label="Fechar detalhes"
+            >
+                {% icon 'plus' %}
+            </button>
+
+            <div class="flex items-center text-sky-600">
+                <span class="bg-sky-50 px-3 py-1.5 border border-sky-600 rounded-full text-sm text-sky-600" id="card-status-detalhe">-</span>
+            </div>
         </div>
     </header>
     <main class="flex flex-col gap-1 text-sm">

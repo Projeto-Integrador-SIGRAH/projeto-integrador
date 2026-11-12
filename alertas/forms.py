@@ -28,12 +28,8 @@ class AlertaForm(ModelForm):
                     "class": INPUT_CLASS,
                 }
             ),
-            "tipo": forms.Select(
-                attrs={"label": "Tipo do alerta", "class": INPUT_CLASS}
-            ),
-            "gravidade": forms.Select(
-                attrs={"label": "Gravidade do alerta", "class": INPUT_CLASS}
-            ),
+            "tipo": forms.Select(attrs={"class": INPUT_CLASS}),
+            "gravidade": forms.Select(attrs={"class": INPUT_CLASS}),
             "descricao": forms.Textarea(
                 attrs={
                     "placeholder": "Adicione uma descrição detalhada do alerta (entre 20 e 250 caracteres)",

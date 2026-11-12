@@ -42,16 +42,13 @@
                             <th class="px-3 py-2 font-semibold text-gray-600">Reportado em</th>
                         </tr>
                     </thead>
-                    <tbody id="lista-alertas"
-    data-api-url="{% url 'api:alerta-list' %}"
-    data-user-id="{{ request.user.id }}"
-    data-can-edit="{{ perms.alertas.change_alerta|yesno:'true,false' }}">
-
-                    </tbody>
+                    <tbody id="lista-alertas" data-api-url="{% url 'api:alerta-list' %}" data-user-id="{{ request.user.id }}"
+                    data-can-edit="{{ perms.alertas.change_alerta|yesno:'true,false' }}"> </tbody>
                 </table>
             </div>
 
             {% include "alertas/partials/alerta_detail.html" %}
+            {% include "alertas/partials/modal_cadastro_alertas.html" %}
         </section>
 
     </section>

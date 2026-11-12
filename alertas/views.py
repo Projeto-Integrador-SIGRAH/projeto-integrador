@@ -9,5 +9,5 @@ class ListAlertaView(AuthenticatedView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = self.form_class()
+        context["alerta_form"] = self.form_class()
         return context

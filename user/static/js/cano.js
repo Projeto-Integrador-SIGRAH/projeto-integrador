@@ -4,6 +4,7 @@ const modelForm = document.querySelector("#form-cano")
 const buttonCloseModal = document.querySelector("#close-button-modal")
 const modalTitle = document.querySelector("#titulo-modal")
 const submitButton = document.querySelector("#submit-button")
+const closeButtonDetalhe = document.querySelector("#close-button-detalhe-cano")
 
 btnEditarCano?.addEventListener("click", () => {
     modalTitle.textContent = "Editar Cano"
@@ -180,4 +181,21 @@ tabela.addEventListener("click", (event) => {
 
     painelDetalhe.classList.remove("hidden");
     painelDetalhe.classList.add("flex");
+});
+
+closeButtonDetalhe?.addEventListener("click", () => {
+    painelDetalhe.classList.remove("flex");
+    painelDetalhe.classList.add("hidden");
+
+    containerTabela.classList.remove("w-7/10");
+    containerTabela.classList.add("w-full");
+
+    const linhaSelecionada = tabela.querySelector(".linha-selecionada");
+
+    if (linhaSelecionada) {
+        linhaSelecionada.classList.remove("bg-sky-500", "linha-selecionada");
+    }
+
+    canoSelecionado = null;
+
 });
