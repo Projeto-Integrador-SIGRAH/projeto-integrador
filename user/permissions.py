@@ -29,6 +29,7 @@ GROUPS_PERMISSIONS = {
         "change_cano",
         "delete_cano",
         "view_cano",
+        "can_resolve_alerts",
     ],
 }
 

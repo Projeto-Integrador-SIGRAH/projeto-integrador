@@ -201,8 +201,6 @@ btnFCloseAlertaDetalhe?.addEventListener("click", (event) => {
 
     alertaSelecionado = null;
 
-    btnEditarAlerta?.classList.add("hidden");
-    btnEditarAlerta?.classList.remove("flex");
 });
 
 formAlerta?.addEventListener("submit", async (event) => {

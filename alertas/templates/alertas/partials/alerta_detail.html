@@ -57,7 +57,13 @@
         {% if perms.alertas.change_alerta %}
             <button type="button" id="btn-editar-alerta"
                 data-modal="modal-alerta"
-                class="hidden btn-abrir-modal self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar
+                class="btn-abrir-modal self-center items-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "edit" %}</span>Editar
+            </button>
+        {% endif %}
+        {% if perms.alertas.can_resolve_alerts %}
+            <button type="button"
+                id="btn-resolve"
+                class="btn-resolve-alerta self-center flex flex-row items-center justify-center gap-2 text-white font-bold bg-sky-800 hover:bg-sky-900 transition duration-200 rounded-2xl px-10 py-2 drop-shadow-lg cursor-pointer"><span>{% icon "resolve" %}</span>Resolver
             </button>
         {% endif %}
     </main>
