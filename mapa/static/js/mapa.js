@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-    addCanoButton.addEventListener('click', function() {
+    addCanoButton?.addEventListener('click', function() {
         can_create_cano = !can_create_cano;
         if (can_create_cano) {
             addCanoButton.classList.add('bg-red-600');

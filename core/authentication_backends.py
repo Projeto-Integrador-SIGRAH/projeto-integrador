@@ -12,4 +12,5 @@ class ModelBackendWithIsApproved(ModelBackend):
         """
         is_active = getattr(user, "is_active", None)
         is_approved = getattr(user, "is_approved", None)
-        return is_active and is_approved
+        is_rejected = getattr(user, "is_rejected", True)
+        return is_active and is_approved and not is_rejected
