@@ -67,6 +67,7 @@ DJANGO_ICONS = {
         "edit": {"name": "edit", "renderer": "custom-svg", "title": "Editar"},
         "search": {"name": "search", "renderer": "custom-svg", "title": "Pesquisar"},
         "plus": {"name": "plus", "renderer": "custom-svg", "title": "Adicionar"},
+        "close": {"name": "close", "renderer": "custom-svg", "title": "Fechar"},
     },
 }
 
