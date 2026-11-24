@@ -19,6 +19,7 @@ GROUPS_PERMISSIONS = {
         "view_cano",
     ],
     GROUPS_TYPE.ADMIN: [
+        "add_user",
         "approve_administrator",
         "can_access_admin_panel",
         "can_access_admin_management",
