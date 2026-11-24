@@ -1,5 +1,12 @@
 const tabelaAtivos = document.querySelector("#lista-admins-ativos");
 const tabelaPendentes = document.querySelector("#lista-admins-pendentes");
+const confirmActionModal = document.querySelector("#modal-confirm-action")
+const confirmActionModalButton = document.querySelector("#modal-confirm-action-button")
+const confirmActionModalTitle = document.querySelector("#modal-confirm-action-titulo")
+const confirmActionModalMensagem = document.querySelector("#modal-confirm-action-mensagem")
+let adminId;
+let action;
+let botao;
 
 const apiUrl = tabelaAtivos.dataset.apiUrl;
 
@@ -180,22 +187,40 @@ function renderizarAdministradoresPendentes(administradores) {
 }
 
 
-tabelaPendentes.addEventListener("click", async (event) => {
-    const botao = event.target.closest("button[data-action]");
+tabelaPendentes.addEventListener("click", (event) => {
+    botao = event.target.closest("button[data-action]");
 
     if (!botao) return;
 
     const linha = botao.closest("tr");
 
-    const adminId = linha.dataset.adminId;
-    const action = botao.dataset.action;
+    adminId = linha.dataset.adminId;
+    action = botao.dataset.action;
+    let colors = confirmActionModal.querySelectorAll(".bg-sky-600, .bg-red-600")
+    console.log(colors)
 
-    const confirmacao = action === "approve"
-        ? "Deseja realmente aprovar este administrador?"
-        : "Deseja realmente rejeitar este cadastro?";
+    if (action == "approve") {
+        confirmActionModalTitle.textContent = "Aprovar Administrador"
+        confirmActionModalMensagem.textContent = "Tem certeza que deseja Aprovar esse Administrador?"
+        confirmActionModalButton.textContent = "Aprovar"
+        colors.forEach((e) => {
+            e.classList.remove("bg-red-600")
+            e.classList.add("bg-sky-600")
+        })
+    } else {
+        confirmActionModalTitle.textContent = "Rejeitar Administrador"
+        confirmActionModalMensagem.textContent = "Tem certeza que deseja Rejeitar esse Administrador?"
+        confirmActionModalButton.textContent = "Rejeitar"
+        colors.forEach((e) => {
+            e.classList.add("bg-red-600")
+            e.classList.remove("bg-sky-600")
+        })
+    }
 
-    if (!window.confirm(confirmacao)) return;
+    confirmActionModal.showModal()
+});
 
+confirmActionModalButton.addEventListener("click", async (event) => {
     try {
         botao.disabled = true;
 
@@ -218,6 +243,8 @@ tabelaPendentes.addEventListener("click", async (event) => {
             );
         }
 
+        confirmActionModal.close()
+
         await listarAdministradores();
 
     } catch (error) {
@@ -226,7 +253,7 @@ tabelaPendentes.addEventListener("click", async (event) => {
 
         botao.disabled = false;
     }
-});
+})
 
 
 listarAdministradores();

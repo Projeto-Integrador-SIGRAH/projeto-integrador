@@ -13,7 +13,7 @@
 
         <section class="mb-10">
             <h2 class="mb-4 text-base font-medium text-gray-700">
-                Administradores ativos
+                Administradores Ativos
             </h2>
 
             <div class="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
@@ -39,7 +39,7 @@
 
         <section>
             <h2 class="mb-4 text-base font-medium text-gray-700">
-                Cadastros pendentes de aprovação
+                Cadastros Pendentes
             </h2>
 
             <div class="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
@@ -63,6 +63,7 @@
             </div>
         </section>
     </section>
+    {% include 'partials/confirm_action.html' with title="Rejeitar Administrador" message="Tem certeza que deseja Rejeitar esse Administrador?" confirm_label="Rejeitar" %}
 {% endblock %}
 
 {% block extra_scripts %}

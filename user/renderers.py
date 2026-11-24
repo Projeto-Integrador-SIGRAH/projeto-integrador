@@ -44,6 +44,11 @@ class CustomSvgRenderer(IconRenderer):
             "viewBox": "0 0 24 24",
             "stroke-width": "3",
         },
+        "close": {
+            "path": ("M6 6l12 12M18 6L6 18"),
+            "viewBox": "0 0 24 24",
+            "stroke-width": "3",
+        },
     }
 
     def get_tag(self):
