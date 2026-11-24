@@ -2,12 +2,12 @@ from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 
 from alertas.models import Alerta
 from alertas.permissions import IsOwnerOrReadOnly
-from api.views import genericModelViewSet
+from api.views import GenericModelViewSet
 
 from .serializers import AlertaSerializer
 
 
-class AlertaViewSet(genericModelViewSet):
+class AlertaViewSet(GenericModelViewSet):
     model = Alerta
     queryset = Alerta.objects.all()
     serializer_class = AlertaSerializer
