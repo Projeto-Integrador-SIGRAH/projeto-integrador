@@ -77,7 +77,10 @@ async function listarCanos() {
     const tabela = document.querySelector("#lista-canos")
 
     try {
-        const response = await fetch(tabela.dataset.apiUrl);
+        const filtros = arguments[0] || new URLSearchParams();
+        const url = new URL(tabela.dataset.apiUrl, window.location.origin);
+        url.search = filtros.toString();
+        const response = await fetch(url);
 
         if (!response.ok){
             throw new Error("Erro ao buscar os canos.")
@@ -94,6 +97,44 @@ async function listarCanos() {
 }
 
 listarCanos()
+    .then(() => {
+        preencherOpcoesFiltro();
+    });
+
+function preencherOpcoesFiltro() {
+    const selectCodigo = document.querySelector("#filtro-codigo");
+    const selectMaterial = document.querySelector("#filtro-material");
+    const selectDiametro = document.querySelector("#filtro-diametro");
+
+    if (!selectCodigo || !selectMaterial || !selectDiametro) return;
+
+    preencherOpcoes(selectCodigo, canos.map((cano) => cano.codigo));
+    preencherOpcoes(selectMaterial, canos.map((cano) => cano.material));
+    preencherOpcoes(selectDiametro, canos.map((cano) => cano.diametro));
+}
+
+function preencherOpcoes(select, valores) {
+    const valoresUnicos = [...new Set(valores.filter(Boolean))]
+        .sort((a, b) => String(a).localeCompare(String(b), "pt-BR", { numeric: true }));
+
+    valoresUnicos.forEach((valor) => {
+        select.add(new Option(valor, valor));
+    });
+}
+
+const formularioFiltros = document.querySelector("#filtros-canos");
+
+formularioFiltros?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const filtros = new URLSearchParams(new FormData(formularioFiltros));
+    listarCanos(filtros).catch((error) => console.error(error));
+});
+
+formularioFiltros?.addEventListener("reset", () => {
+    window.requestAnimationFrame(() => {
+        listarCanos().catch((error) => console.error(error));
+    });
+});
 
 function renderizarCanos(canos){
     const tabela = document.querySelector("#lista-canos")
