@@ -19,6 +19,7 @@ GROUPS_PERMISSIONS = {
         "view_cano",
     ],
     GROUPS_TYPE.ADMIN: [
+        "add_user",
         "approve_administrator",
         "can_access_admin_panel",
         "can_access_admin_management",
@@ -38,6 +39,17 @@ def configure_role_groups(*, using):
 
     for group_name, permission_codenames in GROUPS_PERMISSIONS.items():
         group, _ = Group.objects.using(using).get_or_create(name=group_name)
-        group.permissions.set(
-            [permissions_by_codename[codename] for codename in permission_codenames]
-        )
+        try:
+            group.permissions.set(
+                [permissions_by_codename[codename] for codename in permission_codenames]
+            )
+        except KeyError:
+            pass
+
+
+class CustomPermissionClass:
+    def has_permission(self, user, permission_codename):
+        if user.is_superuser:
+            return True
+
+        return user.has_perm(f"user.{permission_codename}")

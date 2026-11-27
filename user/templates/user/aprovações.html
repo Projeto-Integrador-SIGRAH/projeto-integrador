@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}Aprovações{% endblock %}
+
+{% block content %}
+    <section class="flex flex-col gap-8 p-6">
+        <div class="hidden">
+            {% csrf_token %}
+        </div>
+        <h1 class="text-xl font-bold text-sky-950">Cadastros pendentes de aprovação</h1>
+
+        <section class="mb-10">
+            <h2 class="mb-4 text-base font-medium text-gray-700">
+                Administradores Ativos
+            </h2>
+
+            <div class="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+                <table class="w-full min-w-full table-fixed border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-300 bg-gray-50 text-left text-sm text-gray-600">
+                            <th class="px-3 py-3">Nome</th>
+                            <th class="px-3 py-3">Matrícula</th>
+                            <th class="px-3 py-3">E-mail</th>
+                            <th class="px-3 py-3">Situação</th>
+                        </tr>
+                    </thead>
+
+                    <tbody
+                        id="lista-admins-ativos"
+                        data-api-url="{% url 'api:user-list' %}"
+                    >
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section>
+            <h2 class="mb-4 text-base font-medium text-gray-700">
+                Cadastros Pendentes
+            </h2>
+
+            <div class="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+                <table class="w-full min-w-full table-fixed border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-300 bg-gray-50 text-left text-sm text-gray-600">
+                            <th class="px-3 py-3">Nome</th>
+                            <th class="px-3 py-3">Matrícula</th>
+                            <th class="px-3 py-3">E-mail</th>
+                            <th class="px-3 py-3">Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody
+                        id="lista-admins-pendentes"
+                        data-api-url="{% url 'api:user-list' %}"
+                    >
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+    {% include 'partials/confirm_action.html' with title="Rejeitar Administrador" message="Tem certeza que deseja Rejeitar esse Administrador?" confirm_label="Rejeitar" %}
+{% endblock %}
+
+{% block extra_scripts %}
+    <script type="module" src="{% static 'js/aprovacoes.js' %}"></script>
+{% endblock %}

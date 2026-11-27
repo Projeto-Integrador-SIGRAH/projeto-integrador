@@ -30,9 +30,8 @@
                     {% url 'alertas:alertas' as alertas_url %}
                     <a href="{% url 'alertas:alertas' %}" class="rounded-lg py-2.5 px-3 {% if request.path == alertas_url %}bg-sky-950 drop-shadow-lg {% endif %}">Alertas</a>
                     {% if perms.user.can_access_admin_management %}
-                        <!-- {% url 'user:painel' as painel_url %} -->
-                        <!-- <a href="{% url 'user:painel' %}" class="rounded-lg py-2.5 px-3 {% if request.path == painel_url %}bg-sky-950 drop-shadow-lg {% endif %}">Administradores</a> -->
-                        <a href="#" class="rounded-lg py-2.5 px-3">Administradores</a>
+                        {% url 'user:aprovacoes' as aprovacoes_url %}
+                        <a href="{% url 'user:aprovacoes' %}" class="rounded-lg py-2.5 px-3 {% if request.path == aprovacoes_url %}bg-sky-950 drop-shadow-lg {% endif %}">Administradores</a>
                     {% endif %}
                 </nav>
             </div>

@@ -45,6 +45,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = [  # noqa: RUF012
             "nome",
             "email",
+            "cpf",
             "matricula",
             "password",
             "confirm_password",
@@ -52,6 +53,7 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {  # noqa: RUF012
             "matricula": {"required": False, "allow_blank": True},
+            "cpf": {"required": False, "allow_blank": True},
         }
 
     def validate_email(self, value):
@@ -96,3 +98,30 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         group = get_object_or_404(Group, name=group)
         user.groups.add(group)
         return user
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [  # noqa: RUF012
+            "id",
+            "nome",
+            "email",
+            "cpf",
+            "matricula",
+            "is_active",
+            "is_approved",
+            "is_rejected",
+            "groups",
+        ]
+        read_only_fields = [  # noqa: RUF012
+            "id",
+            "nome",
+            "email",
+            "cpf",
+            "matricula",
+            "is_active",
+            "is_approved",
+            "is_rejected",
+            "groups",
+        ]

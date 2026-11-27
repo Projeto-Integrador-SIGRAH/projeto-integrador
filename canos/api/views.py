@@ -1,12 +1,11 @@
 from rest_framework.exceptions import ValidationError
-
-from api.views import genericModelViewSet
+from api.views import GenericModelViewSet
 from canos.models import Cano
 
 from .serializers import CanoSerializer
 
 
-class CanoViewSet(genericModelViewSet):
+class CanoViewSet(GenericModelViewSet):
     # https://www.django-rest-framework.org/api-guide/viewsets/#modelviewset
     queryset = Cano.objects.all()
     serializer_class = CanoSerializer
