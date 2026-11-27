@@ -1,44 +1,40 @@
 {% extends 'base.html' %}
-{% block title %} Alertas {% endblock %}
+{% block title %}Painel{% endblock %}
 
 {% block content %}
     <section class="flex flex-col gap-6 p-6">
         <header class="flex items-center gap-4">
             <div class="flex flex-col gap-1 bg-white border border-sky-800 border-l-3 px-4 py-3 rounded-xl w-full">
-                <span class="font-bold text-2xl text-sky-950">1000</span>
-                <p class="text-xs text-sky-950">Canos Cadastrados</p>
+                <span class="font-bold text-2xl text-sky-950">{{ total_canos }}</span>
+                <p class="text-xs text-sky-950">Total de Canos Cadastrados</p>
             </div>
             <div class="flex flex-col gap-1 bg-white border border-sky-800 border-l-3 px-4 py-3 rounded-xl w-full">
-                <span class="font-bold text-2xl text-sky-950">1000</span>
-                <p class="text-xs text-sky-950">Canos Cadastrados</p>
+                <span class="font-bold text-2xl text-sky-950">{{ canos_em_operacao }}</span>
+                <p class="text-xs text-sky-950">Canos em Operação</p>
             </div>
             <div class="flex flex-col gap-1 bg-white border border-sky-800 border-l-3 px-4 py-3 rounded-xl w-full">
-                <span class="font-bold text-2xl text-sky-950">1000</span>
-                <p class="text-xs text-sky-950">Canos Cadastrados</p>
+                <span class="font-bold text-2xl text-sky-950">{{ canos_em_manutencao }}</span>
+                <p class="text-xs text-sky-950">Canos em Manutenção</p>
             </div>
             <div class="flex flex-col gap-1 bg-white border border-sky-800 border-l-3 px-4 py-3 rounded-xl w-full">
-                <span class="font-bold text-2xl text-sky-950">1000</span>
-                <p class="text-xs text-sky-950">Canos Cadastrados</p>
+                <span class="font-bold text-2xl text-sky-950">{{ canos_disponiveis }}</span>
+                <p class="text-xs text-sky-950">Canos Disponíveis</p>
             </div>
         </header>
         <section class="flex flex-col gap-4">
             <p class="text-sm text-sky-950">Acesso rápido</p>
             <div class="flex gap-4">
-                <a href="#" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
+                <a href="{% url 'mapa:index' %}" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
                     <span class="font-bold text-sm text-black">Visualizar Mapa</span>
                     <p class="text-xs text-black">Área e encanamentos cadastrados</p>
                 </a>
-                <a href="#" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
-                    <span class="font-bold text-sm text-black">Visualizar Mapa</span>
-                    <p class="text-xs text-black">Área e encanamentos cadastrados</p>
+                <a href="{% url 'canos:canos' %}" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
+                    <span class="font-bold text-sm text-black">Visualizar canos</span>
+                    <p class="text-xs text-black">Consultar canos cadastrados</p>
                 </a>
-                <a href="#" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
-                    <span class="font-bold text-sm text-black">Visualizar Mapa</span>
-                    <p class="text-xs text-black">Área e encanamentos cadastrados</p>
-                </a> 
-                <a href="#" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
-                    <span class="font-bold text-sm text-black">Visualizar Mapa</span>
-                    <p class="text-xs text-black">Área e encanamentos cadastrados</p>
+                <a href="{% url 'alertas:alertas' %}" class="flex flex-col gap-1 bg-sky-500 border border-sky-600 hover:bg-sky-700 transition duration-200 px-4 py-3 rounded-xl shadow-lg shadow-black/30 w-full">
+                    <span class="font-bold text-sm text-black">Visualizar alertas</span>
+                    <p class="text-xs text-black">Consultar alertas registrados</p>
                 </a> 
             </div>
         </section>
@@ -56,27 +52,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for cano in ultimos_canos %}
                         <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm">1</td>
-                            <td class="px-3 py-3">PVC</td>
-                            <td class="px-3 py-3 text-sm">75 mm</td>
-                            <td class="px-3 py-3 text-sm"><span class="bg-green-100 px-2 py-1 border border-green-600 rounded-2xl text-sm text-green-600">Ativo</span> </td>
-                            <td class="px-3 py-3 text-sm">28/09/2026</td>
+                            <td class="px-3 py-3 text-sm">{{ cano.codigo }}</td>
+                            <td class="px-3 py-3">{{ cano.material }}</td>
+                            <td class="px-3 py-3 text-sm">{{ cano.diametro }} mm</td>
+                            <td class="px-3 py-3 text-sm">{{ cano.get_status_display }}</td>
+                            <td class="px-3 py-3 text-sm">{{ cano.criado_em|date:"d/m/Y" }}</td>
                         </tr>
-                        <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm">1</td>
-                            <td class="px-3 py-3">PVC</td>
-                            <td class="px-3 py-3 text-sm">75 mm</td>
-                            <td class="px-3 py-3 text-sm"><span class="bg-green-100 px-2 py-1 border border-green-600 rounded-2xl text-sm text-green-600">Ativo</span> </td>
-                            <td class="px-3 py-3 text-sm">28/09/2026</td>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="px-3 py-3 text-sm">Nenhum cano cadastrado.</td>
                         </tr>
-                        <tr class="border border-gray-200">
-                            <td class="px-3 py-3 text-sm">1</td>
-                            <td class="px-3 py-3">PVC</td>
-                            <td class="px-3 py-3 text-sm">75 mm</td>
-                            <td class="px-3 py-3 text-sm"><span class="bg-green-100 px-2 py-1 border border-green-600 rounded-2xl text-sm text-green-600">Ativo</span> </td>
-                            <td class="px-3 py-3 text-sm">28/09/2026</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
