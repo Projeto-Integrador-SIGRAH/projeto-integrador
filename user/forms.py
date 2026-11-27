@@ -1,4 +1,5 @@
 from django import forms
+
 from user.permissions import GROUPS_TYPE
 
 INPUT_CLASS = "rounded-lg p-2 border border-sky-400 focus:border-sky-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
@@ -29,7 +30,7 @@ class UserLoginForm(forms.Form):
 
         return cleaned_data
 
-          
+
 class UserRegistrationForm(forms.Form):
     nome = forms.CharField(
         label="Nome completo",
@@ -42,6 +43,14 @@ class UserRegistrationForm(forms.Form):
         label="E-mail",
         widget=forms.EmailInput(
             attrs={"class": INPUT_CLASS, "placeholder": "exemplo@gmail.com"}
+        ),
+    )
+    cpf = forms.CharField(
+        label="CPF",
+        max_length=15,
+        required=False,
+        widget=forms.TextInput(
+            attrs={"class": INPUT_CLASS, "placeholder": "000.000.000-00"}
         ),
     )
     matricula = forms.CharField(

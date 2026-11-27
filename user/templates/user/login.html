@@ -20,7 +20,7 @@
             </div>
         {% endfor %}
         <button type="submit" class="bg-sky-800 text-white px-4 py-2 rounded-lg hover:bg-sky-700 duration-300 shadow-2xl drop-shadow-lg drop-shadow-sky-900/50 cursor-pointer">Entrar</button>
-        <a class="text-sky-800 text-center" href="#">Ainda não tenho cadastro</a>
+        <a class="text-sky-800 text-center" href="{% url 'user:cadastro' %}">Ainda não tenho cadastro</a>
     </form>
 </section>
 {% endblock %}

@@ -5,6 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // https://leafletjs.com/reference-2.0.0.html#map-locate
     const addCanoButton = document.querySelector('#add-cano-button');
     const encanamentoLayerCheckbox = document.querySelector('#encanamento-layer-checkbox');
+
+    const canoModal = document.querySelector('#modal-cano');
+    const closeButtonModal = document.querySelector('#close-button-modal');
+    const form = document.querySelector("#form-cano");
+
     const alertasLayerCheckbox = document.querySelector('#alertas-layer-checkbox');
     let zoomLevel = 15;
     const deltaCoords = 0.0001;
@@ -25,6 +30,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // https://leafletjs.com/reference-2.0.0.html#polyline
     let polyline_path = null;
     let polyline_coords = [];
+    let polyline_to_create = [];
+
+    const renderCanos = (canos) => {
+        canos.forEach((cano) => {
+            const coords = JSON.parse(cano.coordenadas);
+            const latlngs = coords.map(coord => ({lat: coord[0], lng: coord[1]}));
+            polyline_coords.push(...latlngs);
+            const polyline = new Polyline(latlngs, {color: 'blue'});
+            polyline.addTo(map);
+        });
+    };
+
+    const getAllCanos = async () => {
+        try {
+            const response = await fetch('/api/canos/');
+            if (!response.ok) {
+                throw new Error('Erro ao buscar os canos.');
+            }
+            const canos = await response.json();
+            renderCanos(canos);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    getAllCanos();
 
     map.on('click', function(e) {
         if (!can_create_cano) {
@@ -37,18 +68,23 @@ document.addEventListener('DOMContentLoaded', function() {
             let delta = (deltaCoords / zoomLevel) * (map.getZoom());
 
             for (let i = 0; i < polyline_coords.length; i++) {
-                if (Math.abs(polyline_coords[i].lat - latlng.lag) < delta && Math.abs(polyline_coords[i].lng - latlng.lng) < delta) {
+                if (Math.abs(polyline_coords[i].lat - latlng.lat) < delta && Math.abs(polyline_coords[i].lng - latlng.lng) < delta) {
                     clickedLatLngs.pop();
                     clickedLatLngs.push(polyline_coords[i]);
                     polyline_path.setLatLngs(clickedLatLngs);
+                    polyline_to_create = [];
+                    polyline_to_create.push(...clickedLatLngs);
                     break;
                 }
             }
 
 
             polyline_coords.push(...clickedLatLngs);
+            polyline_to_create = [];
+            polyline_to_create.push(...clickedLatLngs);
             clickedLatLngs = [];
             polyline_path = null;
+            canoModal.showModal();
             return;
         }
 
@@ -106,9 +142,57 @@ document.addEventListener('DOMContentLoaded', function() {
 
     encanamentoLayerCheckbox.addEventListener('change', function() {
         if (this.checked) {
-            map.addLayer(polyline_path);
+            getAllCanos();
         } else {
-            map.layerPointToContainerPoint(polyline_path);
+            polyline_coords = [];
+            map.eachLayer(function(layer) {
+                if (layer instanceof Polyline) {
+                    map.removeLayer(layer);
+                }
+            });
+        }
+    });
+
+    closeButtonModal.addEventListener('click', function() {
+        canoModal.close();
+    });
+
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        if (!form.reportValidity()) return;
+
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+        const coordinates = JSON.stringify(polyline_to_create.map(coord => [coord.lat, coord.lng]));
+        polyline_to_create = [];
+        payload.coordenadas = coordinates;
+
+        try {
+            const response = await fetch(form.action, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                },
+                body: JSON.stringify(payload),
+            }).catch(error => {
+                alert("Erro na requisição:", error);
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                alert("Erro ao cadastrar:", JSON.stringify(data, null, 2));
+                return;
+            }
+
+            form.reset();
+            canoModal.close();
+
+        } catch (error) {
+            console.error("Erro na requisição:", error);
         }
     });
 });

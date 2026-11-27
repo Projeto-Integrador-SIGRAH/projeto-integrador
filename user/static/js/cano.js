@@ -1,39 +1,89 @@
-// Abertura e fechamento dos modais
 const modal = document.querySelector("#modal-cano");
-const botoesAbrirModal = document.querySelectorAll(".btn-abrir-modal")
-const botoesFecharModal = document.querySelectorAll(".btn-fechar-modal");
+const btnEditarCano = document.querySelector("#btn-editar-cano")
+const modelForm = document.querySelector("#form-cano")
+const buttonCloseModal = document.querySelector("#close-button-modal")
+const modalTitle = document.querySelector("#titulo-modal")
+const submitButton = document.querySelector("#submit-button")
 
-botoesAbrirModal.forEach((botao) => {
-    botao.addEventListener("click", () => {
-        const modalID = botao.dataset.modal
-        const modal = document.getElementById(modalID)
+btnEditarCano?.addEventListener("click", () => {
+    modalTitle.textContent = "Editar Cano"
+    submitButton.textContent = "Salvar"
+    modelForm.reset();
+    preencherFormulario(canoSelecionado, modelForm);
+    modelForm.action += canoSelecionado.id + "/"
+    modelForm.dataset.method = "PATCH"
+    modal.showModal();
+});
 
-        modal.showModal();
-    });
-})
+buttonCloseModal?.addEventListener("click", () => {
+    modal.close();
+});
 
+submitButton?.addEventListener("click", async (event) => {
+    event.preventDefault();
 
-botoesFecharModal.forEach((botao) => {
-    botao.addEventListener("click", () => {
-        const modalID = botao.dataset.modal
-        const modal = document.getElementById(modalID)
+    if (!modelForm.reportValidity()) return;
+
+    const formData = new FormData(modelForm);
+
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(modelForm.action, {
+            method: modelForm.dataset.method,
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+            },
+            body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error("Erro ao editar:", data);
+            return;
+        }
 
         modal.close();
-    });
-})
 
-// Listagem de canos
+        await listarCanos();
+
+    } catch (error) {
+        console.error("Erro na requisição:", error);
+    }
+
+});
+
+function preencherFormulario(dados, formulario) {
+    Object.entries(dados).forEach(([campo, valor]) => {
+        const elemento = formulario.elements.namedItem(campo);
+
+        if (elemento) {
+            elemento.value = valor ?? "";
+        }
+    });
+}
+
+function formatarData(data) {
+    return new Date(data).toLocaleDateString("pt-BR");
+}
+
+let canos = []
+let canoSelecionado = null
+
 async function listarCanos() {
     const tabela = document.querySelector("#lista-canos")
 
     try {
-        const response = await fetch(tabela.dataset.apiUrl)
+        const response = await fetch(tabela.dataset.apiUrl);
 
         if (!response.ok){
             throw new Error("Erro ao buscar os canos.")
         }
 
-        const canos = await response.json()
+        canos = await response.json()
 
         renderizarCanos(canos)
 
@@ -53,7 +103,9 @@ function renderizarCanos(canos){
     canos.forEach((cano) => {
         const linha = document.createElement("tr")
 
-        linha.classList.add("border", "border-gray-200")
+        linha.classList.add("border", "border-gray-200", "cursor-pointer")
+
+        linha.dataset.canoId = cano.id
 
         const campos = [
             cano.codigo,
@@ -76,45 +128,48 @@ function renderizarCanos(canos){
     })
 }
 
-function formatarData(data) {
-    return new Date(data).toLocaleString("pt-BR");
-}
+const tabela = document.querySelector("#lista-canos");
+const containerTabela = document.querySelector("#container-tabela");
+const painelDetalhe = document.querySelector("#painel-detalhe");
 
-// Create & Update de canos 
-const form = document.querySelector("#form-cano");
+tabela.addEventListener("click", (event) => {
 
-form.addEventListener("submit", async (event) => {
-    event.preventDefault();
+    const linha = event.target.closest("tr");
 
-    if (!form.reportValidity()) return;
+    if (!linha) return;
 
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData.entries());
+    const linhaAnterior = tabela.querySelector(".linha-selecionada");
 
-    try {
-        const response = await fetch(form.dataset.apiUrl, {
-            method: form.dataset.method,
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
-            },
-            body: JSON.stringify(payload),
-        });
+    if (linhaAnterior) {
+        linhaAnterior.classList.remove("bg-sky-500", "linha-selecionada");
+    }
 
-        const data = await response.json();
+    linha.classList.add("bg-sky-500", "linha-selecionada");
 
-        if (!response.ok) {
-            console.error("Erro ao cadastrar:", data);
-            return;
+    const canoId = linha.dataset.canoId;
+
+    canoSelecionado = canos.find(
+        (cano) => String(cano.id) === canoId
+    );
+
+    console.log("Cano selecionado:", canoSelecionado);
+
+    painelDetalhe.querySelectorAll("[data-campo]").forEach((elemento) => {
+        const campo = elemento.dataset.campo;
+        let valor = canoSelecionado[campo];
+
+        if (["data_instalacao", "criado_em", "atualizado_em"].includes(campo) && valor) {
+            valor = formatarData(valor);
         }
 
-        console.log("Cano cadastrado:", data);
+        elemento.textContent = valor ?? "-";
+    });
 
-        form.reset();
-        modal.close();
+    containerTabela.classList.remove("w-full");
+    containerTabela.classList.add("w-7/10");
 
-    } catch (error) {
-        console.error("Erro na requisição:", error);
-    }
+    painelDetalhe.classList.remove("hidden");
+    painelDetalhe.classList.add("flex");
 });
+
+

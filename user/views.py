@@ -1,6 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse
+from core.views import AuthenticatedView
 from django.views.generic import TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from canos.models import Cano
 from user.permissions import GROUPS_TYPE
@@ -40,13 +41,12 @@ class CadastroAdminView(TemplateView):
         return context
 
 
-class PainelView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+class PainelView(PermissionRequiredMixin, AuthenticatedView):
     template_name = "user/painel.html"
     permission_required = "user.can_access_admin_panel"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         context["total_canos"] = Cano.objects.count()
         context["canos_em_operacao"] = Cano.objects.filter(
             status=Cano.Status.OPERACAO
@@ -61,3 +61,8 @@ class PainelView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
         context["ultimos_canos"] = Cano.objects.order_by("-criado_em")[:5]
 
         return context
+
+
+class AprovacoesView(PermissionRequiredMixin, AuthenticatedView):
+    template_name = "user/aprovações.html"
+    permission_required = "user.can_access_admin_management"
